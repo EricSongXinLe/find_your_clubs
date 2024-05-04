@@ -8,9 +8,18 @@ body {
   padding: 0;
 }
 
+header{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 h1 {
   margin-top: 0;
-  font-size: 22px;
+  font-size: 53px;
+
 }
 
 h2 {
@@ -56,35 +65,103 @@ body {
   padding: 0;
 }
 
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
+input {
+  padding: 10px;
+  margin: 10px;
+  width: 30%;
+  height: 60px;
+}
+
+button {
+  background-color: #444;
+  border: none;
+  color: white;
+  margin: 10px;
+  padding: 15px 30px;
   text-align: center;
-  width: 34px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.board-row:after {
-  clear: both;
-  content: '';
-  display: table;
-}
-
-.status {
-  margin-bottom: 10px;
-}
-.game {
+.searchBar{
+  font-size: large;
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  margin: 20px;
 }
 
-.game-info {
-  margin-left: 20px;
+.Welcome {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  font-size: 20px;
+  margin: 20px;
+  justify-content: right;
+}
+
+.welcome-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 5;
+  display: flex; 
+  align-items: center; 
+}
+
+.welcome-container h2 { /*The relative pos of welcome*/
+  margin-top: 17px;
+  margin-right: 10px;
+  font-size: 22px; 
+}
+
+.logout-button {
+  padding: 5px 10px;
+  font-size: 15px;
+  transition: transform 0.25s ease;
+  cursor: pointer; /* Makes it clear the button is clickable */
+}
+.logout-button:hover{
+  transform: scale(1.1);
+}
+
+.searchBar {
+  display: flex;
+  justify-content: right;
+  margin-right: 20px;
+}
+
+#citation{
+  font-size: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: bottom;
+  color: #555;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+#searchButton{
+  border: none;
+  margin: 10px;
+  padding: 7px 30px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#logo{
+  display: flex;
+  justify-content: left;
+  align-items: center; 
+  top: 0; 
+  left: 0; 
+  width: 150px;
+  height: 150px;
+  margin-top: 0; 
+  position:absolute;
 }
