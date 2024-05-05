@@ -1,4 +1,5 @@
 * {
+  font-family: Georgia, 'Times New Roman', Times, serif;
   box-sizing: border-box;
 }
 
@@ -132,6 +133,30 @@ button {
   margin-right: 20px;
 }
 
+.club-box{
+  margin-right: 150px;
+  margin-left: auto;
+  width: 40%;
+  display: grid;
+  justify-content: right;
+}
+
+.club-block {
+  width: 500px;
+  display: flex;
+  justify-content: left;
+  align-items: right;
+  margin: 10px;
+  max-width: 800px; 
+  background-color: #f9f9f9; 
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.club-block:hover{
+  transform: scale(1.1);
+}
+
 #citation{
   font-size: 8px;
   margin-top: 20px;
@@ -165,3 +190,32 @@ button {
   margin-top: 0; 
   position:absolute;
 }
+
+#club-image{
+  float: left;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+#club-title{
+  font-size: 20px;
+  margin: 10px;
+}
+
+#club-description{
+  font-size: 15px;
+  margin: 10px;
+}
+#searchInput{
+  padding: 10px;
+  margin: 10px;
+  width: 30%;
+  height: max-content;
+  font-size: large;
+  font-style: bold;
+}
+

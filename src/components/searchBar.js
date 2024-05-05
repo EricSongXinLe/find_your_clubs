@@ -15,7 +15,7 @@ const SearchBar = () => {
     return (
         <div className='searchBar'>
             <input
-                
+                id="searchInput"
                 type="text"
                 placeholder="Search..."
                 value={query}

@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import Welcome from './components/welcomeModule';
 
+import Welcome from './components/welcomeModule';
+import ClubBlock from './components/clubBlock';
 import SearchBar from './components/searchBar';
 
 export default function App() {
@@ -25,6 +26,11 @@ export default function App() {
       </header>
       <Welcome userName={userName}/>
       <SearchBar />
+      <div className="club-box">
+        <ClubBlock image={require('./images/logo.webp')} title="Club 1" description="Description of Club 1" />
+        <ClubBlock image={require('./images/logo.webp')} title="Club 2" description="Description of Club 2" />
+        <ClubBlock image={require('./images/logo.webp')} title="Club 3" description="Description of Club 3" />
+      </div>
       <footer id="citation"> 
         <a target="_blank" href="https://icons8.com/icon/e4NkZ7kWAD7f/search">Search</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
       </footer>
