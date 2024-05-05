@@ -3,12 +3,13 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 import Welcome from './components/welcomeModule';
-import ClubBlock from './components/clubBlock';
+import ModeSelector from './components/changeMode';import ClubBlock from './components/clubBlock';
 import SearchBar from './components/searchBar';
 
 export default function App() {
 
   const [userName, setUserName] = useState('');
+  const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
 
   // Simulating fetching user's name from a database
   useEffect(() => {
@@ -25,7 +26,9 @@ export default function App() {
         <h1>Find Your Clubs</h1>
       </header>
       <Welcome userName={userName}/>
-      <SearchBar />
+      <ModeSelector m_mode={selected} m_setMode={setSelected}/>
+      {selected==='search'&& <SearchBar />}  
+      
       <div className="club-box">
         <ClubBlock image={require('./images/logo.webp')} title="Club 1" description="Description of Club 1" />
         <ClubBlock image={require('./images/logo.webp')} title="Club 2" description="Description of Club 2" />

@@ -190,6 +190,113 @@ button {
   margin-top: 0; 
   position:absolute;
 }
+/*
+nav {
+  margin: 100px;
+  position: relative;
+  width: 500px;
+  height: 50px;
+  border-radius: 8px;
+}
+
+nav a {
+  width: 100px;
+  height : 100%;
+  line-height: 50px;
+  font-size: 15px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  cursor: pointer;
+}
+
+nav .animation{
+  position: absolute;
+  height: 100%;
+  top:0;
+  z-index: 0;
+  transition: all 1s ease 0s;
+  border-radius: 8px;
+  width: 100px;
+  left: 0;
+  background-color: aquamarine;
+}
+
+a:nth-child(1):hover~.animation {
+  left:0;
+  background-color: aquamarine;
+}
+
+a:nth-child(2):hover~.animation {
+  left:100px;
+  background-color:brown;
+}
+*/
+/*The previous part is wrongly implemented*/
+/*
+#RecMode{
+  background-color: #4CAF50; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    margin: 4px 2px; 
+    cursor: pointer;
+    border-radius: 5px; 
+}
+
+#SearchMode{
+  background-color: #008CBA; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    margin: 4px 2px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+}
+*/
+.mode-sele{
+  display: flex;      /* Enable flexbox */
+  justify-content: flex-end; /* Align children (buttons) to the right */
+  margin-right: 20px;
+  padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0;
+    margin: 0;
+    border: none;
+    transition: background-color 0.25s;
+}
+
+#refresh {
+  justify-content: flex-end;
+  background-color: #555;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 4px 2px;
+  border: none;
+}
+
+.active {
+  background-color: #4CAF50; /* Example: Green background for active button */
+  color: white;
+}
+
+.inactive {
+  background-color: #cccccc; /* Gray background for inactive buttons */
+  color: #666666; /* Darker text for better readability on gray background */
+}
 
 #club-image{
   float: left;
