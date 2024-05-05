@@ -9,11 +9,14 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "mongodb": "^6.6.0",
+    "mongoose": "^7.6.1",
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
-    "react-scripts": "^5.0.0"
+    "react-scripts": "^5.0.1"
   },
-  "devDependencies": {},
   "browserslist": {
     "production": [
       ">0.2%",
