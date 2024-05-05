@@ -1,20 +1,41 @@
-import React, { StrictMode } from "react";
-import { createRoot } from "react-dom/client";
-import "./styles.css";
+const express=require("express")
+const app=express()
+const path=require("path")
+const hbs=require("hbs")
+const collection=require("./mongodb")
 
-import App from "./App";
+const templatePath=path.join(__dirname, "../templates")
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/', {
-    dbName: 'testDatabase',
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}, err => err ? console.log(err) : 
-    console.log('Connected to testDatabase database'));
+app.use(express.json())
+app.set("view engine", "hbs")
+app.set("views", templatePath)
+app.use(express.urlencoded({extended:false}))
 
-const root = createRoot(document.getElementById("root"));
-root.render(
-  <StrictMode>
-    <App />
-  </StrictMode>
-);
+app.get("/", (req, res)=>{
+  res.render("login")
+})
+
+app.get("/signup", (req, res)=>{
+  res.render("signup")
+  // console.log("tets")
+})
+
+app.post("/signup", async (req, res)=>{
+  console.log("tets")
+  const data={
+    name: req.body.name,
+    password: req.body.password
+  }
+  
+
+  await collection.insertMany([data])
+
+  res.render("home")
+
+
+
+})
+
+app.listen(3000, ()=>{
+  console.log("port connected")
+})

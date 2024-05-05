@@ -1,32 +1,17 @@
 {
-  "name": "react.dev",
-  "version": "0.0.0",
-  "main": "/src/index.js",
+  "name": "mongo",
+  "version": "1.0.0",
+  "description": "first shot of backend database",
+  "main": "index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "mongodb": "^6.6.0",
-    "mongoose": "^7.6.1",
-    "cors": "^2.8.5",
-    "express": "^4.18.2",
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-scripts": "^5.0.1"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "express": "^4.19.2",
+    "hbs": "^4.2.0",
+    "mongoose": "^8.3.3",
+    "nodemon": "^3.1.0"
   }
 }
