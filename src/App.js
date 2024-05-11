@@ -35,7 +35,7 @@ export default function App() {
         <ClubBlock image={require('./images/logo.webp')} title="Club 3" description="Description of Club 3" />
       </div>
       <footer id="citation"> 
-        <a target="_blank" href="https://icons8.com/icon/e4NkZ7kWAD7f/search">Search</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+        <a target="_blank" h="https://icons8.com/icon/e4NkZ7kWAD7f/search">Search</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
       </footer>
     </div>
   );

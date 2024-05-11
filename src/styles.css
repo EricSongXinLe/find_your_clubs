@@ -168,15 +168,14 @@ button {
   left: 0;
 }
 
-#searchButton{
+#refreshButton{
   border: none;
+  height: 40%;
   margin: 10px;
   padding: 7px 30px;
-  text-align: center;
-  text-decoration: none;
   display: inline-block;
-  font-size: 16px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 #logo{
@@ -289,11 +288,13 @@ a:nth-child(2):hover~.animation {
 }
 
 .active {
-  background-color: #4CAF50; /* Example: Green background for active button */
+  height: 100%;
+  background-color: #4CAF50; /* Green background for active button */
   color: white;
 }
 
 .inactive {
+  height: 100%;
   background-color: #cccccc; /* Gray background for inactive buttons */
   color: #666666; /* Darker text for better readability on gray background */
 }

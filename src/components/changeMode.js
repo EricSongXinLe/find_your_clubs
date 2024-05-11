@@ -7,9 +7,8 @@ function modeSelector({m_mode, m_setMode}) {
     return (
         <div className='mode-sele'>
             {m_mode === 'recommendation' && (
-                <button id="refresh" onClick={() => console.log('Refresh recommendations')}>
-                    Refresh
-                </button>
+                <img id="refreshButton"src={require("../images/refresh.png")} onClick={() => alert('Refresh recommendations')}>
+                </img>
             )}
             <button
                 id="RecMode"
