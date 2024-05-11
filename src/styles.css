@@ -1,4 +1,5 @@
 * {
+  font-family: Georgia, 'Times New Roman', Times, serif;
   box-sizing: border-box;
 }
 
@@ -8,9 +9,18 @@ body {
   padding: 0;
 }
 
+header{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 h1 {
   margin-top: 0;
-  font-size: 22px;
+  font-size: 53px;
+
 }
 
 h2 {
@@ -56,35 +66,264 @@ body {
   padding: 0;
 }
 
-.square {
-  background: #fff;
-  border: 1px solid #999;
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
-  line-height: 34px;
-  height: 34px;
-  margin-right: -1px;
-  margin-top: -1px;
-  padding: 0;
+input {
+  padding: 10px;
+  margin: 10px;
+  width: 30%;
+  height: 60px;
+}
+
+button {
+  background-color: #444;
+  border: none;
+  color: white;
+  margin: 10px;
+  padding: 15px 30px;
   text-align: center;
-  width: 34px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
 }
 
-.board-row:after {
-  clear: both;
-  content: '';
-  display: table;
-}
-
-.status {
-  margin-bottom: 10px;
-}
-.game {
+.searchBar{
+  font-size: large;
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  margin: 20px;
 }
 
-.game-info {
-  margin-left: 20px;
+.Welcome {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  display: flex;
+  font-size: 20px;
+  margin: 20px;
+  justify-content: right;
 }
+
+.welcome-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  padding: 10px;
+  z-index: 5;
+  display: flex; 
+  align-items: center; 
+}
+
+.welcome-container h2 { /*The relative pos of welcome*/
+  margin-top: 17px;
+  margin-right: 10px;
+  font-size: 22px; 
+}
+
+.logout-button {
+  padding: 5px 10px;
+  font-size: 15px;
+  transition: transform 0.25s ease;
+  cursor: pointer; /* Makes it clear the button is clickable */
+}
+.logout-button:hover{
+  transform: scale(1.1);
+}
+
+.searchBar {
+  display: flex;
+  justify-content: right;
+  margin-right: 20px;
+}
+
+.club-box{
+  margin-right: 150px;
+  margin-left: auto;
+  width: 40%;
+  display: grid;
+  justify-content: right;
+}
+
+.club-block {
+  width: 500px;
+  display: flex;
+  justify-content: left;
+  align-items: right;
+  margin: 10px;
+  max-width: 800px; 
+  background-color: #f9f9f9; 
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+
+.club-block:hover{
+  transform: scale(1.1);
+}
+
+#citation{
+  font-size: 8px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: bottom;
+  color: #555;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+
+#refreshButton{
+  border: none;
+  height: 40%;
+  margin: 10px;
+  padding: 7px 30px;
+  display: inline-block;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#logo{
+  display: flex;
+  justify-content: left;
+  align-items: center; 
+  top: 0; 
+  left: 0; 
+  width: 150px;
+  height: 150px;
+  margin-top: 0; 
+  position:absolute;
+}
+/*
+nav {
+  margin: 100px;
+  position: relative;
+  width: 500px;
+  height: 50px;
+  border-radius: 8px;
+}
+
+nav a {
+  width: 100px;
+  height : 100%;
+  line-height: 50px;
+  font-size: 15px;
+  display: inline-block;
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  cursor: pointer;
+}
+
+nav .animation{
+  position: absolute;
+  height: 100%;
+  top:0;
+  z-index: 0;
+  transition: all 1s ease 0s;
+  border-radius: 8px;
+  width: 100px;
+  left: 0;
+  background-color: aquamarine;
+}
+
+a:nth-child(1):hover~.animation {
+  left:0;
+  background-color: aquamarine;
+}
+
+a:nth-child(2):hover~.animation {
+  left:100px;
+  background-color:brown;
+}
+*/
+/*The previous part is wrongly implemented*/
+/*
+#RecMode{
+  background-color: #4CAF50; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    margin: 4px 2px; 
+    cursor: pointer;
+    border-radius: 5px; 
+}
+
+#SearchMode{
+  background-color: #008CBA; 
+    color: white; 
+    border: none; 
+    padding: 10px 20px; 
+    text-align: center; 
+    text-decoration: none; 
+    display: inline-block; 
+    font-size: 16px; 
+    margin: 4px 2px; 
+    cursor: pointer; 
+    border-radius: 5px; 
+}
+*/
+.mode-sele{
+  display: flex;      /* Enable flexbox */
+  justify-content: flex-end; /* Align children (buttons) to the right */
+  margin-right: 20px;
+  padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 0;
+    margin: 0;
+    border: none;
+    transition: background-color 0.25s;
+}
+
+#refresh {
+  justify-content: flex-end;
+  background-color: #555;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 4px 2px;
+  border: none;
+}
+
+.active {
+  height: 100%;
+  background-color: #4CAF50; /* Green background for active button */
+  color: white;
+}
+
+.inactive {
+  height: 100%;
+  background-color: #cccccc; /* Gray background for inactive buttons */
+  color: #666666; /* Darker text for better readability on gray background */
+}
+
+#club-image{
+  float: left;
+  display: flex;
+  justify-content: left;
+  align-items: left;
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+#club-title{
+  font-size: 20px;
+  margin: 10px;
+}
+
+#club-description{
+  font-size: 15px;
+  margin: 10px;
+}
+#searchInput{
+  padding: 10px;
+  margin: 10px;
+  width: 30%;
+  height: max-content;
+  font-size: large;
+  font-style: bold;
+}
+
