@@ -273,7 +273,7 @@ a:nth-child(2):hover~.animation {
 .mode-sele{
   display: flex;      
   justify-content: flex-end; /* Align children (buttons) to the right */
-  margin-right: 20px;
+  margin-right: 5px;
   padding: 10px 20px;
   align-items: right;
   font-size: 16px;
