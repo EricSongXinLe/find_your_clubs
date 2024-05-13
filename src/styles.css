@@ -84,6 +84,7 @@ button {
   display: inline-block;
   font-size: 16px;
   cursor: pointer;
+  border-radius: 5px;
 }
 
 .searchBar{
@@ -149,8 +150,15 @@ button {
   margin: 10px;
   max-width: 800px; 
   background-color: #f9f9f9; 
+  border-radius: 7px;
   cursor: pointer;
   transition: transform 0.25s ease;
+}
+
+.club-details{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .club-block:hover{
@@ -263,16 +271,16 @@ a:nth-child(2):hover~.animation {
 }
 */
 .mode-sele{
-  display: flex;      /* Enable flexbox */
+  display: flex;      
   justify-content: flex-end; /* Align children (buttons) to the right */
-  margin-right: 20px;
+  margin-right: 5px;
   padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 0;
-    margin: 0;
-    border: none;
-    transition: background-color 0.25s;
+  align-items: right;
+  font-size: 16px;
+  border-radius: 0;
+  margin: 0;
+  border: none;
+  transition: background-color 0.25s;
 }
 
 #refresh {
@@ -289,14 +297,14 @@ a:nth-child(2):hover~.animation {
 
 .active {
   height: 100%;
-  background-color: #4CAF50; /* Green background for active button */
+  background-color: #4CAF50; 
   color: white;
 }
 
 .inactive {
   height: 100%;
-  background-color: #cccccc; /* Gray background for inactive buttons */
-  color: #666666; /* Darker text for better readability on gray background */
+  background-color: #cccccc; 
+  color: #666666; 
 }
 
 #club-image{

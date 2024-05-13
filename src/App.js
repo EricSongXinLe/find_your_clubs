@@ -5,11 +5,16 @@ import { useState } from 'react';
 import Welcome from './components/welcomeModule';
 import ModeSelector from './components/changeMode';import ClubBlock from './components/clubBlock';
 import SearchBar from './components/searchBar';
+import FilterBar from './components/filterBar';
 
 export default function App() {
 
   const [userName, setUserName] = useState('');
   const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
+
+  
+  const tags = ['Publish Time', 'Experience Needed', 'Popular'];
+
 
   // Simulating fetching user's name from a database
   useEffect(() => {
@@ -29,6 +34,8 @@ export default function App() {
       <ModeSelector m_mode={selected} m_setMode={setSelected}/>
       {selected==='search'&& <SearchBar />}  
       
+      <FilterBar tags={tags}/>
+
       <div className="club-box">
         <ClubBlock image={require('./images/logo.webp')} title="Club 1" description="Description of Club 1" />
         <ClubBlock image={require('./images/logo.webp')} title="Club 2" description="Description of Club 2" />
