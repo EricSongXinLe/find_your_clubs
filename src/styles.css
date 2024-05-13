@@ -59,7 +59,7 @@ body {
   margin: 20px;
   padding: 0;
 }
-
+/* 
 .container {
   width: 100%;
   max-width: 758px;
@@ -210,4 +210,4 @@ body {
 }
 .panel-active .over-right {
   transform: translateX(20%);
-}
+} */

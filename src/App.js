@@ -1,11 +1,7 @@
-const signInBtn = document.querySelector("#signIn")
-const signUpBtn = document.querySelector("#signUp")
-const container = document.querySelector(".container")
+import React from 'react';
+import './styles.css';
+import Login from './login';
 
-signInBtn.addEventListener('click', () => {
-  container.classList.remove("panel-active")
-})
-
-signUpBtn.addEventListener('click', () => {
-  container.classList.add("panel-active")
-})
+export default function App() {
+    return <Login />;
+}
