@@ -9,8 +9,8 @@ const Login = () => {
     };
 
     return (
-        <div className={`container ${activePanel === 'register' ? "panel-active" : ""}`}>
-            <div className="formbox login" style={{ display: activePanel === 'login' ? 'block' : 'none' }}>
+        <div className="container">
+            <div className="login" style={{ display: activePanel === 'login' ? 'block' : 'none' }}>
                 <form className="form" id="Form2">
                     <h2 className="title">Login</h2>
                     <input type="email" placeholder="email" className="input" />
@@ -20,10 +20,10 @@ const Login = () => {
                     </a>
                     <button className="btn">Login</button>
                 </form>
-                <button className="btn" onClick={togglePanel}>Create an Account</button>
+                <button className="switchBtn" onClick={togglePanel}>Create an Account</button>
             </div>
 
-            <div className="formbox register" style={{ display: activePanel === 'register' ? 'block' : 'none' }}>
+            <div className="register" style={{ display: activePanel === 'register' ? 'block' : 'none' }}>
                 <form className="form" id="Form1">
                     <h2 className="title">Create an Account</h2>
                     <input type="text" placeholder="username" className="input" />
@@ -31,7 +31,7 @@ const Login = () => {
                     <input type="password" placeholder="password" className="input" />
                     <button className="btn">Create Account</button>
                 </form>
-                <button className="btn" onClick={togglePanel}>Back to Login</button>
+                <button className="switchBtn" onClick={togglePanel}>Back to Login</button>
             </div>
         </div>
     );
