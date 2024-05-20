@@ -367,6 +367,10 @@ a:nth-child(2):hover~.animation {
   font-style: bold;
 }
 
+#filter-bar-title{
+  margin: 10px;
+}
+
 /*below for tag(in filter bar) css*/
 
 /* General styling for the filter bar container */
@@ -408,6 +412,14 @@ a:nth-child(2):hover~.animation {
   background-color: #007BFF; /* Bootstrap primary blue */
   color: white;
   border-radius: 15px;
+}
+
+.filter-desel-button button{
+  margin-left: 5px;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  color: white;
 }
 
 .chosen-tag button {

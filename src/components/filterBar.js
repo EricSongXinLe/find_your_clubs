@@ -14,12 +14,12 @@ const FilterBar = ({ tags}) => {
 
     return (
         <div className="filter-bar">
+            <h3 id = "filter-bar-title">Filter by tags:</h3>
             <div className="chosen-tags">
-
                 {activeTags.map(tag => (
                     <div key={tag} className="chosen-tag">
                         {tag}
-                        <button onClick={() => handleTagClick(tag)}>X</button>
+                        <button className='filter-desel-button' onClick={() => handleTagClick(tag)}>X</button>
                     </div>
                 ))}
             </div>
