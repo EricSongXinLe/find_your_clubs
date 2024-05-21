@@ -5,10 +5,8 @@
 
 body {
   display: flex;
-  width: 100vw;
-  height: 100vh;
+
   overflow: hidden;
-  background:rgb(250, 250, 239);
   background-size: cover;
 }
 
@@ -352,6 +350,7 @@ a:nth-child(2):hover~.animation {
   height: 100%;
   background-color: #4CAF50; 
   color: white;
+}
 .title {
   font-weight: 300;
   margin: 0;

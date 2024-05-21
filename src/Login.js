@@ -1,69 +1,41 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import { useNavigate, Link } from "react-router-dom"
+import React, { useState } from 'react';
 
+const Login = () => {
+    const [activePanel, setActivePanel] = useState('login');  // State to track which panel is active
 
-function Login() {
-
-    const history=useNavigate();
-
-    const [email,setEmail]=useState('')
-    const [password,setPassword]=useState('')
-
-    async function submit(e){
-        e.preventDefault();
-
-        try{
-
-            await axios.post("http://localhost:8000/",{
-                email,password
-            })
-            .then(res=>{
-                if(res.data=="exist"){
-                    history("/home",{state:{id:email}})
-                }
-                else if(res.data=="notmatch"){
-                    alert("Wrong password")
-                }
-                else if(res.data=="notexist"){
-                    alert("User have not sign up")
-                }
-            })
-            .catch(e=>{
-                alert("wrong details")
-                console.log(e);
-            })
-
-        }
-        catch(e){
-            console.log(e);
-
-        }
-
-    }
-
+    // Toggle function to switch panels
+    const togglePanel = () => {
+        setActivePanel(activePanel === 'login' ? 'register' : 'login');
+    };
 
     return (
-        <div className="login">
-
-            <h1>Login</h1>
-
-            <form action="POST">
-                <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email"  />
-                <input type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password"  />
-                <a href="#" className="link">
+        <div className="container">
+            <div className="login" style={{ display: activePanel === 'login' ? 'block' : 'none' }}>
+                <form className="form" id="Form2">
+                    <h2 className="title">Login</h2>
+                    <input type="email" placeholder="email" className="input" />
+                    <input type="password" placeholder="password" className="input" />
+                    <a href="#" className="link">
                         Forgot password?
-                </a>
-                <input type="submit" onClick={submit} />
+                    </a>
+                    <button className="btn">Login</button>
+                </form>
+                <button className="switchBtn" onClick={togglePanel}>Create an Account</button>
+            </div>
 
-            </form>
-
-            
-
-            <Link to="/signup">Create an Account</Link>
-
+            <div className="register" style={{ display: activePanel === 'register' ? 'block' : 'none' }}>
+                <form className="form" id="Form1">
+                    <h2 className="title">Create an Account</h2>
+                    <input type="text" placeholder="username" className="input" />
+                    <input type="email" placeholder="email" className="input" />
+                    <input type="password" placeholder="password" className="input" />
+                    <button className="btn">Create Account</button>
+                </form>
+                <button className="switchBtn" onClick={togglePanel}>Back to Login</button>
+            </div>
         </div>
-    )
+    );
 }
 
-export default Login
+export default Login;
+
