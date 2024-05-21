@@ -1,5 +1,5 @@
 const express = require("express")
-const collection = require("./mongo")
+const student_collection = require("./mongo")
 const cors = require("cors")
 const app = express()
 app.use(express.json())
@@ -17,8 +17,8 @@ app.post("/login",async(req,res)=>{
     const{email,password}=req.body
 
     try{
-        const checkExist=await collection.findOne({email:email})
-        const checkMatch=await collection.findOne({email:email, password:password})
+        const checkExist=await student_collection.findOne({email:email})
+        const checkMatch=await student_collection.findOne({email:email, password:password})
 
 
         if(!checkExist){
@@ -50,14 +50,14 @@ app.post("/signup",async(req,res)=>{
     }
 
     try{
-        const check=await collection.findOne({email:email})
+        const check=await student_collection.findOne({email:email})
 
         if(check){
             res.json("exist")
         }
         else{
             res.json("notexist")
-            await collection.insertMany([data])
+            await student_collection.insertMany([data])
         }
 
     }

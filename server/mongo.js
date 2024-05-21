@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://0.0.0.0:27017/studentDB")
+mongoose.connect("mongodb://0.0.0.0:27017/findyourclubsDB")
 .then(()=>{
     console.log("mongodb connected");
 })
@@ -8,7 +8,7 @@ mongoose.connect("mongodb://0.0.0.0:27017/studentDB")
 })
 
 
-const newSchema=new mongoose.Schema({
+const studentSchema=new mongoose.Schema({
     username:{
         type:String,
         required:true
@@ -23,6 +23,15 @@ const newSchema=new mongoose.Schema({
     }
 })
 
-const collection = mongoose.model("collection",newSchema)
+const clubsSchema=new mongoose.Schema({
+    clubname:{
+        type:String,
+        required:true
+    },
+})
 
-module.exports=collection
+const student_collection = mongoose.model("students",studentSchema)
+const club_collection = mongoose.model("clubs",clubsSchema)
+
+module.exports=club_collection
+module.exports=student_collection
