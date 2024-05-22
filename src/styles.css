@@ -72,7 +72,7 @@ ul {
 body {
   font-family: sans-serif;
   margin: 20px;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
@@ -375,7 +375,7 @@ a:nth-child(2):hover~.animation {
   margin-bottom: 1.5rem;
 }
 
-.switchBtn{
+.switchBtn {
   background-image: linear-gradient(0deg, #e1ebfa 0%, #dcf3f6c1 100%);
   border-radius: 5px;
   border: none;
@@ -388,15 +388,21 @@ a:nth-child(2):hover~.animation {
   text-transform: uppercase;
   transition: transform 80ms ease-in;
   margin: auto;
+  display: flex;
+  align-items: center;
 }
-
 
 .link {
   color: #333;
   font-size: 16px;
   margin: 1.5rem 0;
   text-decoration: none;
-  display: block
+  display: block;
+  background-color: none;
+  color: (internal value);
+  text-decoration: underline;
+  cursor: auto;
+  outline:none;
 }
 
 .login {
@@ -413,7 +419,7 @@ a:nth-child(2):hover~.animation {
 
 .btn:active {
   transform: scale(0.95);
-  background-color: #007bff; 
+  background-color: #007bff;
 }
 
 .inactive {
@@ -469,7 +475,13 @@ a:nth-child(2):hover~.animation {
 
 /* Styling for chosen tags */
 /* General styling for the filter bar container */
-.filter-bar {
+
+.switchBtn:active {
+  transform: scale(0.95);
+  background-color: #262d40;
+}
+
+.form {
   display: flex;
   flex-direction: column;
   padding: 10px;
@@ -489,6 +501,9 @@ a:nth-child(2):hover~.animation {
 
 .chosen-tag {
   display: flex;
+}
+.container {
+  justify-content: center;
   align-items: center;
   margin: 5px;
   padding: 5px 10px;
