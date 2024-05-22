@@ -8,7 +8,7 @@ body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  background:rgb(250, 250, 239);
+  background: rgb(250, 250, 239);
   background-size: cover;
 }
 
@@ -57,7 +57,7 @@ ul {
 body {
   font-family: sans-serif;
   margin: 20px;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
@@ -94,7 +94,7 @@ body {
   margin-bottom: 1.5rem;
 }
 
-.switchBtn{
+.switchBtn {
   background-image: linear-gradient(0deg, #e1ebfa 0%, #dcf3f6c1 100%);
   border-radius: 5px;
   border: none;
@@ -107,15 +107,21 @@ body {
   text-transform: uppercase;
   transition: transform 80ms ease-in;
   margin: auto;
+  display: flex;
+  align-items: center;
 }
-
 
 .link {
   color: #333;
   font-size: 16px;
   margin: 1.5rem 0;
   text-decoration: none;
-  display: block
+  display: block;
+  background-color: none;
+  color: (internal value);
+  text-decoration: underline;
+  cursor: auto;
+  outline:none;
 }
 
 .login {
@@ -132,12 +138,12 @@ body {
 
 .btn:active {
   transform: scale(0.95);
-  background-color: #007bff; 
+  background-color: #007bff;
 }
 
 .switchBtn:active {
   transform: scale(0.95);
-  background-color: #262d40; 
+  background-color: #262d40;
 }
 
 .form {
@@ -159,8 +165,7 @@ body {
   margin-top: 1.5rem;
 }
 
-.container{
-  display: flex;
+.container {
   justify-content: center;
   align-items: center;
 }
