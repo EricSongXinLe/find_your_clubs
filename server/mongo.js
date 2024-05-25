@@ -1,9 +1,10 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://0.0.0.0:27017/findyourclubsDB")
+mongoose.connect("mongodb://sb:Eggert@110.40.138.15:27017/studentDB?authSource=admin")
 .then(()=>{
     console.log("mongodb connected");
 })
-.catch(()=>{
+.catch((e)=>{
+    console.log(e);
     console.log('failed');
 })
 

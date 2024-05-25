@@ -23,11 +23,11 @@ function Signup() {
                     alert("User already exists")
                 }
                 else if(res.data=="notexist"){
-                    history("/",{state:{id:username}})
+                    history("/",{state:{username:username}}) //passes the username as the id in the next page
                 }
             })
             .catch(e=>{
-                alert("wrong details")
+                alert("An error occured")
                 console.log(e);
             })
 
