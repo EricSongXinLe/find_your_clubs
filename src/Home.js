@@ -20,17 +20,13 @@ export default function Home() {
   const location = useLocation();
   const username = location.state?.username || "Guest";
 
-  const [userName, setUserName] = useState('');
   const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
 
   
   const tags = ['Publish Time', 'Experience Needed', 'Popular'];
 
 
-  // Simulating fetching user's name from a database
   useEffect(() => {
-    // Fetching logic here, now just a dummy name
-    setUserName('SB'); // Replace 'SB' with the actual fetching logic
   }, []);
 
   
