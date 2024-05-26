@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://sb:Eggert@110.40.138.15:27017/studentDB?authSource=admin")
+mongoose.connect("mongodb://localhost:27017/findyourclubsDB")
 .then(()=>{
     console.log("mongodb connected");
 })
@@ -29,10 +29,14 @@ const clubsSchema=new mongoose.Schema({
         type:String,
         required:true
     },
+    clubimg:{
+        data: Buffer, 
+        contentType: String
+    }
 })
 
 const student_collection = mongoose.model("students",studentSchema)
 const club_collection = mongoose.model("clubs",clubsSchema)
 
-module.exports=club_collection
-module.exports=student_collection
+exports.club_collection=club_collection
+exports.student_collection=student_collection

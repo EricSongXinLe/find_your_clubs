@@ -7,6 +7,8 @@ import {
 import Home from './Home';
 import Signup from './Signup'
 import Login from './login.js'
+import Clubs from './Clubs'
+import AddClub from './AddClub.js'
 
 const router = createBrowserRouter([
   {
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup/>,
+  },
+  {
+    path: "/clubs",
+    element: <Clubs/>,
+  },
+  {
+    path: "/clubsignup",
+    element: <AddClub/>,
   },
 ]);
 

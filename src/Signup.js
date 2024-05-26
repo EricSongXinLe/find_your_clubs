@@ -16,7 +16,7 @@ function Signup() {
         try{
 
             await axios.post("http://localhost:8000/signup",{
-                username, email,password
+                username, email, password
             })
             .then(res=>{
                 if(res.data=="exist"){
