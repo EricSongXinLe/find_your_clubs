@@ -6,7 +6,7 @@ import {
 
 import Home from './Home';
 import Signup from './Signup'
-import Login from './Login.js'
+import Login from './login.js'
 import Clubs from './Clubs'
 import AddClub from './AddClub.js'
 
