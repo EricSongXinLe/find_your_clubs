@@ -1,14 +1,15 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://0.0.0.0:27017/studentDB")
+mongoose.connect("mongodb://admin:CS35L@110.40.138.15:27017/admin")
 .then(()=>{
     console.log("mongodb connected");
 })
-.catch(()=>{
+.catch((e)=>{
+    console.log(e);
     console.log('failed');
 })
 
 
-const newSchema=new mongoose.Schema({
+const studentSchema=new mongoose.Schema({
     username:{
         type:String,
         required:true
@@ -20,9 +21,26 @@ const newSchema=new mongoose.Schema({
     password:{
         type:String,
         required:true
+    },
+    userIsClubLeader:{
+        type:Boolean,
+        required:true
     }
 })
 
-const collection = mongoose.model("collection",newSchema)
+const clubsSchema=new mongoose.Schema({
+    clubname:{
+        type:String,
+        required:true
+    },
+    clubimg:{
+        data: Buffer, 
+        contentType: String
+    }
+})
 
-module.exports=collection
+const student_collection = mongoose.model("students",studentSchema)
+const club_collection = mongoose.model("clubs",clubsSchema)
+
+exports.club_collection=club_collection
+exports.student_collection=student_collection

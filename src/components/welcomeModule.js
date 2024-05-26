@@ -3,8 +3,8 @@ import '../styles.css';
 
 function Welcome({ userName }) {
     const handleLogout = () => {
-        alert('User logged out');
-        // Implement actual logout logic here, e.g., clearing user session, redirecting, etc.
+      window.history.replaceState({}, '')
+      window.location.href = '/login';
       };
     return (
       <div className="welcome-container">
