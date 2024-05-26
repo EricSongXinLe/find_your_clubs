@@ -5,9 +5,13 @@
 
 body {
   display: flex;
-
   overflow: hidden;
   background-size: cover;
+  font-family: sans-serif;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
 }
 
 header{
@@ -18,13 +22,6 @@ header{
   margin-bottom: 20px;
 }
 
-header{
-  font-family: Georgia, 'Times New Roman', Times, serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-}
 
 h1 {
   margin-top: 0;
@@ -94,8 +91,7 @@ input {
   justify-content: space-between;
   align-items: flex-start;
   padding: 20px; 
-    height: 100vh; /*full height*/
-    gap: 20px; 
+  height: 100vh; 
 }
 
 .left_cont{
@@ -245,79 +241,6 @@ button {
   margin-top: 0; 
   position:absolute;
 }
-/*
-nav {
-  margin: 100px;
-  position: relative;
-  width: 500px;
-  height: 50px;
-  border-radius: 8px;
-}
-
-nav a {
-  width: 100px;
-  height : 100%;
-  line-height: 50px;
-  font-size: 15px;
-  display: inline-block;
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  cursor: pointer;
-}
-
-nav .animation{
-  position: absolute;
-  height: 100%;
-  top:0;
-  z-index: 0;
-  transition: all 1s ease 0s;
-  border-radius: 8px;
-  width: 100px;
-  left: 0;
-  background-color: aquamarine;
-}
-
-a:nth-child(1):hover~.animation {
-  left:0;
-  background-color: aquamarine;
-}
-
-a:nth-child(2):hover~.animation {
-  left:100px;
-  background-color:brown;
-}
-*/
-/*The previous part is wrongly implemented*/
-/*
-#RecMode{
-  background-color: #4CAF50; 
-    color: white; 
-    border: none; 
-    padding: 10px 20px; 
-    text-align: center; 
-    text-decoration: none; 
-    display: inline-block; 
-    font-size: 16px; 
-    margin: 4px 2px; 
-    cursor: pointer;
-    border-radius: 5px; 
-}
-
-#SearchMode{
-  background-color: #008CBA; 
-    color: white; 
-    border: none; 
-    padding: 10px 20px; 
-    text-align: center; 
-    text-decoration: none; 
-    display: inline-block; 
-    font-size: 16px; 
-    margin: 4px 2px; 
-    cursor: pointer; 
-    border-radius: 5px; 
-}
-*/
 .mode-sele{
   display: flex;      
   justify-content: flex-end; /* Align children (buttons) to the right */
@@ -451,17 +374,14 @@ a:nth-child(2):hover~.animation {
   margin: 10px;
 }
 
-/*below for tag(in filter bar) css*/
-
-/* General styling for the filter bar container */
 .filter-bar {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  border-right: 2px solid #ccc; /* Add a border to the right of the filter bar */
-  height: 100vh; /* Full view height */
-  width: 250px; /* Set width of the filter bar */
-  background-color: #f8f8f8; /* Light grey background */
+  border-right: 2px solid #ccc; 
+  height: 100vh;
+  width: 250px; 
+  background-color: #f8f8f8; 
 }
 
 /* Styling for chosen tags */
@@ -485,6 +405,7 @@ a:nth-child(2):hover~.animation {
 }
 
 .chosen-tag {
+  background-color: #007BFF;
   display: flex;
   align-items: center;
   margin: 5px;
@@ -497,9 +418,8 @@ a:nth-child(2):hover~.animation {
 .filter-desel-button button{
   margin-left: 5px;
   cursor: pointer;
-  background: transparent;
   border: none;
-  color: white;
+  background-color: blue;
 }
 
 .chosen-tag button {
@@ -507,7 +427,7 @@ a:nth-child(2):hover~.animation {
   cursor: pointer;
   background: transparent;
   border: none;
-  color: white;
+  color: black;
 }
 
 /* Styling for available tags */
