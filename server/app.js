@@ -36,12 +36,13 @@ app.post("/login",async(req,res)=>{
 })
 
 app.post("/signup",async(req,res)=>{
-    const{username, email,password}=req.body
+    const{username, email,password,userIsClubLeader}=req.body
 
     const data={
         username: username,
         email:email,
-        password:password
+        password:password,
+        userIsClubLeader:userIsClubLeader
     }
 
     try{

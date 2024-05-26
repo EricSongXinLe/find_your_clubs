@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://app:CS35L@110.40.138.15:27017/studentDB")
+mongoose.connect("mongodb://admin:CS35L@110.40.138.15:27017/admin")
 .then(()=>{
     console.log("mongodb connected");
 })
@@ -20,6 +20,10 @@ const studentSchema=new mongoose.Schema({
     },
     password:{
         type:String,
+        required:true
+    },
+    userIsClubLeader:{
+        type:Boolean,
         required:true
     }
 })

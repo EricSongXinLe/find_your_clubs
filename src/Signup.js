@@ -25,7 +25,8 @@ function Signup() {
                     alert("User already exists")
                 }
                 else if(res.data=="notexist"){
-                    history("/",{state:{username:username}}) //passes the username as the id in the next page
+                    history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}}) //passes the username as the id in the next page
+                    console.log("User created")
                 }
             })
             .catch(e=>{
@@ -35,8 +36,8 @@ function Signup() {
 
         }
         catch(e){
+            alert("An error occured")
             console.log(e);
-
         }
 
     }
@@ -46,7 +47,6 @@ function Signup() {
         <div className="login">
         <link rel="stylesheet" href="signup.css" />
             <h1>Create an Account</h1>
-        
             <form action="POST">
                 <input type="text" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username" className="input" />
                 <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email"  />
@@ -54,17 +54,14 @@ function Signup() {
                 <br/>
                 <label>Are you a club leader?</label>
                 <label class="switch">
-                    <input type="checkbox" onChange={(e) => {setUserIsClubLeader(e.target.value)}}/> 
+                    <input type="checkbox" onChange={(e) => {
+                        setUserIsClubLeader(e.target.checked)}}/> 
                     <span class="slider round"></span>
                 </label>
                 <br/>
                 <input type="submit" onClick={submit} />
             </form>
-
-  
-
             <Link to="/">Back to Login</Link>
-
         </div>
     )
 }
