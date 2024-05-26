@@ -21,7 +21,12 @@ export default function Home() {
   const username = location.state?.username || "Guest";
   const usertype = location.state?.userIsClubLeader ||  false;
   const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
-
+  const [clubs, setClubs] = useState([
+    // Dummy data for initial setup
+    { id: 1, image: 'image1.jpg', title: 'Club One', description: 'Description of Club One' },
+    { id: 2, image: 'image2.jpg', title: 'Club Two', description: 'Description of Club Two' },
+    //Delete this part and extract data from back-end!!!
+  ]);
   
   const tags = ['Publish Time', 'Experience Needed', 'Popular'];
 

@@ -9,7 +9,7 @@ import Signup from './Signup'
 import Login from './login.js'
 import Clubs from './Clubs'
 import AddClub from './AddClub.js'
-
+import ClubDetails from './clubDetail.js';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -30,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/clubsignup",
     element: <AddClub/>,
+  },
+  {
+    path: "/club/:id",  // Add this route for club details
+    element: <ClubDetails />,
   },
 ]);
 
