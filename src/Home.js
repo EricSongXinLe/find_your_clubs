@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 
 import { useLocation } from "react-router-dom";
-
+import AddClub from './AddClub';
 import Welcome from './components/welcomeModule';
 import ModeSelector from './components/changeMode';import ClubBlock from './components/clubBlock';
 import SearchBar from './components/searchBar';
@@ -19,7 +19,7 @@ export default function Home() {
 
   const location = useLocation();
   const username = location.state?.username || "Guest";
-
+  const usertype = location.state?.userIsClubLeader ||  false;
   const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
 
   
@@ -46,7 +46,7 @@ export default function Home() {
         </div>
 
         <div class = "mid_cont">
-        <PhotoDisplay images={imageLst}/>
+          {usertype ? <AddClub /> : <PhotoDisplay images={imageLst} />}
         </div>
 
         <div class = "right_cont">
