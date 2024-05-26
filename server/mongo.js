@@ -1,5 +1,5 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://localhost:27017/findyourclubsDB")
+mongoose.connect("mongodb://app:CS35L@110.40.138.15:27017/studentDB")
 .then(()=>{
     console.log("mongodb connected");
 })
