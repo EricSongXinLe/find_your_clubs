@@ -16,7 +16,19 @@ function Signup() {
         e.preventDefault();
 
         try{
-
+            if(username==""){
+                alert("Username is empty!")
+                return
+            } 
+            if(email==""){
+                alert("Email is empty!")
+                return
+            }
+            if(password==""){
+                alert("Password is empty!")
+                return
+            }
+            
             await axios.post("http://localhost:8000/signup",{
                 username, email,password,userIsClubLeader
             })
@@ -48,20 +60,20 @@ function Signup() {
         <link rel="stylesheet" href="signup.css" />
             <h1>Create an Account</h1>
             <form action="POST">
-                <input type="text" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username" className="input" />
-                <input type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email"  />
-                <input type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
+                <input class="textInput" type="text" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username" />
+                <input class="textInput" type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email"  />
+                <input class="textInput" type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
                 <br/>
                 <label>Are you a club leader?</label>
                 <label class="switch">
-                    <input type="checkbox" onChange={(e) => {
+                    <input class="checkbox" type="checkbox" onChange={(e) => {
                         setUserIsClubLeader(e.target.checked)}}/> 
                     <span class="slider round"></span>
                 </label>
                 <br/>
-                <input type="submit" onClick={submit} />
+                <input class= "submitButton" type="submit" onClick={submit} />
             </form>
-            <Link to="/">Back to Login</Link>
+            <Link to="/login">Back to Login</Link>
         </div>
     )
 }

@@ -1,0 +1,25 @@
+body{
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+.textInput{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+.submitButton{
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
+    font-size: 20px;
+}
