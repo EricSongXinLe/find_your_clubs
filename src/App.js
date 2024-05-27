@@ -36,7 +36,7 @@ const router = createBrowserRouter([
   {
     path: "/club/:id",  // Add this route for club details
     element: <ClubDetails />,
-  },
+  },{
     path: "/application",
     element: <Application/>,
   }

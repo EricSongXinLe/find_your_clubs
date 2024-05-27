@@ -46,5 +46,4 @@ function AddClub() {
         </div>
     )
 }
-
 export default AddClub
