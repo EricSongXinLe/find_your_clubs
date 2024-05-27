@@ -9,7 +9,7 @@ import Signup from './Signup'
 import Login from './login.js'
 import Clubs from './Clubs'
 import AddClub from './AddClub.js'
-import Application from './application.js';
+import Application from './application.js'
 
 const router = createBrowserRouter([
   {
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/application",
-    element: <Application/>
+    element: <Application/>,
   }
 ]);
 
