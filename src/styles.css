@@ -95,23 +95,23 @@ input {
 }
 
 .left_cont{
-  flex: 0 1 450px; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 250px */
-    background-color: #ffffff; /* Light gray background */
+  flex: 0 1 450px; 
+    background-color: #ffffff; 
     padding: 10px;
     overflow-y: auto;
 }
 
 .mid_cont{
-  flex: 2 1 40%; /* Takes up the bulk of the space */
-    background-color: #ffffff; /* White background */
+  flex: 2 1 40%; 
+    background-color: #ffffff; 
     padding: 10px;
-    overflow-y: auto; /* Allows vertical scrolling */
+    overflow-y: auto; 
 
 }
 
 .right_cont {
-  flex: 0 1 100%; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 200px */
-  background-color: #ffffff; /* Slightly darker gray than left_cont */
+  flex: 0 1 100%; 
+  background-color: #ffffff; 
   padding: 10px;
   overflow-y: auto;
 }
