@@ -3,7 +3,7 @@ import {useState} from "react";
 const questionList = ["name", "email", "gender", "birthday"];
 const questionTextList = [];
 const questionListLength = questionList.length;
-for (let i = 0; i < quesitonListLength; i++)
+for (let i = 0; i < questionListLength; i++)
   questionTextList.push("Enter your " + questionList[i] + " here*");
 
 
