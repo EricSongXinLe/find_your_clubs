@@ -7,9 +7,14 @@ const SearchBar = () => {
         setQuery(event.target.value);
     };
 
-    const handleSearch = () => {
-        // Perform search logic here using the query
-        alert('Searching for: '+query);
+    const handleSearch = async () => {
+        const response = await fetch(`/api/search?query=${query}`);
+        if (response.ok) {
+            const result = await response.json();
+            alert(result);
+        } else {
+            console.error('Error:', response.status);
+        }
     };
 
     return (
