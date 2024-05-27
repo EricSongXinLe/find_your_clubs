@@ -55,14 +55,18 @@ export default function Home() {
         </div>
 
         <div class = "right_cont">
-        <ModeSelector m_mode={selected} m_setMode={setSelected}/>
+          {usertype? <></>: <ModeSelector m_mode={selected} m_setMode={setSelected}/>}
+        
       {selected==='search'&& <SearchBar />}  
+      {
+        usertype? <></>: 
+        <div className="club-box">
+          <ClubBlock image={require('./images/logo.webp')} title="Club 1" description="Description of Club 1" />
+          <ClubBlock image={require('./images/logo.webp')} title="Club 2" description="Description of Club 2" />
+          <ClubBlock image={require('./images/logo.webp')} title="Club 3" description="Description of Club 3" />
+        </div>
+      }
       
-      <div className="club-box">
-        <ClubBlock image={require('./images/logo.webp')} title="Club 1" description="Description of Club 1" />
-        <ClubBlock image={require('./images/logo.webp')} title="Club 2" description="Description of Club 2" />
-        <ClubBlock image={require('./images/logo.webp')} title="Club 3" description="Description of Club 3" />
-      </div>
         </div>
       
       </div>
