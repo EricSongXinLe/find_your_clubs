@@ -11,19 +11,33 @@ function Login() {
     const [password,setPassword]=useState('')
     async function submit(e){
         e.preventDefault();
-
+        if(username==""){
+            alert("Username is empty!")
+            return
+        } 
+        if(password==""){
+            alert("Password is empty!")
+            return
+        }
         try{
-
             await axios.post("http://localhost:8000/login",{
                 username,password
             })
             .then(res=>{
-                if(res.data=="fail"){
-                    alert("Wrong username or password")
+                if(res.data=="notmatch"){
+                    alert("Wrong password")
+                    return
                 }
-                else if(res.data=="success"){
-                    const userIsClubLeader = res.data.userIsClubLeader;
-                    history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}}) //passes the username as the id in the next page
+                else if(res.data=="notexist"){
+                    alert("User does not exist")
+                    return
+                }
+                else if(res.data=="successLeader"){
+                    history("/",{state:{username:username, userIsClubLeader:true}}) //passes the username as the id in the next page
+                    console.log("Logged in")
+                }
+                else if(res.data=="successStudent"){
+                    history("/",{state:{username:username, userIsClubLeader:false}}) //passes the username as the id in the next page
                     console.log("Logged in")
                 }
             })

@@ -16,7 +16,19 @@ function Signup() {
         e.preventDefault();
 
         try{
-
+            if(username==""){
+                alert("Username is empty!")
+                return
+            } 
+            if(email==""){
+                alert("Email is empty!")
+                return
+            }
+            if(password==""){
+                alert("Password is empty!")
+                return
+            }
+            
             await axios.post("http://localhost:8000/signup",{
                 username, email,password,userIsClubLeader
             })
