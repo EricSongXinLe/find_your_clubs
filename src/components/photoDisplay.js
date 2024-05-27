@@ -27,7 +27,7 @@ const PhotoDisplay = (images) => {
     return (
         <div className="photo-display">
             <button className="left-button" onClick={prevImage}>&lt;</button>
-            <img src={images[current]} alt={"SHABI"} />
+            <img src={images[current]} alt={"FAIL"} />
             <button className="right-button" onClick={nextImage}>&gt;</button>
         </div>
     );
