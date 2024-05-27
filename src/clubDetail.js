@@ -45,6 +45,10 @@ const ClubDetails = () => {
     fetchClubDetails();
   }, [id]);
 
+  const handleButtonClick = () => {
+    navigate('/application'); // Change this path to match the route in your application
+  };
+
   return (
     <div className="club-details-container">
       <div className="club-header">
@@ -64,6 +68,7 @@ const ClubDetails = () => {
         </p>
         <p className="club-activitytime"><strong>Activity Time:</strong> {club.activitytime}</p>
       </div>
+      <button className="navigate-button" onClick={handleButtonClick}>Go to Application Page</button>
     </div>
   );
 };

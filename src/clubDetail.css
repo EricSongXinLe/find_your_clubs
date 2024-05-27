@@ -10,8 +10,8 @@ body {
   .club-details-container {
     display: flex;
     flex-direction: column;
-    width: 70%; 
-    max-width: 1200px; 
+    width: 70%;
+    max-width: 1200px;
     padding: 20px;
     margin: 20px auto;
     border: 1px solid #ddd;
@@ -50,16 +50,16 @@ body {
   
   .club-description-container {
     flex: 1 1 auto;
-    overflow-y: auto; 
+    overflow-y: auto;
     margin-bottom: 20px;
-    padding-right: 10px; 
-    max-height: 400px; 
+    padding-right: 10px;
+    max-height: 400px;
   }
   
   .club-description {
     font-size: 1.2em;
     line-height: 1.5;
-    white-space: pre-wrap; 
+    white-space: pre-wrap;
   }
   
   .club-footer {
@@ -81,5 +81,23 @@ body {
   
   .club-application a:hover {
     text-decoration: underline;
+  }
+  
+  .navigate-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 20px;
+    align-self: center;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+  
+  .navigate-button:hover {
+    transform: scale(1.1);
+    background-color: #0056b3;
   }
   
