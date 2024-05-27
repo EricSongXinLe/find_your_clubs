@@ -33,7 +33,7 @@ function createInputs() {
 }
 
 
-export default function main() {
+export default function Application() {
   
   /*
   document.querySelector('#myform').addEventListener('input', (Event)=>{
