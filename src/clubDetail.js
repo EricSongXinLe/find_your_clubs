@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
 import './clubDetail.css';
+import { FaStar } from 'react-icons/fa';
+import { UserContext } from './userContext';
 
 const ClubDetails = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const { userId } = useContext(UserContext);
   const [club, setClub] = useState({
     image: '',
     title: '',
@@ -13,6 +17,8 @@ const ClubDetails = () => {
     application: '', //Add Google link in this case.
     activitytime: '',
   });
+
+  const [isFavorited, setIsFavorited] = useState(false);
 
   // Simulating fetching data
   useEffect(() => {
@@ -46,11 +52,29 @@ const ClubDetails = () => {
   }, [id]);
 
   const handleButtonClick = () => {
-    navigate('/application'); // Change this path to match the route in your application
+    navigate('/application'); 
+  };
+//potential bug here!!!!
+  const toggleFavorite = async () => {
+    //console.log('${id}');
+    const response = await fetch(`/favorite/${id}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId, favorite: !isFavorited }),
+    });
+
+    if (response.ok) {
+      setIsFavorited(!isFavorited);
+    }
   };
 
   return (
     <div className="club-details-container">
+      <div className="star-icon" onClick={toggleFavorite}>
+        <FaStar color={isFavorited ? 'yellow' : 'grey'} size={26} />
+      </div>
       <div className="club-header">
         <h1 className="club-title">{club.title}</h1>
         <p className="club-requirements"><strong>Requirements:</strong> {club.requirements}</p>

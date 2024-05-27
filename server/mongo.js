@@ -25,6 +25,11 @@ const studentSchema=new mongoose.Schema({
     userIsClubLeader:{
         type:Boolean,
         required:true
+    },
+    favClubs: {
+        type: Array,
+        required: true,
+        default: [] 
     }
 })
 
