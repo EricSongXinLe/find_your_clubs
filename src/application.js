@@ -1,6 +1,11 @@
 import {useState} from "react";
 
 const questionList = ["name", "email", "gender", "birthday"];
+const questionTextList = [];
+const questionListLength = questionList.length;
+for (let i = 0; i < quesitonListLength; i++)
+  questionTextList.push("Enter your " + questionList[i] + " here*");
+
 
 function saveData() {
   // var fs = require('fs');
@@ -16,10 +21,7 @@ function saveData() {
     select_q4.innerHTML = select_q4.innerHTML + " Required";
   }
 
-  const path = "log.txt";
-  //const fs = require('fs');
-  // let file = new File(path);
-  let rnd = questionList.length;
+  /*
   for (let i = 0; i < rnd; i++) {
     let text_box = document.getElementById(questionList[i]);
     console.log(text_box.id.substring(0, 9));
@@ -38,6 +40,17 @@ function saveData() {
     console.log(text_box.id);
     // write data into json file
   }
+  */
+  for (let i = 0; i < quesitonListLength; i++)
+  {
+    let text_box = document.getElementById(questionList[i]);
+    if (text_box.value == "")
+    {
+      text_box.innerHTML = questionTextList[i] + " Required";
+      text_box.style.color = '#FF5733'
+    }
+  }
+
   document.getElementById('texto').innerHTML = "Happy Birthday".concat(
     " ", document.getElementById(questionList[0]).value);
 }
@@ -55,7 +68,7 @@ function createInputs() {
 */
 
 
-export default function Application() {
+function Application() {
   
   // let inputs = createInputs();
   // console.log(inputs[0])
@@ -63,7 +76,7 @@ export default function Application() {
   let block_list = [];
   let rnd = questionList.length;
   for (let i = 0; i < rnd; i++) {
-    block_list.push(<input type="text" name="" id={questionList[i]} placeholder={"Enter your " + questionList[i] + " here"}></input>);
+    block_list.push(<input type="text" name="" id={questionList[i]} placeholder={questionTextList[i]}></input>);
   }
   // let a = <input type="text" name="" id="myform" placeholder="Enter your name here"></input>;
   // let sh = String(inputs[0]);
@@ -106,3 +119,5 @@ export default function Application() {
   </>
   );
 }
+
+export default Application
