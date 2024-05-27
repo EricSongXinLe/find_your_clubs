@@ -1,19 +1,20 @@
 {
-  "name": "react.dev",
-  "version": "0.0.0",
-  "main": "/src/index.js",
+  "dependencies": {
+    "axios": "^1.7.1",
+    "cors": "^2.8.5",
+    "mongoose": "^8.4.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-router-dom": "^6.23.1",
+    "react-scripts": "^5.0.0",
+    "web-vitals": "^4.0.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "dependencies": {
-    "react": "^18.0.0",
-    "react-dom": "^18.0.0",
-    "react-scripts": "^5.0.0"
-  },
-  "devDependencies": {},
   "browserslist": {
     "production": [
       ">0.2%",
