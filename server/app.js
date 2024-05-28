@@ -35,6 +35,7 @@ app.post("/login",async(req,res)=>{
 
 })
 
+
 app.post("/signup",async(req,res)=>{
     const{username, email,password,userIsClubLeader}=req.body
 
@@ -81,24 +82,35 @@ app.post("/clubs",async(req,res)=>{
     }
 })
 
+app.get("/addclub", (req, res)=>{
+    
+}) 
+
 app.post("/addclub",async(req,res)=>{
-    const{clubname} = req.body
+    const{clubname, foundingTime, tagsList, clubdescription, requirement} = req.body
 
     const data={
         clubname: clubname,
+        foundingTime : foundingTime, 
+        // tagsList : tagsList, 
+        clubdescription : clubdescription, 
+        requirement : requirement
     }
 
     try{
+        console.log("testiszv")
         const check=await club_collection.findOne({clubname:clubname})
 
         if(check){
             res.json("exist")
+            
         }
         else{
+            console.log("2222")
             await club_collection.insertMany([data])
             res.json("added")
         }
-
+        
     }
     catch(e){
         res.json("fail")

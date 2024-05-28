@@ -36,6 +36,22 @@ const clubsSchema=new mongoose.Schema({
     clubimg:{
         data: Buffer, 
         contentType: String
+    },
+    foundingTime:{
+        type:Date,
+        required:true
+    },
+    // tagsList:{
+    //     type:String,
+    //     required:true
+    // },
+    clubdescription:{
+        type:String,
+        required:true
+    },
+    requirement:{
+        type:String,
+        required:true
     }
 })
 
