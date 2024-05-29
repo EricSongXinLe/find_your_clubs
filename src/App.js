@@ -10,7 +10,8 @@ import Login from './login.js'
 import Clubs from './Clubs'
 import AddClub from './AddClub.js'
 import ClubDetails from './clubDetail.js';
-import Application from './application.js'
+import Apply from './application.js'
+import Create from './create_application.js'
 
 const router = createBrowserRouter([
   {
@@ -37,8 +38,12 @@ const router = createBrowserRouter([
     path: "/club/:id",  // Add this route for club details
     element: <ClubDetails />,
   },{
-    path: "/application",
-    element: <Application/>,
+    path: "/apply",
+    element: <Apply/>,
+  },
+  {
+    path: "/create",
+    element: <Create/>,
   }
 ]);
 

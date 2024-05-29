@@ -88,6 +88,24 @@ app.post("/clubs",async(req,res)=>{
     }
 })
 
+app.post("/club_search",async(req,res)=>{
+    const {clubname} = req.body
+    try{
+        const check = await club_collection.findOne({clubname:clubname})
+
+        if(check){
+            res.json(check) 
+        }
+        else{
+            res.json()
+        }
+
+    }
+    catch(e){
+        res.json()
+    }
+})
+
 app.get("/addclub", (req, res)=>{
     
 }) 
