@@ -12,6 +12,8 @@ app.use(cors())
 app.get("/login",cors(),(req,res)=>{
 })
 
+
+
 app.post("/login",async(req,res)=>{
     const{username,password}=req.body
 
@@ -166,6 +168,19 @@ app.post("/addclub",async(req,res)=>{
         res.json("fail")
     }
 
+})
+
+app.get("/clubs", async (req, res) => {
+    try {
+        const clubs = await club_collection.find({});
+        //const payload = JSON.stringify(clubs)
+        console.log(clubs)
+        res.json(clubs)
+    } catch (e) {
+        console.log("Error!")
+        console.log(e)
+        res.json(e)
+    }
 })
 
 app.listen(8000,()=>{

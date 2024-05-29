@@ -1,0 +1,29 @@
+*{
+    overflow-y: scroll;
+    box-sizing: border-box;
+}
+.inputBar{
+    width: 95%;
+    height: 50px;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    font-size: 15px;
+}
+
+#clubName{
+    width: 35%;
+}
+
+#foundTime{
+    width: 35%;
+}
+
+#description{
+    height: 100px;
+}
+
+#requirement{
+    height: 100px;
+}

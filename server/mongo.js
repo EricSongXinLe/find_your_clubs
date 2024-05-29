@@ -86,7 +86,7 @@ const clubsSchema=new mongoose.Schema({
     }
 })
 
-const applicationScehma=new mongoose.Schema({
+const applicationSchema=new mongoose.Schema({
     name:{
         type:String,
         required:true
@@ -111,6 +111,7 @@ const applicationScehma=new mongoose.Schema({
 
 const student_collection = mongoose.model("students",studentSchema)
 const club_collection = mongoose.model("clubs",clubsSchema)
+const application_collection = mongoose.model("applications",applicationSchema)
 
 app.get('/api/search', async (req, res) => {
     query = req.query.query;

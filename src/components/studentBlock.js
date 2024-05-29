@@ -1,5 +1,7 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 
 import '../styles.css';
 
@@ -17,10 +19,19 @@ function StudentBlock () {
         '../images/Econ-Panel.png'
       ];
       const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
-  const [clubs, setClubs] = useState([
-    { id: 1, image: 'image1.jpg', title: 'Club One', description: 'Description of Club One' },
-    { id: 2, image: 'image2.jpg', title: 'Club Two', description: 'Description of Club Two' },
-  ]);
+  const [clubs, setClubs] = useState([]);
+  useEffect(() => {
+    axios.get('http://localhost:8000/clubs')
+        .then((response) => {
+            setClubs(response.data);
+            console.log('Fetched clubs:', clubs);
+            //setClubs(response.data);
+        })
+        .catch(error => {
+            console.error('Error fetching clubs:', error);
+        });
+}
+, []);
     return (
         <div class ="web_page_container">
             <div class="left_cont">
@@ -39,9 +50,9 @@ function StudentBlock () {
                 {selected === 'search' && <SearchBar />}
                 {
                     <div className="club-box">
-                        <ClubBlock image={require('../images/logo.webp')} title="Club 1" description="Description of Club 1" />
-                        <ClubBlock image={require('../images/logo.webp')} title="Club 2" description="Description of Club 2" />
-                        <ClubBlock image={require('../images/logo.webp')} title="Club 3" description="Description of Club 3" />
+                        <ClubBlock image={require('../images/logo.webp')} title={""} description="Description of Club 1" />
+                        <ClubBlock image={require('../images/logo.webp')} title={""} description="Description of Club 2" />
+                        <ClubBlock image={require('../images/logo.webp')} title={""} description="Description of Club 3" />
                     </div>
                 }
             </div>

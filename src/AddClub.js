@@ -3,6 +3,7 @@ import axios from "axios"
 import { useNavigate, Link } from "react-router-dom"
 import e from "cors"
 
+import './addclub.css'
 
 function AddClub() {
 
@@ -25,16 +26,27 @@ function AddClub() {
     let tagsList = []
     async function data_process(e){
         var timeArray = time.split('-')
-            
+        
         year = timeArray[0]
         month = timeArray[1]
         date = timeArray[2]
         if (isNaN(year) || isNaN(month) || isNaN(date))
             {
-                alert("Please follow the right format of founding time")
+                alert("Please follow the right format of founding time!")
                 return;
             }
         foundingTime = new Date(year, month, date)
+        if (clubname == "" || clubdescription == "" || requirement == "")
+            {
+                alert("Please fill in all the required fields!")
+                return;
+            }
+        if (cs == false && math == false && physics == false && economics == false && ds == false && me == false)
+            {
+                alert("Please select at least one tag!")
+                return;
+            }
+        
 
         // const tagsBoolList = [cs, math, physics, economics, ds, me]
         // const options = ["cs" ,"math", "physics", "economics", "ds", "me"]
@@ -54,18 +66,17 @@ function AddClub() {
 
         console.log("Test")
        
-        console.log("tags!", tagsList)
+        //console.log("tags!", tagsList)
 
         
         submit_club()
+        window.location.href ='/'
     }
 
     async function submit_club(e){
         // e.preventDefault();
         // console.log(time)
         // try{
-         
-
         try{
             
             await axios.post("http://localhost:8000/addclub",{
@@ -90,16 +101,16 @@ function AddClub() {
     }
 
     return (
-        <div className="login">
+        <div className="addClubBody">
 
-            <h1>Create a Club</h1>
+            <h2>Create a Club</h2>
 
             <form action="POST">
-                <h2>Club Name</h2> 
-                <input type="clubname" onChange={(e) => { setClubname(e.target.value) }} placeholder="Eg: SouLA" />
+                <h3>Club Name</h3> 
+                <input className="inputBar" id="clubName" onChange={(e) => { setClubname(e.target.value) }} placeholder="Eg: SouLA" />
                <br></br>
-               <h2>Founding Time</h2>   
-               <input type="foundingdate" onChange={(e) => { setTime(e.target.value) }} placeholder="YYYY-MM-DD" />
+               <h3>Founding Time</h3>   
+               <input className="inputBar" id="foundTime"type="foundingdate" onChange={(e) => { setTime(e.target.value) }} placeholder="YYYY-MM-DD" />
   {/* <label for="year">Year:</label>
   <input type="number" id="year" name="year" min="1900" max="2100" onChange={(e) => {setYear(e.target.value)}} required/>
 
@@ -109,23 +120,23 @@ function AddClub() {
   <label for="date">Date:</label>
   <input type="number" id="date" name="date" min="1" max="31" onChange={(e) => {setDate(e.target.value)}} required/> */}
   <br></br>
-          <h2> Club Description</h2> 
-                <input type="description" onChange={(e) => { setClubdescription(e.target.value) }} placeholder="Please give a brief club description in less than 200 words" />
+          <h3> Club Description</h3> 
+                <input className="inputBar" id="description" onChange={(e) => { setClubdescription(e.target.value) }} placeholder="Please give a brief club description in less than 200 words" />
   <br></br>
-          <h2> Application Requirement </h2> 
-                <input type="requirement" onChange={(e) => { setRequirement(e.target.value) }} placeholder="Requirements for club entry" />
+          <h3> Application Requirement </h3> 
+                <input className="inputBar" id="requirement" onChange={(e) => { setRequirement(e.target.value) }} placeholder="Requirements for club entry" />
 
                 
             </form>
-            <h2>Please add area tags for your club (Ctrl/command click for multiple selection)</h2>
+            <h3>Please add area tags for your club (Ctrl/command click for multiple selection)</h3>
             <form id="tagForm">
             <select multiple size="6"> 
-                <option value="Computer Science" onClick={(e) => {setCs(true),  console.log("Hello")}}>Computer Science</option> 
-                <option value="Math" onClick={(e) => {setMath(true)}}>Math</option> 
-                <option value="Physics" onClick={(e) => {setPhysics(true)}}>Physics</option> 
-                <option value="Economics" onClick={(e) => {setEconomics(true)}}>Economics</option> 
-                <option value="Data Science" onClick={(e) => {setDs(true)}}>Data Science</option> 
-                <option value="Material Engineering" onClick={(e) => {setMe(true)}}>Material Engineering</option> 
+                <option value="Computer Science" onClick={(e) => {setCs(!cs),  console.log("Hello")}}>Computer Science</option> 
+                <option value="Math" onClick={(e) => {setMath(!math)}}>Math</option> 
+                <option value="Physics" onClick={(e) => {setPhysics(!physics)}}>Physics</option> 
+                <option value="Economics" onClick={(e) => {setEconomics(!economics)}}>Economics</option> 
+                <option value="Data Science" onClick={(e) => {setDs(!ds)}}>Data Science</option> 
+                <option value="Material Engineering" onClick={(e) => {setMe(!me)}}>Material Engineering</option> 
             </select>
     </form>
     <input type="submit" onClick={data_process} />
