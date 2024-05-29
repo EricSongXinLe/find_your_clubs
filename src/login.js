@@ -1,41 +1,73 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react"
+import axios from "axios"
+import { useNavigate, Link } from "react-router-dom"
 
-const Login = () => {
-    const [activePanel, setActivePanel] = useState('login');  // State to track which panel is active
+import './login.css'
 
-    // Toggle function to switch panels
-    const togglePanel = () => {
-        setActivePanel(activePanel === 'login' ? 'register' : 'login');
-    };
+function Login() {
+    const history=useNavigate();
+
+    const [username, setUsername] = useState('')
+    const [password,setPassword]=useState('')
+    async function submit(e){
+        e.preventDefault();
+        if(username==""){
+            alert("Username is empty!")
+            return
+        } 
+        if(password==""){
+            alert("Password is empty!")
+            return
+        }
+        try{
+            await axios.post("http://localhost:8000/login",{
+                username,password
+            })
+            .then(res=>{
+                if(res.data=="notmatch"){
+                    alert("Wrong password")
+                    return
+                }
+                else if(res.data=="notexist"){
+                    alert("User does not exist")
+                    return
+                }
+                else if(res.data=="successLeader"){
+                    history("/",{state:{username:username, userIsClubLeader:true}}) //passes the username as the id in the next page
+                    console.log("Logged in")
+                }
+                else if(res.data=="successStudent"){
+                    history("/",{state:{username:username, userIsClubLeader:false}}) //passes the username as the id in the next page
+                    console.log("Logged in")
+                }
+            })
+            .catch(e=>{
+                alert("An error occured")
+                console.log(e);
+            })
+
+        }
+        catch(e){
+            alert("An error occured")
+            console.log(e);
+        }
+
+    }
+
 
     return (
-        <div className="container">
-            <div className="login" style={{ display: activePanel === 'login' ? 'block' : 'none' }}>
-                <form className="form" id="Form2">
-                    <h2 className="title">Login</h2>
-                    <input type="email" placeholder="email" className="input" />
-                    <input type="password" placeholder="password" className="input" />
-                    <a href="#" className="link">
-                        Forgot password?
-                    </a>
-                    <button className="btn">Login</button>
-                </form>
-                <button className="switchBtn" onClick={togglePanel}>Create an Account</button>
-            </div>
-
-            <div className="register" style={{ display: activePanel === 'register' ? 'block' : 'none' }}>
-                <form className="form" id="Form1">
-                    <h2 className="title">Create an Account</h2>
-                    <input type="text" placeholder="username" className="input" />
-                    <input type="email" placeholder="email" className="input" />
-                    <input type="password" placeholder="password" className="input" />
-                    <button className="btn">Create Account</button>
-                </form>
-                <button className="switchBtn" onClick={togglePanel}>Back to Login</button>
-            </div>
+        <div className="login">
+        <link rel="stylesheet" href="signup.css" />
+            <h1>Login</h1>
+            <form action="POST">
+                <input class="textInput" type="text" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username" />
+                <input class="textInput" type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
+                <br/>
+                <input class= "submitButton" type="submit" onClick={submit} />
+            </form>
+            <Link to="/signup">Back to Signup</Link>
         </div>
-    );
+    )
 }
-
-export default Login;
-
+// Citation for the check switch https://www.w3schools.com/howto/howto_css_switch.asp
+export default Login

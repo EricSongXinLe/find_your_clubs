@@ -13,12 +13,12 @@ app.get("/login",cors(),(req,res)=>{
 })
 
 app.post("/login",async(req,res)=>{
-    const{email,password}=req.body
+    const{username,password}=req.body
 
     try{
-        const checkExist=await student_collection.findOne({email:email})
-        const checkMatch=await student_collection.findOne({email:email, password:password})
-
+        const checkExist=await student_collection.findOne({username:username})
+        const checkMatch=await student_collection.findOne({username:username, password:password})
+        const userIsClubLeader = await student_collection.findOne({username:username, userIsClubLeader: true})
         if(!checkExist){
             res.json("notexist")
         }
@@ -26,7 +26,12 @@ app.post("/login",async(req,res)=>{
             res.json("notmatch")
         }
         else{
-            res.json("exist")
+            if (userIsClubLeader){
+                res.json("successLeader")
+            }
+            else{
+                res.json("successStudent")
+            }
         }
 
     }
@@ -48,7 +53,7 @@ app.post("/signup",async(req,res)=>{
     }
 
     try{
-        const check=await student_collection.findOne({email:email})
+        const check=await student_collection.findOne({username:username})
 
         if(check){
             res.json("exist")

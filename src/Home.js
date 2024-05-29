@@ -4,16 +4,9 @@ import { useState } from 'react';
 
 import { useLocation } from "react-router-dom";
 import AddClub from './AddClub';
+import StudentBlock from './components/studentBlock';
 import Welcome from './components/welcomeModule';
-import ModeSelector from './components/changeMode';import ClubBlock from './components/clubBlock';
-import SearchBar from './components/searchBar';
-import FilterBar from './components/filterBar';
-import PhotoDisplay from './components/photoDisplay';
-const imageLst = [
-  './images/Racing-Car-Construction.png',
-  './images/Econ-Panel.png',
-  './images/Econ-Panel.png'
-];
+
 /*Now there are bugs in giving the whole array as a parameter. CHECK that later!*/
 export default function Home() {
 
@@ -21,9 +14,13 @@ export default function Home() {
   const username = location.state?.username || "Guest";
   const usertype = location.state?.userIsClubLeader ||  false;
   const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
-
+  const [clubs, setClubs] = useState([
+    // Dummy data for initial setup
+    { id: 1, image: 'image1.jpg', title: 'Club One', description: 'Description of Club One' },
+    { id: 2, image: 'image2.jpg', title: 'Club Two', description: 'Description of Club Two' },
+    //Delete this part and extract data from back-end!!!
+  ]);
   
-  const tags = ['Publish Time', 'Experience Needed', 'Popular'];
 
 
   useEffect(() => {
@@ -39,31 +36,7 @@ export default function Home() {
       </header>
       <Welcome userName={username}/>
       <div class ="web_page_container">
-        <div class = "left_cont">
-          <div class="FilterBar">
-      <FilterBar tags={tags}/>
-          </div>
-        </div>
-
-        <div class = "mid_cont">
-          {usertype ? <AddClub /> : <PhotoDisplay images={imageLst} />}
-        </div>
-
-        <div class = "right_cont">
-          {usertype? <></>: <ModeSelector m_mode={selected} m_setMode={setSelected}/>}
-        
-      {selected==='search'&& <SearchBar />}  
-      {
-        usertype? <></>: 
-        <div className="club-box">
-          <ClubBlock image={require('./images/logo.webp')} title="Club 1" description="Description of Club 1" />
-          <ClubBlock image={require('./images/logo.webp')} title="Club 2" description="Description of Club 2" />
-          <ClubBlock image={require('./images/logo.webp')} title="Club 3" description="Description of Club 3" />
-        </div>
-      }
-      
-        </div>
-      
+        {usertype ? <AddClub /> : <StudentBlock />}
       </div>
       <footer id="citation"> 
         <a target="_blank" h="https://icons8.com/icon/e4NkZ7kWAD7f/search">Search</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
