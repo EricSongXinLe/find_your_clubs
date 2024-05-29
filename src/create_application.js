@@ -1,13 +1,21 @@
 import axios from "axios"
 
+// input questions
 const inputs = ["name", "email", "gender", "birthday"];
 const input_num = inputs.length;
+const input_titles = [];
+for (let i = 0; i < input_num; i++)
+  input_titles.push("What is your " + inputs[i] + "?*");
+
+// selection questions
 const selections = ["year of graduation"];
+const selection_titles = [];
+selection_titles.push("What is your Year of Graduation?*");
 const selection_num = selections.length;
 
 
-
 function Create() {
+  // a string that lists out the general questions
   let question_str = inputs[0];
   for (let i = 1; i < input_num; i++)
   {
@@ -50,23 +58,29 @@ function Create() {
 }
 
 function saveForm() {
-  let creations = []
+  // gather supplementary questions from input boxes
+  let supplementary_questions = []
   for (let i = 1; i <= 3; i++)
   {
     let created_question = document.getElementById("club designed question " + String(i) + " input box");
-    if (created_question.value == "")
+    if (created_question.value == "") // only add the boxes with answer
       continue;
-    creations.push(created_question.value);
+    supplementary_questions.push(created_question.value);
   }
 
-  postForm(creations);
+  // generate the general question list
+  let general_questions = structuredClone(input_titles);
+  general_questions.splice(3, 0, selection_titles[0]);
+
+  // send both question lists to database
+  postForm(general_questions, supplementary_questions);
 }
 
-async function postForm(creations)
+async function postForm(general_questions, supplementary_questions)
 {
   try{  
     await axios.post("http://localhost:8000/create",{
-        creations
+        general_questions, supplementary_questions
     })
     .then(res=>{
         if(res.data=="exist"){
