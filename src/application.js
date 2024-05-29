@@ -1,22 +1,23 @@
 import {useState} from "react";
 import axios from "axios"
 
-const inputList = ["name", "email", "gender", "birthday"];
-const input_num = inputList.length;
-const inputHintList = [];
-const inputTitleList = [];
+const inputs = ["name", "email", "gender", "birthday"];
+const input_num = inputs.length;
+const input_hints = [];
+const input_titles = [];
 for (let i = 0; i < input_num; i++)
 {
-  inputHintList.push("Enter your " + inputList[i] + " here");
-  inputTitleList.push("What is your " + inputList[i] + "?*");
+  input_hints.push("Enter your " + inputs[i] + " here");
+  input_titles.push("What is your " + inputs[i] + "?*");
 }
 
-const selectionTitleList = [];
-selectionTitleList.push("What is your Year of Graduation?*");
-const selection_num = selectionTitleList.length;
+const selections = ["year of graduation"];
+const selection_titles = [];
+selection_titles.push("What is your Year of Graduation?*");
+const selection_num = selections.length;
 
 
-function saveData() {
+function saveAnswer() {
   // var fs = require('fs');
   // fs.appendFile("testOutput.txt", "Hello World");
   // console.log(fs.readFile("testInput.txt"));
@@ -26,18 +27,18 @@ function saveData() {
 
   for (let i = 0; i < input_num; i++)
     {
-      let text_box = document.getElementById(inputList[i]);
+      let text_box = document.getElementById(inputs[i]);
       let question = document.getElementById("iTitle" + String(i));
       if (text_box.value == "") // if empty
       {
-        question.innerHTML = inputTitleList[i] + " Required";
+        question.innerHTML = input_titles[i] + " Required";
         question.style.color = '#FF5733';
         finished = false;
       }
-      else if (question.innerHTML != inputTitleList[i]) // revert to normal
+      else if (question.innerHTML != input_titles[i]) // revert to normal
       {
         question.style.color = '#000000';
-        question.innerHTML = inputTitleList[i];
+        question.innerHTML = input_titles[i];
       }
     }
 
@@ -48,13 +49,13 @@ function saveData() {
     if (selection.value == "select") // if no selection
     {
       select.style.color='#FF5733';
-      select.innerHTML = selectionTitleList[i] + " Required";
+      select.innerHTML = selection_titles[i] + " Required";
       finished = false;
     }
-    else if (select.innerHTML != selectionTitleList[i]) // revert to normal
+    else if (select.innerHTML != selection_titles[i]) // revert to normal
     {
       select.style.color='#000000';
-      select.innerHTML = selectionTitleList[i];
+      select.innerHTML = selection_titles[i];
     }
   }
 
@@ -65,7 +66,7 @@ function saveData() {
 
   for (let i = 0; i < input_num; i++)
   {
-    let text_box = document.getElementById(inputList[i]);
+    let text_box = document.getElementById(inputs[i]);
     answer_list.push(text_box.value);
   }
 
@@ -75,17 +76,73 @@ function saveData() {
     answer_list.push(selection.value);
   }
   
-  postData(answer_list);
+  postAnswer(answer_list);
 
   document.getElementById('texto').innerHTML = "Happy Birthday".concat(
-    " ", document.getElementById(inputList[0]).value);
+    " ", document.getElementById(inputs[0]).value);
 
 }
 
-async function postData(answer_list)
+function Apply() {
+  
+  // let inputs = createInputs();
+  // console.log(inputs[0])
+
+  let block_list = [];
+  let title_list = [];
+  
+  for (let i = 0; i < input_num; i++) {
+    block_list.push(<input type="text" name="" id={inputs[i]} placeholder={input_hints[i]}></input>);
+    title_list.push(<p className="text" id={"iTitle" + String(i)}>{input_titles[i]}</p>)
+  }
+  // let a = <input type="text" name="" id="myform" placeholder="Enter your name here"></input>;
+  // let sh = String(inputs[0]);
+
+  // created_questions = db.user.find({clubname: {clubname}}, {created_questions: 1});
+  
+
+
+  return (
+  <>
+    <div className="row">
+      {title_list[0]}
+      {block_list[0]}
+    </div>
+    <div className="row">
+      {title_list[1]}
+      {block_list[1]}
+    </div>
+    <div className="row">
+      {title_list[2]}
+      {block_list[2]}
+    </div>
+    
+    <div className="row">
+      <p name="text" id="sTitle">{selection_titles[0]}</p><p></p>
+      <select name="drop1" id="Select1">
+        <option value="select">select</option>
+        <option value="2024">2024</option>  
+        <option value="2025">2025</option>
+        <option value="2026">2026</option>
+        <option value="2027">2027</option>
+      </select><p></p>
+    </div>
+
+    <div className="row">
+      {title_list[3]}
+      {block_list[3]}
+    </div>
+    
+    <button id="submit application button" onClick={saveAnswer}>Submit</button>
+    <p id="texto"></p>
+  </>
+  );
+}
+
+async function postAnswer(answer_list)
 {
   try{  
-    await axios.post("http://localhost:8000/application",{
+    await axios.post("http://localhost:8000/apply",{
         answer_list
     })
     .then(res=>{
@@ -106,59 +163,39 @@ async function postData(answer_list)
   }
 }
 
+/*
+async function getCreation(e){
+  e.preventDefault();
 
+  try{
 
-function Application() {
-  
-  // let inputs = createInputs();
-  // console.log(inputs[0])
+      await axios.post("http://localhost:8000/club_search",{
+          clubname
+      })
+      .then(res=>{
+          if(res.data){
+              alert("Club found")
+          }
+          else{
+              alert("Club not found")
+          }
+      })
+      .catch(e=>{
+          alert("An error occurred")
+          console.log(e);
+      })
 
-  let block_list = [];
-  let title_list = [];
-  
-  for (let i = 0; i < input_num; i++) {
-    block_list.push(<input type="text" name="" id={inputList[i]} placeholder={inputHintList[i]}></input>);
-    title_list.push(<div className="text" id={"iTitle" + String(i)}>{inputTitleList[i]}</div>)
   }
-  // let a = <input type="text" name="" id="myform" placeholder="Enter your name here"></input>;
-  // let sh = String(inputs[0]);
+  catch(e){
+      console.log(e);
 
+  }
 
-  
+  res
 
-  return (
-  <>
-    <div className="row">
-      {title_list[0]}
-      {block_list[0]}
-    </div>
-    <div className="row">
-      {title_list[1]}
-      {block_list[1]}
-    </div>
-    <div className="row">
-      {title_list[2]}
-      {block_list[2]}
-    </div>
-    
-    <div className="text" id="sTitle">{selectionTitleList[0]}</div><p></p>
-    <select name="drop1" id="Select1">
-      <option value="select">select</option>
-      <option value="2024">2024</option>
-      <option value="2025">2025</option>
-      <option value="2026">2026</option>
-      <option value="2027">2027</option>
-    </select><p></p>
-    
-    <div className="row">
-      {title_list[3]}
-      {block_list[3]}
-    </div>
-    
-    <button id="button" onClick={saveData}>Click Me</button>
-    <p id="texto"></p>
-  </>
-  );
 }
+*/
 
-export default Application
+
+export default Apply;
+// export default {Apply, Create};
