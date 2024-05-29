@@ -90,10 +90,10 @@ async function postData(answer_list)
     })
     .then(res=>{
         if(res.data=="exist"){
-            alert("Answer already exists")
+            alert("You've already submitted the application")
         }
         else if(res.data=="added"){
-            alert("Answer added")
+            alert("Application submitted successfully")
         }
     })
     .catch(e=>{
