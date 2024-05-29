@@ -17,7 +17,7 @@ const [query, setQuery] = useState('');
 async function handleInputChange(e)  {
         e.preventDefault();
         try{
-            
+
             // console.log(search)
             await axios.get('http://localhost:8000/search', { params: { clubname: search } })
             .then(
@@ -27,16 +27,11 @@ async function handleInputChange(e)  {
                     }
                     else{
                         setClubInfo(res.data);
-                        console.log(clubinfo["clubdescription"])
-                        // console.log(clubinfo.clubname)
                     }
                 }
             ).catch((e)=>
                 console.log(e)
-            )
-            
-                
-                
+            )        
         }
         catch(e){
             console.log(e);

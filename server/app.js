@@ -138,18 +138,14 @@ app.post("/application", async(req, res)=>{
 
 app.get('/search', async(req, res)=>{
     const clubname = req.query.clubname;
-    console.log("AHAHAHAH")
     // console.log(clubname)
     try{
         const clubdata = await club_collection.findOne({clubname:clubname})
-        console.log("BBBBB")
         console.log(clubdata)
         // await club_collection.findOne({clubname:clubname})
         if (clubdata) {
             res.json(clubdata)
-            console.log("CCCCC")
             console.log(clubdata)
-            console.log("DDDDD")
         }
         else{
             res.json("fail")
