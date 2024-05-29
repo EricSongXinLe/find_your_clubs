@@ -19,15 +19,51 @@ function saveData() {
     //file.writeln(document.getElementById(questionList[i]).value);
     //fs.writeFile(path, document.getElementById(questionList[i]).value);
   }
+<<<<<<< Updated upstream
+=======
+
+  for (let i = 0; i < selection_num; i++)
+  {
+    let selection = document.getElementById("Select1");
+    answer_list.push(selection.value);
+  }
+  console.log(answer_list)
+  postData(answer_list);
+
+>>>>>>> Stashed changes
   document.getElementById('texto').innerHTML = "Happy Birthday".concat(
     " ", document.getElementById(questionList[0]).value);
 }
 
+<<<<<<< Updated upstream
 function createInputs() {
   let inputs = [];
   for (let i = 0; i < questionList.legth; i++) {
     let a = <input type="text" name="" id={questionList[i]} placeholder="Enter your name here"></input>
     inputs.push(a);
+=======
+async function postData(answer_list)
+{
+  try{  
+    await axios.post("http://localhost:8000/application",{
+        answer_list
+    })
+    .then(res=>{
+        if(res.data=="exist"){
+            alert("You've already submitted application")
+        }
+        else if(res.data=="added"){
+            alert("Application submitted successfully")
+        }
+    })
+    .catch(e=>{
+        alert("An error occured")
+        console.log(e);
+    })
+  }
+  catch(e){
+      console.log(e);
+>>>>>>> Stashed changes
   }
   return inputs;
 }

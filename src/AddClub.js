@@ -36,21 +36,21 @@ function AddClub() {
             }
         foundingTime = new Date(year, month, date)
 
-        const tagsBoolList = [cs, math, physics, economics, ds, me]
-        const options = ["cs" ,"math", "physics", "economics", "ds", "me"]
+        // const tagsBoolList = [cs, math, physics, economics, ds, me]
+        // const options = ["cs" ,"math", "physics", "economics", "ds", "me"]
 
-        if (cs)
-            tagsList.push("cs")
-        if (math)
-            tagsList.push("math")
-        if (physics)
-            tagsList.push("physics")
-        if (economics)
-            tagsList.push("economics")
-        if (ds)
-            tagsList.push("ds")
-        if (me)
-            tagsList.push("me")
+        // if (cs)
+        //     tagsList.push("cs")
+        // if (math)
+        //     tagsList.push("math")
+        // if (physics)
+        //     tagsList.push("physics")
+        // if (economics)
+        //     tagsList.push("economics")
+        // if (ds)
+        //     tagsList.push("ds")
+        // if (me)
+        //     tagsList.push("me")
 
         console.log("Test")
        
@@ -69,7 +69,7 @@ function AddClub() {
         try{
             
             await axios.post("http://localhost:8000/addclub",{
-                clubname, foundingTime, tagsList, clubdescription, requirement
+                clubname, foundingTime, tagsList, clubdescription, requirement, cs, math, physics, economics, ds, me
             })
             .then(res=>{
                 if(res.data=="exist"){
