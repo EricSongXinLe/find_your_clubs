@@ -6,6 +6,7 @@ import { UserContext } from './userContext';
 
 const ClubDetails = () => {
   const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
   const [club, setClub] = useState({
