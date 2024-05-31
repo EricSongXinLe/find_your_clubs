@@ -23,11 +23,11 @@ async function handleInputChange(e)  {
             .then(
                 res=>{
                     if(res.data=="fail"){
-                        alert("Club not exist!")
+                        alert("Club "+search+" does not not exist!")
                     }
                     else{
                         setClubInfo(res.data);
-                        
+                        console.log(clubinfo)
                     }
                 }
             ).catch((e)=>

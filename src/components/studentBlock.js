@@ -39,9 +39,14 @@ function StudentBlock () {
                 {selected === 'search' && <SearchBar />}
                 {
                     <div className="club-box">
-                        <ClubBlock image={require('../images/logo.webp')} title="Club 1" description="Description of Club 1" />
-                        <ClubBlock image={require('../images/logo.webp')} title="Club 2" description="Description of Club 2" />
-                        <ClubBlock image={require('../images/logo.webp')} title="Club 3" description="Description of Club 3" />
+                        {clubs.map((club) => (
+                        <ClubBlock
+                            key={club.id}
+                            image={require('../images/logo.webp')}
+                            title={club.title}
+                            description={club.description}
+                        />
+                    ))}
                     </div>
                 }
             </div>
