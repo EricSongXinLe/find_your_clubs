@@ -33,16 +33,19 @@ const studentSchema=new mongoose.Schema({
     }
 })
 
-const clubsSchema=new mongoose.Schema({
-    clubname:{
-        type:String,
-        required:true
+const clubsSchema = new mongoose.Schema({
+    clubname: {
+      type: String,
+      required: true
     },
-    clubimg:{
-        data: Buffer, 
-        contentType: String
-    }
-})
+    image: String,
+    title: String,
+    description: String,
+    requirements: String,
+    tag: String,
+    application: String,
+    activitytime: String
+  });
 
 const student_collection = mongoose.model("students",studentSchema)
 const club_collection = mongoose.model("clubs",clubsSchema)

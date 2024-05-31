@@ -6,6 +6,7 @@ const ClubBlock = ({ image, title, description, id }) => {
 
   const handleClick = () => {
     navigate(`/club/${id}`);
+    // fetch the id here
   };
 
   return (
