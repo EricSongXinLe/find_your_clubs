@@ -56,6 +56,7 @@ const updateClubs = (newClubInfo) => {
                         <ClubBlock
                             image={require('../images/logo.webp')}
                             title={club.title}
+                            id={club.title}
                         />
                     ))}
                     </div>

@@ -176,7 +176,7 @@ app.get('/search', async(req, res)=>{
 
 
 app.post("/addclub",async(req,res)=>{
-    const{clubname, foundingTime, tagsList, clubdescription, requirement, cs, math, physics, economics, ds, me} = req.body
+    const{clubname, foundingTime, tagsList, clubdescription, requirement, cs, math, physics, economics, ds, me, activityTime} = req.body
 
     const data={
         clubname: clubname,
@@ -185,8 +185,8 @@ app.post("/addclub",async(req,res)=>{
         clubdescription : clubdescription, 
         requirement : requirement,
         cs:cs,
-        math:math, physics:physics, economics:economics, ds:ds, me:me
-        
+        math:math, physics:physics, economics:economics, ds:ds, me:me,
+        activityTime:activityTime
     }
 
     try{

@@ -1,47 +1,45 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, act } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './clubDetail.css';
 import { FaStar } from 'react-icons/fa';
 import { UserContext } from './userContext';
+import axios from "axios"
 
 const ClubDetails = () => {
   const { id } = useParams();
+  console.log(id);
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
-  const [club, setClub] = useState({
-    image: '',
-    title: '',
-    description: '',
-    requirements: '',
-    tag: '',
-    application: '', //Add Google link in this case.
-    activitytime: '',
-  });
+  const [club, setClub] = useState([]);
 
   const [isFavorited, setIsFavorited] = useState(false);
+  const transformClubData = (data) => {
+    return {
+        description: data.clubdescription,
+        requirements: data.requirement,
+        activitytime: data.activityTime,
+    };
+};
 
   // Simulating fetching data
   useEffect(() => {
-    // This is where you will fetch the data from your backend.
     
     const fetchClubDetails = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/club/${id}`);
-        if (response.ok) {
-          const data = await response.json();
-          setClub({
-            image: data.image || '',
-            title: data.title || '',
-            description: data.description || '',
-            requirements: data.requirements || '',
-            tag: data.tag || '',
-            application: data.application || '',
-            activitytime: data.activitytime || '',
-          });
-        } else {
-          console.error('Failed to fetch club details:', response.statusText);
-        }
-      } catch (error) {
+
+        // console.log(search)
+        await axios.get('http://localhost:8000/search', { params: { clubname: id } })
+        .then(
+            res=>{
+              console.log(res.data);
+              const transformedData = transformClubData(res.data);
+              setClub(transformedData);
+            }
+        ).catch((e)=>
+            console.log(e)
+        ) 
+      }
+        catch (error) {
         console.error('Error occurred while fetching club details:', error);
       }
     };
@@ -99,7 +97,7 @@ const ClubDetails = () => {
         <FaStar color={isFavorited ? 'yellow' : 'grey'} size={26} />
       </div>
       <div className="club-header">
-        <h1 className="club-title">{club.title}</h1>
+        <h1 className="club-title">{id}</h1>
         <p className="club-requirements"><strong>Requirements:</strong> {club.requirements}</p>
         <p className="club-tag"><strong>Tag:</strong> {club.tag}</p>
       </div>

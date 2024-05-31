@@ -9,6 +9,8 @@ function AddClub() {
     const [clubname, setClubname] = useState('')
     const [clubdescription, setClubdescription] = useState('')
     const [requirement, setRequirement] = useState('')
+    const [activityTime, setActivityTime] = useState('')
+    const [optionalLink, setOptionalLink] = useState('')
     const [tags, setTags] = useState('[]')
 
     
@@ -69,7 +71,7 @@ function AddClub() {
         try{
             
             await axios.post("http://localhost:8000/addclub",{
-                clubname, foundingTime, tagsList, clubdescription, requirement, cs, math, physics, economics, ds, me
+                clubname, foundingTime, tagsList, clubdescription, requirement, activityTime, optionalLink, cs, math, physics, economics, ds, me
             })
             .then(res=>{
                 if(res.data=="exist"){
@@ -114,6 +116,13 @@ function AddClub() {
   <br></br>
           <h2> Application Requirement </h2> 
                 <input type="requirement" onChange={(e) => { setRequirement(e.target.value) }} placeholder="Requirements for club entry" />
+   <br></br>
+          <h2> Activity Time Period </h2> 
+                <input type="activiT" onChange={(e) => { setActivityTime(e.target.value) }} placeholder="MWF 8-10 pm" />
+  <br></br>
+          <h2> Do you want to use External link for Application? i.e. Google Form link </h2> 
+                <input type="link" onChange={(e) => { setOptionalLink(e.target.value) }} placeholder="www.apply.com" />
+
 
                 
             </form>
