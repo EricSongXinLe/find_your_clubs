@@ -25,6 +25,10 @@ const studentSchema=new mongoose.Schema({
     userIsClubLeader:{
         type:Boolean,
         required:true
+    },
+    interestArr:{
+        type:Array,
+        required: false
     }
 })
 

@@ -37,7 +37,15 @@ function Signup() {
                     alert("User already exists")
                 }
                 else if(res.data=="notexist"){
-                    history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}}) //passes the username as the id in the next page
+                    //  //passes the username as the id in the next page
+                    if (userIsClubLeader){
+                        history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}})
+                    }
+                    else{
+                        history("/studentpreference",{state:{username:username, userIsClubLeader:userIsClubLeader}})
+                    }
+                    
+                    
                     console.log("User created")
                 }
             })

@@ -186,6 +186,36 @@ app.post("/addclub",async(req,res)=>{
 
 })
 
+
+
+app.post("/addstupref",async(req,res)=>{
+    const{username, interestArr} = req.body
+
+    const data={
+        
+        
+    }
+
+    try{
+        const check=await student_collection.updateOne({username:username}, {$set:{interestArr: interestArr}})
+
+        if(check){
+            res.json("added")
+            
+        }
+        else{
+        
+            res.json("fail")
+        }
+        
+    }
+    catch(e){
+        res.json("fail")
+    }
+
+})
+
+
 app.listen(8000,()=>{
     console.log("port connected");
 })
