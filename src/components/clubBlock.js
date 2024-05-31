@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const ClubBlock = ({ image, title, description, id }) => {
+const ClubBlock = ({ image, title, id }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -13,7 +13,6 @@ const ClubBlock = ({ image, title, description, id }) => {
       <img src={image} id="club-image" alt="Club" />
       <div className="club-details">
         <h2 id="club-title">{title}</h2>
-        <p id="club-description">{description}</p>
       </div>
     </div>
   );

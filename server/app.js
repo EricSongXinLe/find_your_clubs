@@ -153,6 +153,28 @@ app.post("/application", async(req, res)=>{
         res.json("fail") }
 })
 
+
+app.get('/search', async(req, res)=>{
+    const clubname = req.query.clubname;
+    // console.log(clubname)
+    try{
+        const clubdata = await club_collection.findOne({clubname:clubname})
+        console.log(clubdata)
+        // await club_collection.findOne({clubname:clubname})
+        if (clubdata) {
+            res.json(clubdata)
+            console.log(clubdata)
+        }
+        else{
+            res.json("fail")
+        }
+    }
+    catch(e){
+        res.json("fail")
+    }
+})
+
+
 app.post("/addclub",async(req,res)=>{
     const{clubname, foundingTime, tagsList, clubdescription, requirement, cs, math, physics, economics, ds, me} = req.body
 
