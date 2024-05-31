@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, act } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './clubDetail.css';
 import { FaStar } from 'react-icons/fa';
@@ -17,6 +17,7 @@ const ClubDetails = () => {
     return {
         description: data.clubdescription,
         requirements: data.requirement,
+        activitytime: data.activityTime,
     };
 };
 

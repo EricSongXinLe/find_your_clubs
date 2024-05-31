@@ -82,6 +82,10 @@ const clubsSchema = new mongoose.Schema({
     me:{
         type:Boolean,
         required:true
+    },
+    activityTime:{
+        type:String,
+        required:true
     }
 })
 
