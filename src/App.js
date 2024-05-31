@@ -35,7 +35,7 @@ const router = createBrowserRouter([
     element: <AddClub/>,
   },
   {
-    path: "/club/:id",  // Add this route for club details
+    path: "/club/:id",  
     element: <ClubDetails />,
   },{
     path: "/apply",

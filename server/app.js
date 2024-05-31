@@ -207,7 +207,31 @@ app.post("/addclub",async(req,res)=>{
     }
 
 })
-
+//Potential Bugs here!!!!
+app.post('/favorite/:id', async (req, res) => {
+    const { id } = req.params;
+    const { userId, favorite } = req.body; 
+  
+    try {
+      const user = await student_collection.findById(userId);
+  
+      if (favorite) {
+        // Add club to favorites
+        if (!user.favClubs.includes(id)) {
+          user.favClubs.push(id);
+        }
+      } else {
+        // Remove club from favorites
+        user.favClubs = user.favClubs.filter(favId => favId.toString() !== id);
+      }
+  
+      await user.save();
+      res.status(200).json({ message: 'Favorites updated successfully' });
+    } catch (error) {
+      res.status(500).json({ message: 'Server error', error });
+    }
+  });
+//added end
 app.listen(8000,()=>{
     console.log("port connected");
 })

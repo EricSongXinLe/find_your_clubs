@@ -6,6 +6,8 @@ import { useLocation } from "react-router-dom";
 import AddClub from './AddClub';
 import StudentBlock from './components/studentBlock';
 import Welcome from './components/welcomeModule';
+import { useContext } from 'react';
+import { UserContext } from './userContext';
 
 /*Now there are bugs in giving the whole array as a parameter. CHECK that later!*/
 export default function Home() {
@@ -20,13 +22,14 @@ export default function Home() {
     { id: 2, image: 'image2.jpg', title: 'Club Two', description: 'Description of Club Two' },
     //Delete this part and extract data from back-end!!!
   ]);
-  
 
-
+  const { setUserId } = useContext(UserContext);
   useEffect(() => {
-  }, []);
+    // Fetch or set the userId
+    const fetchedUserId = username; 
+    setUserId(fetchedUserId);
+  }, [setUserId]);
 
-  
   return (
     <div>
       

@@ -25,14 +25,20 @@ const studentSchema=new mongoose.Schema({
     userIsClubLeader:{
         type:Boolean,
         required:true
+    },
+    favClubs: {
+        type: Array,
+        required: true,
+        default: [] 
     }
 })
 
-const clubsSchema=new mongoose.Schema({
-    clubname:{
-        type:String,
-        required:true
+const clubsSchema = new mongoose.Schema({
+    clubname: {
+      type: String,
+      required: true
     },
+  
     clubimg:{
         data: Buffer, 
         contentType: String
