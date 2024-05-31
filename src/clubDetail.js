@@ -22,7 +22,6 @@ const ClubDetails = () => {
 
   // Simulating fetching data
   useEffect(() => {
-    // This is where you will fetch the data from your backend.
     
     const fetchClubDetails = async () => {
       try {
