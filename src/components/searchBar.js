@@ -27,6 +27,7 @@ async function handleInputChange(e)  {
                     }
                     else{
                         setClubInfo(res.data);
+                        
                     }
                 }
             ).catch((e)=>
@@ -36,6 +37,7 @@ async function handleInputChange(e)  {
         catch(e){
             console.log(e);
         }
+        // console.log(clubinfo["clubname"])
     };
 
     const handleSearch = () => {
