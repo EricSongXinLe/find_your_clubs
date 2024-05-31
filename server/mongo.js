@@ -26,6 +26,10 @@ const studentSchema=new mongoose.Schema({
         type:Boolean,
         required:true
     },
+    interestArr:{
+        type:Array,
+        required: false
+    },
     favClubs: {
         type: Array,
         required: true,

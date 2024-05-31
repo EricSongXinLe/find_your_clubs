@@ -207,6 +207,36 @@ app.post("/addclub",async(req,res)=>{
     }
 
 })
+
+
+
+app.post("/addstupref",async(req,res)=>{
+    const{username, interestArr} = req.body
+
+    const data={
+        
+        
+    }
+
+    try{
+        const check=await student_collection.updateOne({username:username}, {$set:{interestArr: interestArr}})
+
+        if(check){
+            res.json("added")
+            
+        }
+        else{
+        
+            res.json("fail")
+        }
+        
+    }
+    catch(e){
+        res.json("fail")
+    }
+
+})
+
 //Potential Bugs here!!!!
 app.post('/favorite/:id', async (req, res) => {
     const { id } = req.params;
@@ -231,7 +261,6 @@ app.post('/favorite/:id', async (req, res) => {
       res.status(500).json({ message: 'Server error', error });
     }
   });
-//added end
 app.listen(8000,()=>{
     console.log("port connected");
 })
