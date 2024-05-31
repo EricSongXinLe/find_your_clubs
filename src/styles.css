@@ -92,6 +92,7 @@ input {
   align-items: flex-start;
   padding: 20px; 
   height: 100vh; 
+  width: 80vw;
 }
 
 .left_cont{
@@ -179,7 +180,6 @@ button {
 }
 
 .club-box{
-  margin-right: 150px;
   margin-left: auto;
   width: 40%;
   display: grid;
