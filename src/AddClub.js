@@ -19,6 +19,9 @@ function AddClub() {
     const [economics, setEconomics] = useState(false)
     const [ds, setDs] = useState(false)
     const [me, setMe] = useState(false)
+
+    const [activityTime, setActivityTime] = useState('')
+
     let year, month, date
 
     let foundingTime;
@@ -69,7 +72,7 @@ function AddClub() {
         try{
             
             await axios.post("http://localhost:8000/addclub",{
-                clubname, foundingTime, tagsList, clubdescription, requirement, cs, math, physics, economics, ds, me
+                clubname, foundingTime, tagsList, clubdescription, requirement, cs, math, physics, economics, ds, me, activityTime
             })
             .then(res=>{
                 if(res.data=="exist"){
@@ -114,6 +117,9 @@ function AddClub() {
   <br></br>
           <h2> Application Requirement </h2> 
                 <input type="requirement" onChange={(e) => { setRequirement(e.target.value) }} placeholder="Requirements for club entry" />
+<br></br>
+          <h2> Activity Time and Location </h2> 
+                <input type="requirement" onChange={(e) => { setActivityTime(e.target.value) }} placeholder="Activity Time and Location for club " />
 
                 
             </form>
