@@ -1,0 +1,103 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f9f9f9;
+  }
+  
+  .club-details-container {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    max-width: 1200px;
+    padding: 20px;
+    margin: 20px auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+  }
+  
+  .club-header {
+    flex: 0 1 auto;
+    margin-bottom: 20px;
+  }
+  
+  .club-title {
+    font-size: 2em;
+    margin: 0;
+  }
+  
+  .club-requirements,
+  .club-tag {
+    font-size: 1em;
+    margin: 5px 0;
+  }
+  
+  .club-image-container {
+    flex: 0 1 auto;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .club-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  .club-description-container {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding-right: 10px;
+    max-height: 400px;
+  }
+  
+  .club-description {
+    font-size: 1.2em;
+    line-height: 1.5;
+    white-space: pre-wrap;
+  }
+  
+  .club-footer {
+    flex: 0 1 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .club-application,
+  .club-activitytime {
+    font-size: 1em;
+  }
+  
+  .club-application a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .club-application a:hover {
+    text-decoration: underline;
+  }
+  
+  .navigate-button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 20px;
+    align-self: center;
+    transition: transform 0.2s, background-color 0.2s;
+  }
+  
+  .navigate-button:hover {
+    transform: scale(1.1);
+    background-color: #0056b3;
+  }
+  
