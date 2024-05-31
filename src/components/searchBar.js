@@ -8,11 +8,9 @@ import axios from "axios"
     // };
 
 
-const SearchBar = () => {
+const SearchBar = ({setSearchResults}) => {
 const [search, setSearch] = useState('')
 const [clubinfo, setClubInfo] = useState('')
-
-const [query, setQuery] = useState('');
 
 async function handleInputChange(e)  {
         e.preventDefault();
@@ -26,7 +24,7 @@ async function handleInputChange(e)  {
                         alert("Club "+search+" does not not exist!")
                     }
                     else{
-                        setClubInfo(res.data);
+                        setSearchResults(res.data);
                         console.log(clubinfo)
                     }
                 }
@@ -40,10 +38,6 @@ async function handleInputChange(e)  {
         // console.log(clubinfo["clubname"])
     };
 
-    const handleSearch = () => {
-        // Perform search logic here using the query
-        alert('Searching for: '+query);
-    };
     
     return (
         
