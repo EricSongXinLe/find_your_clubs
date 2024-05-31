@@ -38,7 +38,7 @@ export default function Home() {
         <h1>Find Your Clubs</h1>
       </header>
       <Welcome userName={username}/>
-      <div>
+      <div class ="web_page_container">
         {usertype ? <AddClub /> : <StudentBlock />}
       </div>
       <footer id="citation"> 
