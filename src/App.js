@@ -11,6 +11,7 @@ import Clubs from './Clubs'
 import AddClub from './AddClub.js'
 import ClubDetails from './clubDetail.js';
 import Application from './application.js'
+import ViewApp from './viewApp.js';
 
 const router = createBrowserRouter([
   {
@@ -39,6 +40,9 @@ const router = createBrowserRouter([
   },{
     path: "/application",
     element: <Application/>,
+  },{
+    path: "/ViewApp",
+    element: <ViewApp/>,
   }
 ]);
 
