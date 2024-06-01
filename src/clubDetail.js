@@ -12,7 +12,7 @@ const ClubDetails = () => {
   const { userId } = useContext(UserContext);
   console.log(userId);
   const [club, setClub] = useState([]);
-
+  let currUserFavClub = [];
   const [isFavorited, setIsFavorited] = useState(true);
   const transformClubData = (data) => {
     return {
@@ -65,6 +65,7 @@ const fetchStudent = (data) => {
                 console.log(222222222);
               }
               const idExists = studentData.favClubArr.includes(id);
+              currUserFavClub = studentData.favClubArr;
               console.log(idExists);
               setIsFavorited(idExists);
             }
@@ -106,19 +107,21 @@ const fetchStudent = (data) => {
 
  
  const toggleFavorite = async () => {
- //console.log(id);
+ //console.log(currUserFavClub); // Should do correct here
  try{
         
-  await axios.post("http://localhost:8000/favclubsupdate",{
-      username, favClubs
+  await axios.post("http://localhost:8000/favclubupdate",{
+      userId, currUserFavClub
   })
   .then(res=>{
-      if(res.data=="exist"){
+      if(res.data=="fail"){
           alert("123456")
+          setIsFavorited(!isFavorited);
       }
       else if(res.data=="added"){
           alert("45678 added")
-          history("/",{state:{username:id}})
+          setIsFavorited(!isFavorited);
+          
       }
   })
   .catch(e=>{
@@ -127,7 +130,7 @@ const fetchStudent = (data) => {
   })
 }
 catch(e){
-  console.log(e);
+  console.log(123123);
 }
 };
 
