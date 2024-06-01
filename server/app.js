@@ -190,6 +190,7 @@ app.post('/addclub', upload.single('clubimage'), async (req, res) => {
     try {
         const check = await club_collection.findOne({ clubname: clubname })
 
+
         if (check) {
             res.json("exist")
         }

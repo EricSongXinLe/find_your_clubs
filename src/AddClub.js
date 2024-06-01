@@ -17,6 +17,9 @@ function AddClub() {
     const [economics, setEconomics] = useState(false);
     const [ds, setDs] = useState(false);
     const [me, setMe] = useState(false);
+  
+    const interests = ["ComSci", "Math", "Physics", "Data Science", "Economics", "Mechanical Engineering"];
+    const input_num = interests.length;
 
     let year, month, date;
     let foundingTime;
@@ -32,6 +35,7 @@ function AddClub() {
             return;
         }
         foundingTime = new Date(year, month, date);
+
 
         submit_club();
     }
@@ -70,8 +74,21 @@ function AddClub() {
         } catch (error) {
             alert("An error occurred");
             console.log(error);
+
         }
     }
+  
+    let option_list = [];
+
+  for (let i = 0; i < input_num; i++) {
+
+    option_list.push( <option value={interests[i]} onClick={(e) => {
+        const newArr = interestArr.slice()
+      newArr.push(interests[i])
+      setInterestArr(newArr)
+    }}> {interests[i]}</option> );
+    
+  }
 
     const getImage = (e) => {
         setSelectedImage(e.target.files[0]);
