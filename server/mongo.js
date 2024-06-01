@@ -1,5 +1,6 @@
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://admin:CS35L@110.40.138.15:27017/admin")
+// mongoose.connect("mongodb://admin:CS35L@110.40.138.15:27017/admin")
+mongoose.connect("mongodb://localhost:27017/findyourclubDB")
 .then(()=>{
     console.log("mongodb connected");
 })
@@ -44,9 +45,9 @@ const clubsSchema = new mongoose.Schema({
     },
   
     clubimg:{
-        data: Buffer, 
-        contentType: String
+        type:Buffer,
     },
+
     foundingTime:{
         type:Date,
         required:true
