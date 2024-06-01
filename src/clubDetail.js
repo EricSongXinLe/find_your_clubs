@@ -35,10 +35,17 @@ const ClubDetails = () => {
         await axios.get('http://localhost:8000/search', { params: { clubname: id } })
         .then(
             res=>{
+              if(res.data == "fail"){
+                alert("Club not found")
+                window.location.href = "/";
+                return
+              }
+              else{
               const transformedData = transformClubData(res.data);
               setClub(transformedData);
               const base64 = Buffer.from(res.data.clubimg).toString('base64');
               setClubImg(`data:image/jpeg;base64,${base64}`);
+            }
             }
         ).catch((e)=>
             console.log(e)
