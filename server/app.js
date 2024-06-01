@@ -236,31 +236,52 @@ app.post("/addstupref",async(req,res)=>{
     }
 
 })
-
-//Potential Bugs here!!!!
-app.post('/favorite/:id', async (req, res) => {
-    const { id } = req.params;
-    const { userId, favorite } = req.body; 
-  
-    try {
-      const user = await student_collection.findById(userId);
-  
-      if (favorite) {
-        // Add club to favorites
-        if (!user.favClubs.includes(id)) {
-          user.favClubs.push(id);
+app.get('/favclub', async(req, res)=>{
+    const username = req.query.username;
+    console.log("HAHAHAHAHAHAHAHAH:",username)
+    try{
+        const favclubdata = await student_collection.findOne({username:username})
+        console.log(favclubdata)
+        // await club_collection.findOne({clubname:clubname})
+        if (favclubdata) {
+            res.json(favclubdata)
+            console.log(favclubdata)
         }
-      } else {
-        // Remove club from favorites
-        user.favClubs = user.favClubs.filter(favId => favId.toString() !== id);
-      }
-  
-      await user.save();
-      res.status(200).json({ message: 'Favorites updated successfully' });
-    } catch (error) {
-      res.status(500).json({ message: 'Server error', error });
+        else{
+            res.json("fail")
+        }
     }
-  });
+    catch(e){
+        res.json("fail")
+    }
+})
+
+app.post("/favclubupdate",async(req,res)=>{
+    const{username, favClubArr} = req.body
+
+    const data={
+    
+    }
+
+    try{
+        const check=await student_collection.updateOne({username:username}, {$set:{favClubs: favClubArr}})
+
+        if(check){
+            res.json("added")
+            
+        }
+        else{
+        
+            res.json("fail")
+        }
+        
+    }
+    catch(e){
+        res.json("fail")
+    }
+
+})
+
 app.listen(8000,()=>{
     console.log("port connected");
 })

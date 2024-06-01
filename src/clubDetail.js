@@ -10,9 +10,10 @@ const ClubDetails = () => {
   console.log(id);
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
+  console.log(userId);
   const [club, setClub] = useState([]);
 
-  const [isFavorited, setIsFavorited] = useState(false);
+  const [isFavorited, setIsFavorited] = useState(true);
   const transformClubData = (data) => {
     return {
         description: data.clubdescription,
@@ -21,7 +22,12 @@ const ClubDetails = () => {
     };
 };
 
-  // Simulating fetching data
+const fetchStudent = (data) => {
+  return {
+      favClubArr: data.favClubs
+  };
+};
+
   useEffect(() => {
     
     const fetchClubDetails = async () => {
@@ -42,6 +48,34 @@ const ClubDetails = () => {
         catch (error) {
         console.error('Error occurred while fetching club details:', error);
       }
+
+      //Added. May be wrong:
+      try {
+
+        // console.log(search)
+        await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
+        .then(
+            res=>{
+              console.log(res.data);
+              const studentData = fetchStudent(res.data);
+              console.log(studentData);
+              if(Array.isArray(studentData.favClubArr)){
+                console.log(111111111);
+              }else{
+                console.log(222222222);
+              }
+              const idExists = studentData.favClubArr.includes(id);
+              console.log(idExists);
+              setIsFavorited(idExists);
+            }
+        ).catch((e)=>
+            console.log(e)
+        ) 
+      }
+        catch (error) {
+        console.error('CANNOT find Fav Clubs', error);
+      }
+      //
     };
 
 
@@ -70,26 +104,33 @@ const ClubDetails = () => {
   */ 
  //Prev version. Now try the new version. 
 
+ 
  const toggleFavorite = async () => {
-  console.log(id);
-  try {
-    const response = await fetch(`http://localhost:8000/favorite/${id}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ userId, favorite: !isFavorited }),
-    });
-
-    if (response.ok) {
-      setIsFavorited(!isFavorited);
-    } else {
-      console.error('Failed to update favorite status:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error occurred while updating favorite status:', error);
-  }
+ //console.log(id);
+ try{
+        
+  await axios.post("http://localhost:8000/favclubsupdate",{
+      username, favClubs
+  })
+  .then(res=>{
+      if(res.data=="exist"){
+          alert("123456")
+      }
+      else if(res.data=="added"){
+          alert("45678 added")
+          history("/",{state:{username:id}})
+      }
+  })
+  .catch(e=>{
+      alert("An error occured")
+      console.log(e);
+  })
+}
+catch(e){
+  console.log(e);
+}
 };
+
 
   return (
     <div className="club-details-container">
