@@ -4,7 +4,7 @@ Confused about what all those clubs are about? Don't know where to apply for clu
 
 ### Set Up
 1. clone the git repository using terminal
-``git clone url``
+``git clone https://github.com/EricSongXinLe/find_your_clubs``
 2. Make sure you have Node.js installed, if not downland and install [here](https://nodejs.org/en/download/package-manager/current)
 3. ``cd ./find_your_clubs`` change directories into the cloned repository which is find_your_clubs
 4. ``npm install`` Install all the dependencies
@@ -20,6 +20,6 @@ Confused about what all those clubs are about? Don't know where to apply for clu
 6. Every club will have their own page that display description and provide link for applying.
 
 ### Bult with
-React - Frontend
+React - Frontend 
 MongoDB - Backend and Databases
 
