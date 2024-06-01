@@ -20,10 +20,9 @@ function Clubs() {
             })
             .then(res=>{
                 if(res.data){
-                    alert("Club found")
-                    console.log(res.data.clubimg)
-                    setClubname(res.data.clubname)
-                    setClubimg(res.data.clubimg)
+                    setClubname(res.data.clubname);
+                    const base64 = Buffer.from(res.data.clubimg).toString('base64');
+                    setClubimg(`data:image/jpeg;base64,${base64}`);
                 }
                 else{
                     alert("Club not found")
@@ -49,7 +48,7 @@ function Clubs() {
             <div>
                 <h1>{clubname}</h1>
                 {/* <p>{Buffer(clubimg).toString()}</p> */}
-                {clubimg && <img src={Buffer(clubimg)} alt="Club" />}
+                {clubimg && <img id="image" src={clubimg} alt="Club" />}
             </div>
         </div>
     )
