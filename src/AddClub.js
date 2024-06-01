@@ -9,6 +9,7 @@ function AddClub() {
     const [clubname, setClubname] = useState('')
     const [clubdescription, setClubdescription] = useState('')
     const [requirement, setRequirement] = useState('')
+    // const [tags, setTags] = useState()
     const [activityTime, setActivityTime] = useState('')
     const [optionalLink, setOptionalLink] = useState('')
     const [tags, setTags] = useState('[]')
@@ -21,9 +22,12 @@ function AddClub() {
     const [economics, setEconomics] = useState(false)
     const [ds, setDs] = useState(false)
     const [me, setMe] = useState(false)
+    const [interestArr, setInterestArr] = useState([]);
     let year, month, date
-
+    const interests = ["ComSci", "Math", "Physics", "Data Science", "Economics", "Mechanical Engineering"];
+    const input_num = interests.length;
     let foundingTime;
+    
     let tagsList = []
     async function data_process(e){
         var timeArray = time.split('-')
@@ -38,25 +42,6 @@ function AddClub() {
             }
         foundingTime = new Date(year, month, date)
 
-        // const tagsBoolList = [cs, math, physics, economics, ds, me]
-        // const options = ["cs" ,"math", "physics", "economics", "ds", "me"]
-
-        // if (cs)
-        //     tagsList.push("cs")
-        // if (math)
-        //     tagsList.push("math")
-        // if (physics)
-        //     tagsList.push("physics")
-        // if (economics)
-        //     tagsList.push("economics")
-        // if (ds)
-        //     tagsList.push("ds")
-        // if (me)
-        //     tagsList.push("me")
-
-        console.log("Test")
-       
-        console.log("tags!", tagsList)
 
         
         submit_club()
@@ -71,7 +56,7 @@ function AddClub() {
         try{
             
             await axios.post("http://localhost:8000/addclub",{
-                clubname, foundingTime, tagsList, clubdescription, requirement, activityTime, optionalLink, cs, math, physics, economics, ds, me
+                clubname, foundingTime, clubdescription, requirement, interestArr
             })
             .then(res=>{
                 if(res.data=="exist"){
@@ -90,6 +75,18 @@ function AddClub() {
             console.log(e);
         }
     }
+  
+    let option_list = [];
+
+  for (let i = 0; i < input_num; i++) {
+
+    option_list.push( <option value={interests[i]} onClick={(e) => {
+        const newArr = interestArr.slice()
+      newArr.push(interests[i])
+      setInterestArr(newArr)
+    }}> {interests[i]}</option> );
+    
+  }
 
     return (
         <div className="login">
@@ -129,12 +126,13 @@ function AddClub() {
             <h2>Please add area tags for your club (Ctrl/command click for multiple selection)</h2>
             <form id="tagForm">
             <select multiple size="6"> 
-                <option value="Computer Science" onClick={(e) => {setCs(true),  console.log("Hello")}}>Computer Science</option> 
-                <option value="Math" onClick={(e) => {setMath(true)}}>Math</option> 
-                <option value="Physics" onClick={(e) => {setPhysics(true)}}>Physics</option> 
-                <option value="Economics" onClick={(e) => {setEconomics(true)}}>Economics</option> 
-                <option value="Data Science" onClick={(e) => {setDs(true)}}>Data Science</option> 
-                <option value="Material Engineering" onClick={(e) => {setMe(true)}}>Material Engineering</option> 
+
+            {option_list[0]}
+            {option_list[1]}
+            {option_list[2]}
+            {option_list[3]}
+            {option_list[4]}
+            {option_list[5]}    
             </select>
     </form>
     <input type="submit" onClick={data_process} />
