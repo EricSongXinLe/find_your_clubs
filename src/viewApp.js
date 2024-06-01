@@ -113,12 +113,12 @@ function ViewApp() {
             {general[applicant].map((pair) => (
                 <>
                     <div>
-                        <h2 class="Title">Question: </h2>
-                        <a class="Content">{pair[0]}</a>
+                        <h2 className="Title">Question: </h2>
+                        <a className="Content">{pair[0]}</a>
                     </div>
                     <div>
-                        <h2 class="Title">Answer: </h2>
-                        <a class="Content">{pair[1]}</a>
+                        <h2 className="Title">Answer: </h2>
+                        <a className="Content">{pair[1]}</a>
                         <p></p>
                     </div>
                 </>
@@ -127,12 +127,12 @@ function ViewApp() {
             {supplementary[applicant].map((pair) => (
                 <>
                     <div>
-                        <h2 class="Title">Question: </h2>
-                        <a class="Content">{pair[0]}</a>
+                        <h2 className="Title">Question: </h2>
+                        <a className="Content">{pair[0]}</a>
                     </div>
                     <div>
-                        <h2 class="Title">Answer: </h2>
-                        <a class="Content">{pair[1]}</a>
+                        <h2 className="Title">Answer: </h2>
+                        <a className="Content">{pair[1]}</a>
                         <p></p>
                     </div>
                 </>
