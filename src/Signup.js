@@ -68,18 +68,18 @@ function Signup() {
         <link rel="stylesheet" href="signup.css" />
             <h1>Create an Account</h1>
             <form action="POST">
-                <input class="textInput" type="text" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username" />
-                <input class="textInput" type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email"  />
-                <input class="textInput" type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
+                <input className="textInput" type="text" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username" />
+                <input className="textInput" type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email"  />
+                <input className="textInput" type="password" autoComplete="new-password webauthn" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
                 <br/>
                 <label>Are you a club leader?</label>
-                <label class="switch">
-                    <input class="checkbox" type="checkbox" onChange={(e) => {
+                <label className="switch">
+                    <input className="checkbox" type="checkbox" onChange={(e) => {
                         setUserIsClubLeader(e.target.checked)}}/> 
-                    <span class="slider round"></span>
+                    <span className="slider round"></span>
                 </label>
                 <br/>
-                <input class= "submitButton" type="submit" onClick={submit} />
+                <input className= "submitButton" type="submit" onClick={submit} />
             </form>
             <Link to="/login">Back to Login</Link>
         </div>

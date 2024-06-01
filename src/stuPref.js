@@ -64,9 +64,9 @@ function StudentPreference() {
 
   return (
   <>
-    <div class="question-container">
-        <div class="question">Select all your interests below</div>
-        <div class="options">
+    <div className="question-container">
+        <div className="question">Select all your interests below</div>
+        <div className="options">
             {option_list[0]}
             {option_list[1]}
             {option_list[2]}
