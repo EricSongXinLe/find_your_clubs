@@ -63,29 +63,9 @@ const clubsSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    cs:{
-        type:Boolean,
-        required:true
-    }, 
-    math:{
-        type:Boolean,
-        required:true
-    }, 
-    physics:{
-        type:Boolean,
-        required:true
-    }, 
-    economics:{
-        type:Boolean,
-        required:true
-    }, 
-    ds:{
-        type:Boolean,
-        required:true
-    }, 
-    me:{
-        type:Boolean,
-        required:true
+    interestArr:{
+        type:Array,
+        required: true
     }
 })
 
