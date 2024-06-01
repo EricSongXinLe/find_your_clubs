@@ -9,7 +9,9 @@ import SearchBar from './searchBar';
 import FilterBar from './filterBar';
 import PhotoDisplay from './photoDisplay';
 
-function StudentBlock () {
+function StudentBlock (username) {
+    const location = useLocation();
+    const history=useNavigate();
     const tags = ['Publish Time', 'Experience Needed', 'Popular'];
     const imageLst = [
         './images/logo.webp',
@@ -18,8 +20,8 @@ function StudentBlock () {
       ];
       const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
     const [clubs, setClubs] = useState([
-        {title: 'Club One', description: 'Description of Club One' },
-        {title: 'Club Two', description: 'Description of Club Two' },
+        // {title: 'Club One', description: 'Description of Club One' },
+        // {title: 'Club Two', description: 'Description of Club Two' },
     ]);
 
   const transformClubData = (data) => {
@@ -32,7 +34,31 @@ const updateClubs = (newClubInfo) => {
     const transformedData = transformClubData(newClubInfo);
     setClubs([transformedData]);
 };
+async function renderClub(e){
 
+    try{
+        
+        await axios.post("http://localhost:8000/recommendClub",{
+            username
+        })
+        .then(res=>{
+            if(res.data=="exist"){
+                alert("Club already exists")
+            }
+            else if(res.data=="recommended"){
+                // alert("Preference added")
+                history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}})
+            }
+        })
+        .catch(e=>{
+            alert("An error occured")
+            console.log(e);
+        })
+    }
+    catch(e){
+        console.log(e);
+    }
+}
 
     return (
         <div class ="web_page_container">
@@ -49,8 +75,14 @@ const updateClubs = (newClubInfo) => {
             <div class="right_cont">
                 {<ModeSelector m_mode={selected} m_setMode={setSelected} />}
 
+                {
+                    renderClub()
+
+                }
+
                 {selected === 'search' && <SearchBar setSearchResults={updateClubs}/>}
                 {
+                   
                     <div className="club-box">
                         {clubs.map((club) => (
                         <ClubBlock
@@ -61,6 +93,7 @@ const updateClubs = (newClubInfo) => {
                     ))}
                     </div>
                 }
+                {/* {selected === 'recommendation' && } */}
             </div>
         </div>
     )

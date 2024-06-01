@@ -237,6 +237,28 @@ app.post("/addstupref",async(req,res)=>{
 
 })
 
+pp.post("/recommendClub",async(req,res)=>{
+    const{username} = req.body
+
+    try{
+        // const check=await student_collection.findOne({username:username}, {}})
+
+        if(check){
+            res.json("added")
+            
+        }
+        else{
+        
+            res.json("fail")
+        }
+        
+    }
+    catch(e){
+        res.json("fail")
+    }
+
+})
+
 //Potential Bugs here!!!!
 app.post('/favorite/:id', async (req, res) => {
     const { id } = req.params;
