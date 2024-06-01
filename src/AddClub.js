@@ -25,6 +25,32 @@ function AddClub() {
 
     let foundingTime;
     let tagsList = []
+
+        // input questions
+    const inputs = ["name", "email", "gender", "birthday"];
+    const input_num = inputs.length;
+    const input_titles = [];
+    for (let i = 0; i < input_num; i++)
+    input_titles.push("What is your " + inputs[i] + "?*");
+
+    // selection questions
+    const selections = ["year of graduation"];
+    const selection_titles = [];
+    selection_titles.push("What is your Year of Graduation?*");
+    const selection_num = selections.length;
+
+    let question_str = inputs[0];
+    for (let i = 1; i < input_num; i++)
+    {
+      question_str += ", " + inputs[i];
+    }
+  
+    for (let i = 0; i < selection_num; i++)
+    {
+      question_str += ", " + selections[i];
+    }
+
+
     async function data_process(e){
         var timeArray = time.split('-')
             
@@ -92,7 +118,7 @@ function AddClub() {
     }
 
     return (
-        <div className="login">
+        <div>
 
             <h1>Create a Club</h1>
 
@@ -136,6 +162,11 @@ function AddClub() {
                 <option value="Data Science" onClick={(e) => {setDs(true)}}>Data Science</option> 
                 <option value="Material Engineering" onClick={(e) => {setMe(true)}}>Material Engineering</option> 
             </select>
+            <div className="welcome info">
+        <p>General questions provided:</p>
+        <p>{question_str}</p>
+        <p>Please enter at most three questions you wish your applicants to answer.</p>
+        </div>
     </form>
     <input type="submit" onClick={data_process} />
 
