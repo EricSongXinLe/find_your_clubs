@@ -92,18 +92,18 @@ input {
   align-items: flex-start;
   padding: 20px; 
   height: 100vh; 
-  width: 80vw;
+  width: 85vw;
 }
 
 .left_cont{
-  flex: 0 1 450px; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 250px */
+  flex: 0 1 35%; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 250px */
     background-color: #ffffff; /* Light gray background */
     padding: 10px;
     overflow-y: auto;
 }
 
 .mid_cont{
-  flex: 2 1 40%; /* Takes up the bulk of the space */
+  flex: 2 1 35%; /* Takes up the bulk of the space */
     background-color: #ffffff; /* White background */
     padding: 10px;
     overflow-y: auto; /* Allows vertical scrolling */
@@ -111,7 +111,7 @@ input {
 }
 
 .right_cont {
-  flex: 0 1 100%; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 200px */
+  flex: 0 1 60%; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 200px */
   background-color: #ffffff; /* Slightly darker gray than left_cont */
   padding: 10px;
   overflow-y: auto;

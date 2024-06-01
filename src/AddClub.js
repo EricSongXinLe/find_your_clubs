@@ -78,7 +78,7 @@ function AddClub() {
     };
 
     return (
-        <div className="login" style={{ overflowY: "scroll", maxHeight: "90%" }}>
+        <div style={{ overflowY: "scroll", maxHeight: "90%", margin: "50px"}}>
             <h1>Create a Club</h1>
             <form onSubmit={data_process}>
                 <h2>Club Name</h2>
@@ -165,7 +165,7 @@ function AddClub() {
                 <button type="submit">Submit</button>
             </form>
         </div>
-    );
+    )
 }
 
 export default AddClub;
