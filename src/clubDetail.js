@@ -13,11 +13,15 @@ const ClubDetails = () => {
   const [club, setClub] = useState([]);
 
   const [isFavorited, setIsFavorited] = useState(false);
+
+  const [clubImg, setClubImg] = useState('');
+
   const transformClubData = (data) => {
     return {
         description: data.clubdescription,
         requirements: data.requirement,
         activitytime: data.activityTime,
+        image: data.clubimg,
     };
 };
 
@@ -31,9 +35,10 @@ const ClubDetails = () => {
         await axios.get('http://localhost:8000/search', { params: { clubname: id } })
         .then(
             res=>{
-              console.log(res.data);
               const transformedData = transformClubData(res.data);
               setClub(transformedData);
+              const base64 = Buffer.from(res.data.clubimg).toString('base64');
+              setClubImg(`data:image/jpeg;base64,${base64}`);
             }
         ).catch((e)=>
             console.log(e)
@@ -102,7 +107,7 @@ const ClubDetails = () => {
         <p className="club-tag"><strong>Tag:</strong> {club.tag}</p>
       </div>
       <div className="club-image-container">
-        <img src={club.image} alt="Club" className="club-image" />
+        <img src={clubImg} alt="Loading..." className="club-image" />
       </div>
       <div className="club-description-container">
         <pre className="club-description">{club.description}</pre>

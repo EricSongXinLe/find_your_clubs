@@ -1,78 +1,80 @@
-import React, { useEffect, useState } from "react"
-import axios from "axios"
-import { useNavigate, Link } from "react-router-dom"
-import e from "cors"
-
+import React, { useState } from "react";
+import axios from "axios";
 
 function AddClub() {
+    const [clubname, setClubname] = useState("");
+    const [clubdescription, setClubdescription] = useState("");
+    const [requirement, setRequirement] = useState("");
+    const [activityTime, setActivityTime] = useState("");
+    const [optionalLink, setOptionalLink] = useState("");
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [tagsList, setTagsList] = useState([]);
 
-    const [clubname, setClubname] = useState('')
-    const [clubdescription, setClubdescription] = useState('')
-    const [requirement, setRequirement] = useState('')
-    // const [tags, setTags] = useState()
-    const [activityTime, setActivityTime] = useState('')
-    const [optionalLink, setOptionalLink] = useState('')
-    const [tags, setTags] = useState('[]')
-
-    
-    const [time, setTime] = useState('')
-    const [cs, setCs] = useState(false)
-    const [math, setMath] = useState(false)
-    const [physics, setPhysics] = useState(false)
-    const [economics, setEconomics] = useState(false)
-    const [ds, setDs] = useState(false)
-    const [me, setMe] = useState(false)
-    const [interestArr, setInterestArr] = useState([]);
-    let year, month, date
+    const [time, setTime] = useState("");
+    const [cs, setCs] = useState(false);
+    const [math, setMath] = useState(false);
+    const [physics, setPhysics] = useState(false);
+    const [economics, setEconomics] = useState(false);
+    const [ds, setDs] = useState(false);
+    const [me, setMe] = useState(false);
+  
     const interests = ["ComSci", "Math", "Physics", "Data Science", "Economics", "Mechanical Engineering"];
     const input_num = interests.length;
+
+    let year, month, date;
     let foundingTime;
-    
-    let tagsList = []
-    async function data_process(e){
-        var timeArray = time.split('-')
-            
-        year = timeArray[0]
-        month = timeArray[1]
-        date = timeArray[2]
-        if (isNaN(year) || isNaN(month) || isNaN(date))
-            {
-                alert("Please follow the right format of founding time")
-                return;
-            }
-        foundingTime = new Date(year, month, date)
+
+    async function data_process(e) {
+        e.preventDefault(); // Prevent default form submission behavior
+        const timeArray = time.split("-");
+        year = timeArray[0];
+        month = timeArray[1];
+        date = timeArray[2];
+        if (isNaN(year) || isNaN(month) || isNaN(date)) {
+            alert("Please follow the right format of founding time");
+            return;
+        }
+        foundingTime = new Date(year, month, date);
 
 
-        
-        submit_club()
+        submit_club();
     }
 
-    async function submit_club(e){
-        // e.preventDefault();
-        // console.log(time)
-        // try{
-         
+    async function submit_club() {
+        try {
+            const formData = new FormData();
+            formData.append("clubname", clubname);
+            formData.append("foundingTime", foundingTime.toISOString());
+            formData.append("tagsList", JSON.stringify(tagsList));
+            formData.append("clubdescription", clubdescription);
+            formData.append("requirement", requirement);
+            formData.append("activityTime", activityTime);
+            formData.append("optionalLink", optionalLink);
+            formData.append("cs", cs);
+            formData.append("math", math);
+            formData.append("physics", physics);
+            formData.append("economics", economics);
+            formData.append("ds", ds);
+            formData.append("me", me);
+            if (selectedImage) {
+                formData.append("clubimage", selectedImage);
+            }
 
-        try{
-            
-            await axios.post("http://localhost:8000/addclub",{
-                clubname, foundingTime, clubdescription, requirement, interestArr
-            })
-            .then(res=>{
-                if(res.data=="exist"){
-                    alert("Club already exists")
-                }
-                else if(res.data=="added"){
-                    alert("Club added")
-                }
-            })
-            .catch(e=>{
-                alert("An error occured")
-                console.log(e);
-            })
-        }
-        catch(e){
-            console.log(e);
+            const response = await axios.post("http://localhost:8000/addclub", formData, {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                },
+            });
+
+            if (response.data === "exist") {
+                alert("Club already exists");
+            } else if (response.data === "added") {
+                alert("Club added");
+            }
+        } catch (error) {
+            alert("An error occurred");
+            console.log(error);
+
         }
     }
   
@@ -88,57 +90,99 @@ function AddClub() {
     
   }
 
+    const getImage = (e) => {
+        setSelectedImage(e.target.files[0]);
+    };
+
     return (
-        <div className="login">
-
+        <div style={{ overflowY: "scroll", maxHeight: "90%", margin: "50px"}}>
             <h1>Create a Club</h1>
-
-            <form action="POST">
-                <h2>Club Name</h2> 
-                <input type="clubname" onChange={(e) => { setClubname(e.target.value) }} placeholder="Eg: SouLA" />
-               <br></br>
-               <h2>Founding Time</h2>   
-               <input type="foundingdate" onChange={(e) => { setTime(e.target.value) }} placeholder="YYYY-MM-DD" />
-  {/* <label for="year">Year:</label>
-  <input type="number" id="year" name="year" min="1900" max="2100" onChange={(e) => {setYear(e.target.value)}} required/>
-
-  <label for="month">Month:</label>
-  <input type="number" id="month" name="month" min="1" max="12" onChange={(e) => {setMonth(e.target.value)}} required/>
-  
-  <label for="date">Date:</label>
-  <input type="number" id="date" name="date" min="1" max="31" onChange={(e) => {setDate(e.target.value)}} required/> */}
-  <br></br>
-          <h2> Club Description</h2> 
-                <input type="description" onChange={(e) => { setClubdescription(e.target.value) }} placeholder="Please give a brief club description in less than 200 words" />
-  <br></br>
-          <h2> Application Requirement </h2> 
-                <input type="requirement" onChange={(e) => { setRequirement(e.target.value) }} placeholder="Requirements for club entry" />
-   <br></br>
-          <h2> Activity Time Period </h2> 
-                <input type="activiT" onChange={(e) => { setActivityTime(e.target.value) }} placeholder="MWF 8-10 pm" />
-  <br></br>
-          <h2> Do you want to use External link for Application? i.e. Google Form link </h2> 
-                <input type="link" onChange={(e) => { setOptionalLink(e.target.value) }} placeholder="www.apply.com" />
-
-
-                
+            <form onSubmit={data_process}>
+                <h2>Club Name</h2>
+                <input
+                    type="text"
+                    onChange={(e) => setClubname(e.target.value)}
+                    placeholder="Eg: SouLA"
+                    required
+                />
+                <br />
+                <h2>Club Image</h2>
+                <input type="file" name="clubimage" onChange={getImage} />
+                <br />
+                <h2>Founding Time</h2>
+                <input
+                    type="text"
+                    onChange={(e) => setTime(e.target.value)}
+                    placeholder="YYYY-MM-DD"
+                    required
+                />
+                <br />
+                <h2>Club Description</h2>
+                <input
+                    type="text"
+                    onChange={(e) => setClubdescription(e.target.value)}
+                    placeholder="Please give a brief club description in less than 200 words"
+                    required
+                />
+                <br />
+                <h2>Application Requirement</h2>
+                <input
+                    type="text"
+                    onChange={(e) => setRequirement(e.target.value)}
+                    placeholder="Requirements for club entry"
+                    required
+                />
+                <br />
+                <h2>Activity Time Period</h2>
+                <input
+                    type="text"
+                    onChange={(e) => setActivityTime(e.target.value)}
+                    placeholder="MWF 8-10 pm"
+                    required
+                />
+                <br />
+                <h2>Do you want to use an external link for application? i.e., Google Form link</h2>
+                <input
+                    type="text"
+                    onChange={(e) => setOptionalLink(e.target.value)}
+                    placeholder="www.apply.com"
+                />
+                <br />
+                <h2>Please add area tags for your club (Ctrl/Command-click for multiple selection)</h2>
+                <select multiple size="6">
+                    <option
+                        value="Computer Science"
+                        onClick={() => setCs((prev) => !prev)}
+                    >
+                        Computer Science
+                    </option>
+                    <option value="Math" onClick={() => setMath((prev) => !prev)}>
+                        Math
+                    </option>
+                    <option value="Physics" onClick={() => setPhysics((prev) => !prev)}>
+                        Physics
+                    </option>
+                    <option
+                        value="Economics"
+                        onClick={() => setEconomics((prev) => !prev)}
+                    >
+                        Economics
+                    </option>
+                    <option value="Data Science" onClick={() => setDs((prev) => !prev)}>
+                        Data Science
+                    </option>
+                    <option
+                        value="Material Engineering"
+                        onClick={() => setMe((prev) => !prev)}
+                    >
+                        Material Engineering
+                    </option>
+                </select>
+                <br />
+                <button type="submit">Submit</button>
             </form>
-            <h2>Please add area tags for your club (Ctrl/command click for multiple selection)</h2>
-            <form id="tagForm">
-            <select multiple size="6"> 
-
-            {option_list[0]}
-            {option_list[1]}
-            {option_list[2]}
-            {option_list[3]}
-            {option_list[4]}
-            {option_list[5]}    
-            </select>
-    </form>
-    <input type="submit" onClick={data_process} />
-
         </div>
-        
     )
 }
-export default AddClub
+
+export default AddClub;
