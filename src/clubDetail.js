@@ -37,7 +37,7 @@ const ClubDetails = () => {
             res=>{
               const transformedData = transformClubData(res.data);
               setClub(transformedData);
-              const base64 = Buffer.from(club.image).toString('base64');
+              const base64 = Buffer.from(res.data.clubimg).toString('base64');
               setClubImg(`data:image/jpeg;base64,${base64}`);
             }
         ).catch((e)=>
