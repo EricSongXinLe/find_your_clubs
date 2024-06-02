@@ -59,6 +59,8 @@ function Create() {
 
 function saveForm() {
   // gather supplementary questions from input boxes
+  if (document.getElementById("welcome info"))
+    document.getElementById("welcome info").color = '#FF5733';
   let supplementary_questions = []
   for (let i = 1; i <= 3; i++)
   {
@@ -86,7 +88,7 @@ async function postForm(clubName, general_questions, supplementary_questions)
         if(res.data=="exist"){
             alert("You've already submitted the created questions")
         }
-        else if(res.data=="added"){
+        else if(res.data=="notexist"){
             alert("Created questions submitted successfully")
         }
     })

@@ -80,17 +80,17 @@ const clubsSchema=new mongoose.Schema({
 })
 
 const appFormScehma=new mongoose.Schema({
-    clunName:{
+    clubName:{
         type:String,
         required:true
     },
     generalQuestion:{
         type:[String],
-        required:true
+        required:false
     },
     supplementaryQuestion:{
         type:[String],
-        required:true
+        required:false
     }
 })
 

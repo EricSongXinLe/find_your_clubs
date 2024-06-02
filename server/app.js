@@ -88,13 +88,14 @@ app.post("/clubs",async(req,res)=>{
     }
 })
 
-app.post("/club_search",async(req,res)=>{
-    const {clubname} = req.body
+app.get("/fetch_question",async(req,res)=>{
+    const clubName = req.query.clubName
     try{
-        const check = await club_collection.findOne({clubname:clubname})
+        const check = await application_collection.findOne({clubName:clubName})
 
         if(check){
-            res.json(check) 
+            res.json(check)
+            console.log(check)
         }
         else{
             res.json()
@@ -114,20 +115,28 @@ app.post("/create",async(req,res)=>{
         generalQuestion: general_questions,
         supplementaryQuestion: supplementary_questions
     }
+    console.log("haha! Add!")
+    //console.log(req.body)
+    console.log(data)
 
     try{
-        const check=await student_collection.findOne({clubName:clubName})
+        const check=await application_collection.findOne({clubName:clubName})
 
         if(check){
             res.json("exist")
         }
         else{
+            console.log("haha! Add! 222")
+            await application_collection.insertMany([data])
+            
+            console.log("haha! Add! 333")
             res.json("notexist")
-            await student_collection.insertMany([data])
         }
 
     }
     catch(e){
+        console.log(e);
+        console.log("zhale")
         res.json("fail")
     }
 

@@ -3,111 +3,126 @@ import axios from "axios"
 // useless comment
 
 // input questions
-const inputs = ["name", "email", "gender", "birthday"];
-const input_num = inputs.length;
-const input_hints = [];
-const input_titles = [];
-for (let i = 0; i < input_num; i++)
-{
-  input_hints.push("Enter your " + inputs[i] + " here");
-  input_titles.push("What is your " + inputs[i] + "?*");
-}
 
-// selection questions
-const selections = ["year of graduation"];
-const selection_titles = [];
-selection_titles.push("What is your Year of Graduation?*");
-const selection_num = selections.length;
-
-// supplementary questions
-let supplementaries = ["A unique question*", "Another unique question*"];
-supplementaries = getCreation();
-const supplementary_num = supplementaries.length;
 
 
 function Apply() {
+  const inputs = ["name", "email", "gender", "birthday"];
+  const input_num = inputs.length;
+  const input_hints = [];
+  const input_titles = [];
+  for (let i = 0; i < input_num; i++)
+  {
+    input_hints.push("Enter your " + inputs[i] + " here");
+    input_titles.push("What is your " + inputs[i] + "?*");
+  }
 
-  let titles = [];
-  let inboxes = [];
+  // selection questions
+  const selections = ["year of graduation"];
+  const selection_titles = [];
+  selection_titles.push("What is your Year of Graduation?*");
+  const selection_num = selections.length;
+
+  // supplementary questions
+  // let supplementaries = ["A unique question*", "Another unique question*"];
+  const [data, setData] = useState({})
+  getCreation("ABC");
+  console.log("omg ", data);
+  let supplementaries = data["supplementaryQuestion"];
+  const supplementary_num = supplementaries.length;
+
+  async function getCreation(clubName){
+
+    try{
+  
+        await axios.get("http://localhost:8000/fetch_question",{
+          params: {clubName:clubName}
+        })
+        .then(res=>{
+            if(res.data){
+              alert("Club found")
+              setData(res.data);
+              console.log(res.data)
+            }
+            else{
+              alert("Club not found")
+            }
+        })
+        .catch(e=>{
+          alert("An error occurred")
+          console.log(e);
+        })
+  
+    }
+    catch(e){
+  
+    }
+  
+  }
+
+
+  let general_show = []
+  let supplementary_show = []
   
   for (let i = 0; i < input_num; i++) {
-    titles.push(<p className="text" id={"iTitle" + String(i)}>{input_titles[i]}</p>)
-    inboxes.push(<input type="text" id={inputs[i]} placeholder={input_hints[i]}></input>);
+    let pair_show = [];
+    pair_show.push(<p className="text" id={"iTitle" + String(i)}>{input_titles[i]}</p>);
+    pair_show.push(<input type="text" id={inputs[i]} placeholder={input_hints[i]}></input>);
+    general_show.push(pair_show);
   }
 
   // let supplementaries = db.user.find({clubname: {clubname}}, {supplementaries: 1});
   
-  for (let i = 0; i < 3; i++)
+  for (let i = 0; i < supplementaries.length; i++)
   {
-    // input_titles.push("Supplementary Question " + String(i+1) + "*");
-    if (i >= supplementary_num)
-    {
-      // no question provided
-      titles.push(<a></a>);
-      inboxes.push(<a></a>);
-    }
-    else
-    {
-      titles.push(<p className="text" id={"sTitle" + String(i)}>{supplementaries[i]}</p>)
-      inboxes.push(<input type="text" id={"supplementary" + String(i)} placeholder="Enter your answer"></input>);
-    }
+    let pair_show = [];
+    pair_show.push(<p className="text" id={"sTitle" + String(i)}>{supplementaries[i]}</p>);
+    pair_show.push(<input type="text" id={"supplementary" + String(i)} placeholder="Enter your answer"></input>);
+    supplementary_show.push(pair_show);
   }
+
+  let yog_options = ["select", "2024", "2025", "2026", "2027"];
 
   document.body.style.overflow = "visible";
 
   return (
   <>
     <div className="row">
-      {titles[0]}
-      {inboxes[0]}
-    </div>
-    <div className="row">
-      {titles[1]}
-      {inboxes[1]}
-    </div>
-    <div className="row">
-      {titles[2]}
-      {inboxes[2]}
+      {general_show.map((pair_show) => (
+        <>
+          {pair_show[0]}
+          {pair_show[1]}
+        </>
+      ))}
     </div>
     
     <div className="row">
       <a name="text" id="sTitle">{selection_titles[0]}</a><a> </a>
       <select name="drop1" id="Select1">
-        <option value="select">select</option>
-        <option value="2024">2024</option>  
-        <option value="2025">2025</option>
-        <option value="2026">2026</option>
-        <option value="2027">2027</option>
+        {yog_options.map((option) => (
+          <option key={option} value={option}>{option}</option>
+        ))}
       </select>
-    </div>
-
-    <div className="row">
-      {titles[3]}
-      {inboxes[3]}
-    </div>
-
-    <div className="row">
-      {titles[4]}
-      {inboxes[4]}
-    </div>
-
-    <div className="row">
-      {titles[5]}
-      {inboxes[5]}
-    </div>
-
-    <div className="row">
-      {titles[6]}
-      {inboxes[6]}
     </div>
     
     <button id="submit application button" onClick={saveAnswer}>Submit</button>
     <p id="texto"></p>
+
+    <div className="row">
+      {supplementary_show.map((pair_show) => (
+        <>
+          {pair_show[0]}
+          {pair_show[1]}
+        </>
+      ))}
+    </div>
   </>
   );
 }
 
 function saveAnswer() {
+  return;
+  /*
   let finished = true;
 
   // check for any unanswered required input question
@@ -197,6 +212,7 @@ function saveAnswer() {
   // Happy Birthday
   document.getElementById('texto').innerHTML = "Happy Birthday".concat(
     " ", document.getElementById(inputs[0]).value);
+  */
 
 }
 
@@ -226,35 +242,7 @@ async function postAnswer(answers, supplementary_answers)
 }
 
 
-async function getCreation(e){
-  e.preventDefault();
 
-  try{
-
-      await axios.post("http://localhost:8000/club_search",{
-          clubname
-      })
-      .then(res=>{
-          if(res.data){
-            alert("Club found")
-            return res.data["supplementary_questions"];
-          }
-          else{
-            alert("Club not found")
-          }
-      })
-      .catch(e=>{
-        alert("An error occurred")
-        console.log(e);
-      })
-
-  }
-  catch(e){
-    console.log(e);
-
-  }
-
-}
 
 
 
