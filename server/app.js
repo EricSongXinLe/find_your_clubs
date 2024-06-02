@@ -95,7 +95,7 @@ app.get("/fetch_question",async(req,res)=>{
 
         if(check){
             res.json(check)
-            console.log(check)
+            // +console.log(check)
         }
         else{
             res.json()
@@ -108,11 +108,10 @@ app.get("/fetch_question",async(req,res)=>{
 })
 
 app.post("/create",async(req,res)=>{
-    const {clubName, general_questions, supplementary_questions} = req.body
+    const {clubName, supplementary_questions} = req.body
     
     const data={
         clubName: clubName,
-        generalQuestion: general_questions,
         supplementaryQuestion: supplementary_questions
     }
     console.log("haha! Add!")

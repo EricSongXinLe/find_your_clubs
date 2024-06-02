@@ -84,13 +84,9 @@ const appFormScehma=new mongoose.Schema({
         type:String,
         required:true
     },
-    generalQuestion:{
-        type:[String],
-        required:false
-    },
     supplementaryQuestion:{
         type:[String],
-        required:false
+        required:true
     }
 })
 

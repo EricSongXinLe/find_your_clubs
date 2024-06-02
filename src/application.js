@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios"
 // useless comment
 
 // input questions
-
-
 
 function Apply() {
   const inputs = ["name", "email", "gender", "birthday"];
@@ -25,12 +23,16 @@ function Apply() {
 
   // supplementary questions
   // let supplementaries = ["A unique question*", "Another unique question*"];
-  const [data, setData] = useState({})
-  getCreation("ABC");
-  console.log("omg ", data);
-  let supplementaries = data["supplementaryQuestion"];
-  const supplementary_num = supplementaries.length;
-
+  
+  const [supplementaries, setData] = useState([]);
+  
+  //useEffect(() => {
+    
+  //});
+  
+  if (supplementaries.length == 0)
+    getCreation("ABC");
+  
   async function getCreation(clubName){
 
     try{
@@ -40,9 +42,9 @@ function Apply() {
         })
         .then(res=>{
             if(res.data){
-              alert("Club found")
-              setData(res.data);
-              console.log(res.data)
+              // alert("Club found")
+              setData(res.data["supplementaryQuestion"])
+              console.log("wtf", res.data["supplementaryQuestion"]);
             }
             else{
               alert("Club not found")
@@ -59,6 +61,20 @@ function Apply() {
     }
   
   }
+
+  /*
+  while (supplementaries.length == 0)
+  {
+    console.log("not yet")
+    continue;
+  }
+  */
+  
+  console.log("omg", supplementaries)
+  //console.log("supplementaries ", supplementaries);
+  const supplementary_num = supplementaries.length;
+
+  
 
 
   let general_show = []
@@ -105,8 +121,6 @@ function Apply() {
       </select>
     </div>
     
-    <button id="submit application button" onClick={saveAnswer}>Submit</button>
-    <p id="texto"></p>
 
     <div className="row">
       {supplementary_show.map((pair_show) => (
@@ -116,6 +130,9 @@ function Apply() {
         </>
       ))}
     </div>
+
+    <button id="submit application button" onClick={saveAnswer}>Submit</button>
+    <p id="texto"></p>
   </>
   );
 }
