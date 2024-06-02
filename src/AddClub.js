@@ -1,33 +1,103 @@
-import React, { useState } from "react";
-import axios from "axios";
+
+import React, { useEffect, useState } from "react"
+import axios from "axios"
+import { useNavigate, Link, useLocation } from "react-router-dom"
+import e from "cors"
+import viewApp from './viewApp';
+
 
 function AddClub() {
-    const [clubname, setClubname] = useState("");
-    const [clubdescription, setClubdescription] = useState("");
-    const [requirement, setRequirement] = useState("");
-    const [activityTime, setActivityTime] = useState("");
-    const [optionalLink, setOptionalLink] = useState("");
-    const [selectedImage, setSelectedImage] = useState(null);
-    const [tagsList, setTagsList] = useState([]);
+    const location = useLocation();
+    const username = location.state?.username || "Guest";
+    const [needapplication, setNeedApplication] = useState(false)
+    const [clubname, setClubname] = useState('')
+    const [clubdescription, setClubdescription] = useState('')
+    const [requirement, setRequirement] = useState('')
+    const [tags, setTags] = useState('[]')
+    const handleCheckboxChange = () => {
+        setNeedApplication(!needapplication);
+      };
+      const history = useNavigate()
+    const [time, setTime] = useState('')
+    const [cs, setCs] = useState(false)
+    const [math, setMath] = useState(false)
+    const [physics, setPhysics] = useState(false)
+    const [economics, setEconomics] = useState(false)
+    const [ds, setDs] = useState(false)
+    const [me, setMe] = useState(false)
+    let year, month, date
 
-    const [time, setTime] = useState("");
-
-  
-    const interests = ["ComSci", "Math", "Physics", "Data Science", "Economics", "Mechanical Engineering"];
-    const input_num = interests.length;
 
     let year, month, date;
     let foundingTime;
 
+    let tagsList = []
     async function data_process(e) {
-        e.preventDefault(); // Prevent default form submission behavior
-        const timeArray = time.split("-");
-        year = timeArray[0];
-        month = timeArray[1];
-        date = timeArray[2];
+        var timeArray = time.split('-')
+
+        year = timeArray[0]
+        month = timeArray[1]
+        date = timeArray[2]
         if (isNaN(year) || isNaN(month) || isNaN(date)) {
-            alert("Please follow the right format of founding time");
+            alert("Please follow the right format of founding time")
             return;
+        }
+        foundingTime = new Date(year, month, date)
+
+        // const tagsBoolList = [cs, math, physics, economics, ds, me]
+        // const options = ["cs" ,"math", "physics", "economics", "ds", "me"]
+
+        // if (cs)
+        //     tagsList.push("cs")
+        // if (math)
+        //     tagsList.push("math")
+        // if (physics)
+        //     tagsList.push("physics")
+        // if (economics)
+        //     tagsList.push("economics")
+        // if (ds)
+        //     tagsList.push("ds")
+        // if (me)
+        //     tagsList.push("me")
+
+        console.log("Test")
+
+        console.log("tags!", tagsList)
+
+
+        submit_club()
+        if(needapplication){
+            history("/create",{state:{username:username, userIsClubLeader:true, clubname:clubname}})
+        }
+    }
+
+    async function submit_club(e) {
+        // e.preventDefault();
+        // console.log(time)
+        // try{
+
+
+        try {
+
+            await axios.post("http://localhost:8000/addclub", {
+                clubname, foundingTime, tagsList, clubdescription, requirement, cs, math, physics, economics, ds, me
+            })
+                .then(res => {
+                    if (res.data == "exist") {
+                        alert("Club already exists")
+                    }
+                    else if (res.data == "added") {
+                        alert("Club added")
+                    }
+                })
+                .catch(e => {
+                    alert("An error occured")
+                    console.log(e);
+                })
+        }
+        catch (e) {
+            console.log(e);
+
         }
         foundingTime = new Date(year, month, date);
 
@@ -35,156 +105,67 @@ function AddClub() {
         submit_club();
     }
 
-    async function submit_club() {
-        const delay = ms => new Promise(res => setTimeout(res, ms));
-        try {
-
-            const formData = new FormData();
-            formData.append("clubname", clubname);
-            formData.append("foundingTime", foundingTime.toISOString());
-
-            formData.append("tagsList", JSON.stringify(tagsList));
-
-            formData.append("clubdescription", clubdescription);
-            formData.append("requirement", requirement);
-            formData.append("activityTime", activityTime);
-            formData.append("optionalLink", optionalLink);
-
-            if (selectedImage) {
-                formData.append("clubimage", selectedImage);
-            }
-
-            const response = await axios.post("http://localhost:8000/addclub", formData,{
-                
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-
-            if (response.data === "exist") {
-                alert("Club already exists");
-            } else if (response.data === "added") {
-                alert("Club added, You will be redirected in 5 seconds...");
-                await delay(5000); //this delay is very important becuase our DB is in the other side of the world.....
-                window.location.href = "/club/" + clubname;
-            }
-        } catch (error) {
-            alert("An error occurred");
-            console.log(error);
-
-        }
-    }
-  
-    let option_list = [];
-
-    for (let i = 0; i < input_num; i++) {
-
-        option_list.push( <option value={interests[i]} onClick={(e) => {
-            const newArr = tagsList.slice()
-        newArr.push(interests[i])
-        setTagsList(newArr)
-        }}> {interests[i]}</option> );
-        
-    }
-    
-    const getImage = (e) => {
-        setSelectedImage(e.target.files[0]);
-    };
+    document.body.style.overflow = "visible";
 
     return (
-        <div style={{ overflowY: "scroll", maxHeight: "90%", margin: "50px"}}>
-            <h1>Create a Club</h1>
-            <form onSubmit={data_process}>
-                <h2>Club Name</h2>
-                <input
-                    type="text"
-                    onChange={(e) => setClubname(e.target.value)}
-                    placeholder="Eg: SouLA"
-                    required
-                />
-                <br />
-                <h2>Club Image</h2>
-                <input type="file" name="clubimage" onChange={getImage} />
-                <br />
-                <h2>Founding Time</h2>
-                <input
-                    type="text"
-                    onChange={(e) => setTime(e.target.value)}
-                    placeholder="YYYY-MM-DD"
-                    required
-                />
-                <br />
-                <h2>Club Description</h2>
-                <input
-                    type="text"
-                    onChange={(e) => setClubdescription(e.target.value)}
-                    placeholder="Please give a brief club description in less than 200 words"
-                    required
-                />
-                <br />
-                <h2>Application Requirement</h2>
-                <input
-                    type="text"
-                    onChange={(e) => setRequirement(e.target.value)}
-                    placeholder="Requirements for club entry"
-                    required
-                />
-                <br />
-                <h2>Activity Time Period</h2>
-                <input
-                    type="text"
-                    onChange={(e) => setActivityTime(e.target.value)}
-                    placeholder="MWF 8-10 pm"
-                    required
-                />
-                <br />
-                <h2>Do you want to use an external link for application? i.e., Google Form link</h2>
-                <input
-                    type="text"
-                    onChange={(e) => setOptionalLink(e.target.value)}
-                    placeholder="www.apply.com"
-                />
-                <br />
-                <h2>Please add area tags for your club (Ctrl/Command-click for multiple selection)</h2>
-                <select multiple size="6">
-                    {option_list[0]}
-                    {option_list[1]}
-                    {option_list[2]}
-                    {option_list[3]}
-                    {option_list[4]}
-                    {option_list[5]}    
-                    {/* <option
-                        value="Computer Science"
-                        onClick={() => setCs((prev) => !prev)}
-                    >
-                        Computer Science
-                    </option>
-                    <option value="Math" onClick={() => setMath((prev) => !prev)}>
-                        Math
-                    </option>
-                    <option value="Physics" onClick={() => setPhysics((prev) => !prev)}>
-                        Physics
-                    </option>
-                    <option
-                        value="Economics"
-                        onClick={() => setEconomics((prev) => !prev)}
-                    >
-                        Economics
-                    </option>
-                    <option value="Data Science" onClick={() => setDs((prev) => !prev)}>
-                        Data Science
-                    </option>
-                    <option
-                        value="Material Engineering"
-                        onClick={() => setMe((prev) => !prev)}
-                    >
-                        Material Engineering
-                    </option> */}
-                </select>
-                <br />
-                <button type="submit">Submit</button>
-            </form>
+        <div>
+            <div className="viewClub"> 
+                <Link to="/viewApp">View Applications</Link>
+            </div>
+
+
+            <div className="login">
+
+                <h1>Create a Club</h1>
+
+                <form action="POST">
+                    <h2>Club Name</h2>
+                    <input type="clubname" onChange={(e) => { setClubname(e.target.value) }} placeholder="Eg: SouLA" />
+                    <br></br>
+                    <h2>Founding Time</h2>
+                    <input type="foundingdate" onChange={(e) => { setTime(e.target.value) }} placeholder="YYYY-MM-DD" />
+                    {/* <label for="year">Year:</label>
+<input type="number" id="year" name="year" min="1900" max="2100" onChange={(e) => {setYear(e.target.value)}} required/>
+
+<label for="month">Month:</label>
+<input type="number" id="month" name="month" min="1" max="12" onChange={(e) => {setMonth(e.target.value)}} required/>
+<label for="date">Date:</label>
+  <input type="number" id="date" name="date" min="1" max="31" onChange={(e) => {setDate(e.target.value)}} required/> */}
+                    <br></br>
+                    <h2> Club Description</h2>
+                    <input type="description" onChange={(e) => { setClubdescription(e.target.value) }} placeholder="Please give a brief club description in less than 200 words" />
+                    <br></br>
+                    <h2> Application Requirement </h2>
+                    <input type="requirement" onChange={(e) => { setRequirement(e.target.value) }} placeholder="Requirements for club entry" />
+
+
+                </form>
+                <h2>Please add area tags for your club (Ctrl/command click for multiple selection)</h2>
+                <form id="tagForm">
+                    <select multiple size="6">
+                        <option value="Computer Science" onClick={(e) => { setCs(true), console.log("Hello") }}>Computer Science</option>
+                        <option value="Math" onClick={(e) => { setMath(true) }}>Math</option>
+                        <option value="Physics" onClick={(e) => { setPhysics(true) }}>Physics</option>
+                        <option value="Economics" onClick={(e) => { setEconomics(true) }}>Economics</option>
+                        <option value="Data Science" onClick={(e) => { setDs(true) }}>Data Science</option>
+                        <option value="Material Engineering" onClick={(e) => { setMe(true) }}>Material Engineering</option>
+                    </select>
+                </form>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={needapplication}
+                        onChange={handleCheckboxChange}
+                    />
+                    Need Our Application Form
+                </label>
+                <input type="submit" onClick={data_process} />
+            </div>
+
         </div>
+
+
     )
 }
 

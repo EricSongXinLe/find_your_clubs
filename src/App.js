@@ -12,8 +12,12 @@ import AddClub from './AddClub.js'
 import ClubDetails from './clubDetail.js';
 import Apply from './application.js'
 import Create from './create_application.js'
+
+import ViewApp from './viewApp.js';
+
 import StudentPreference from './stuPref.js';
 import FavClubs from "./components/Fav.js"
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -45,6 +49,12 @@ const router = createBrowserRouter([
   {
     path: "/create",
     element: <Create/>,
+
+  },{
+    path: "/ViewApp",
+    element: <ViewApp/>,
+  }
+
   },
   {
     path: "/studentpreference",
@@ -54,6 +64,7 @@ const router = createBrowserRouter([
     path: "/myfavclub",
     element: <FavClubs/>,
   },
+
 ]);
 
 export default function App() {
