@@ -1,4 +1,5 @@
 import axios from "axios"
+import { useNavigate, useLocation } from "react-router-dom"
 
 // input questions
 const inputs = ["name", "email", "gender", "birthday"];
@@ -16,6 +17,11 @@ const selection_num = selections.length;
 
 function Create() {
   // a string that lists out the general questions
+  const location = useLocation();
+  const username = location.state?.username || "Guest";
+  const clubname = location.state?.clubname || "Error";
+  console.log("I get the Club Name: ",clubname);
+  console.log("Username:", username);
   let question_str = inputs[0];
   for (let i = 1; i < input_num; i++)
   {
@@ -51,13 +57,13 @@ function Create() {
       <input type="text" name="" id="club designed question 3 input box" placeholder="Third Question"></input>
     </div>
 
-    <button id="finish creation button" onClick={saveForm}>Finish</button>
+    <button id="finish creation button" onClick={saveForm(clubname)}>Finish</button>
 
   </>
   );
 }
 
-function saveForm() {
+function saveForm(myclubname) {
   // gather supplementary questions from input boxes
   if (document.getElementById("welcome info"))
     document.getElementById("welcome info").color = '#FF5733';
@@ -75,7 +81,9 @@ function saveForm() {
   general_questions.splice(3, 0, selection_titles[0]);
 
   // send both question lists to database
-  postForm("ABC", supplementary_questions);
+  console.log("Name to back:",myclubname);
+  console.log("questions:",supplementary_questions);
+  postForm(myclubname, supplementary_questions);
 }
 
 async function postForm(clubName, supplementary_questions)

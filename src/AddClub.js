@@ -1,18 +1,22 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import { useNavigate, Link } from "react-router-dom"
+import { useNavigate, Link, useLocation } from "react-router-dom"
 import e from "cors"
 import viewApp from './viewApp';
 
 
 function AddClub() {
-
+    const location = useLocation();
+    const username = location.state?.username || "Guest";
+    const [needapplication, setNeedApplication] = useState(false)
     const [clubname, setClubname] = useState('')
     const [clubdescription, setClubdescription] = useState('')
     const [requirement, setRequirement] = useState('')
     const [tags, setTags] = useState('[]')
-
-
+    const handleCheckboxChange = () => {
+        setNeedApplication(!needapplication);
+      };
+      const history = useNavigate()
     const [time, setTime] = useState('')
     const [cs, setCs] = useState(false)
     const [math, setMath] = useState(false)
@@ -58,6 +62,9 @@ function AddClub() {
 
 
         submit_club()
+        if(needapplication){
+            history("/create",{state:{username:username, userIsClubLeader:true, clubname:clubname}})
+        }
     }
 
     async function submit_club(e) {
@@ -135,6 +142,15 @@ function AddClub() {
                         <option value="Material Engineering" onClick={(e) => { setMe(true) }}>Material Engineering</option>
                     </select>
                 </form>
+
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={needapplication}
+                        onChange={handleCheckboxChange}
+                    />
+                    Need Our Application Form
+                </label>
                 <input type="submit" onClick={data_process} />
             </div>
 
