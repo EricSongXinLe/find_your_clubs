@@ -1,37 +1,37 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom"
 import axios from "axios"
+import "./application.css"
 // useless comment
 
 // input questions
+const inputs = ["name", "email", "gender", "birthday"];
+const input_num = inputs.length;
+const input_hints = [];
+const input_titles = [];
+for (let i = 0; i < input_num; i++)
+{
+  input_hints.push("Enter your " + inputs[i] + " here");
+  input_titles.push("What is your " + inputs[i] + "?*");
+}
+// selection questions
+const selections = ["year of graduation"];
+const selection_titles = [];
+selection_titles.push("What is your Year of Graduation?*");
+const selection_num = selections.length;
+
+// transferred username and clubName
+const username = location.state?.username || "Guest";
+const clubName = location.state?.clubname || "Error";
+
 
 function Apply() {
-  const inputs = ["name", "email", "gender", "birthday"];
-  const input_num = inputs.length;
-  const input_hints = [];
-  const input_titles = [];
-  for (let i = 0; i < input_num; i++)
-  {
-    input_hints.push("Enter your " + inputs[i] + " here");
-    input_titles.push("What is your " + inputs[i] + "?*");
-  }
-
-  // selection questions
-  const selections = ["year of graduation"];
-  const selection_titles = [];
-  selection_titles.push("What is your Year of Graduation?*");
-  const selection_num = selections.length;
-
-  // supplementary questions
-  // let supplementaries = ["A unique question*", "Another unique question*"];
   
+
+  // supplementary questions  
   const [supplementaries, setData] = useState([]);
-  
-  //useEffect(() => {
-    
-  //});
-  
   if (supplementaries.length == 0)
-    getCreation("ABC");
+    getCreation("xdf");
   
   async function getCreation(clubName){
 
@@ -57,25 +57,9 @@ function Apply() {
   
     }
     catch(e){
-  
+
     }
-  
   }
-
-  /*
-  while (supplementaries.length == 0)
-  {
-    console.log("not yet")
-    continue;
-  }
-  */
-  
-  console.log("omg", supplementaries)
-  //console.log("supplementaries ", supplementaries);
-  const supplementary_num = supplementaries.length;
-
-  
-
 
   let general_show = []
   let supplementary_show = []
@@ -86,20 +70,21 @@ function Apply() {
     pair_show.push(<input type="text" id={inputs[i]} placeholder={input_hints[i]}></input>);
     general_show.push(pair_show);
   }
-
-  // let supplementaries = db.user.find({clubname: {clubname}}, {supplementaries: 1});
   
+  let yog_options = ["select", "2024", "2025", "2026", "2027"];
+
+  // supplementary questions' show tags
   for (let i = 0; i < supplementaries.length; i++)
   {
     let pair_show = [];
-    pair_show.push(<p className="text" id={"sTitle" + String(i)}>{supplementaries[i]}</p>);
+    pair_show.push(<p className="text" id={"sTitle" + String(i)}>{supplementaries[i] + "*"}</p>);
     pair_show.push(<input type="text" id={"supplementary" + String(i)} placeholder="Enter your answer"></input>);
     supplementary_show.push(pair_show);
   }
 
-  let yog_options = ["select", "2024", "2025", "2026", "2027"];
-
   document.body.style.overflow = "visible";
+  if (document.getElementById("egg"))
+    document.getElementById("egg").style.display = "none";
 
   return (
   <>
@@ -121,7 +106,6 @@ function Apply() {
       </select>
     </div>
     
-
     <div className="row">
       {supplementary_show.map((pair_show) => (
         <>
@@ -131,18 +115,21 @@ function Apply() {
       ))}
     </div>
 
-    <button id="submit application button" onClick={saveAnswer}>Submit</button>
+    <button id="submit application button" onClick={saveAnswer.bind(this, supplementaries)}>Submit</button>
     <p id="texto"></p>
+    <p class="egg" id="egg"></p>
   </>
   );
 }
 
-function saveAnswer() {
-  return;
-  /*
+function saveAnswer(supplementaries) {
+  if (!(document.getElementById("iTitle0")))
+    return;
+
   let finished = true;
 
   // check for any unanswered required input question
+  
   for (let i = 0; i < input_num; i++)
   {
     let question = document.getElementById("iTitle" + String(i));
@@ -151,6 +138,8 @@ function saveAnswer() {
     {
       question.innerHTML = input_titles[i] + " Required";
       question.style.color = '#FF5733';
+      if (finished)
+        alert(inputs[i] + " is required")
       finished = false;
     }
     else if (question.innerHTML != input_titles[i]) // revert to normal
@@ -167,8 +156,10 @@ function saveAnswer() {
     let selection = document.getElementById("Select1");
     if (selection.value == "select") // if no selection
     {
-      select.style.color='#FF5733';
       select.innerHTML = selection_titles[i] + " Required";
+      select.style.color='#FF5733';
+      if (finished)
+        alert(selections[i] + " is required")
       finished = false;
     }
     else if (select.innerHTML != selection_titles[i]) // revert to normal
@@ -179,20 +170,22 @@ function saveAnswer() {
   }
 
   // check for any unanswered required supplementary question
-  for (let i = 0; i < supplementary_num; i++)
+  for (let i = 0; i < supplementaries.length; i++)
   {
     let question = document.getElementById("sTitle" + String(i));
     let text_box = document.getElementById("supplementary" + String(i));
     if (text_box.value == "") // if empty
     {
-      question.innerHTML = supplementaries[i] + " Required";
+      question.innerHTML = supplementaries[i] + "* Required";
       question.style.color = '#FF5733';
+      if (finished)
+        alert("Supplementary " + String(i) + " is required")
       finished = false;
     }
     else if (question.innerHTML != supplementaries[i]) // revert to normal
     {
       question.style.color = '#000000';
-      question.innerHTML = supplementaries[i];
+      question.innerHTML = supplementaries[i]+"*";
     }
   }
 
@@ -201,7 +194,6 @@ function saveAnswer() {
     return;
 
   let answers = [];
-  let supplementary_answers = [];
 
   // add input questions' answers to list
   for (let i = 0; i < input_num; i++)
@@ -218,27 +210,29 @@ function saveAnswer() {
   }
 
   // add supplementary questions' answers to list
-  for (let i = 0; i < supplementary_num; i++)
+  for (let i = 0; i < supplementaries.length; i++)
   {
     let text_box = document.getElementById("supplementary" + String(i));
-    supplementary_answers.push(text_box.value);
+    answers.push(text_box.value);
   }
 
-  postAnswer(answers, supplementary_answers); // send answers to backend database
+  postAnswer("xdf", username, answers); // send answers to backend database
 
   // Happy Birthday
-  document.getElementById('texto').innerHTML = "Happy Birthday".concat(
-    " ", document.getElementById(inputs[0]).value);
-  */
+  if (document.getElementById(inputs[0]).value == "Paul Eggert")
+    document.getElementById('texto').innerHTML = "Welcome! You must be THE Paul Eggert!";
+  let condition = false;
+  if (condition)
+    document.getElementById('egg').style.display = "";
 
 }
 
 
-async function postAnswer(answers, supplementary_answers)
+async function postAnswer(clubName, username, answers)
 {
   try{  
     await axios.post("http://localhost:8000/application",{
-        answers, supplementary_answers
+        clubName, username, answers
     })
       .then(res => {
         if (res.data == "exist") {

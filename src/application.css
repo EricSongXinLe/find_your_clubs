@@ -1,0 +1,5 @@
+.egg::before {
+    content: "\2665";
+    font-size: 2rem;
+    color: red;
+}
