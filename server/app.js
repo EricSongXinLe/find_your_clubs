@@ -267,33 +267,82 @@ app.post("/addstupref", async (req, res) => {
     }
 
 })
-
-//Potential Bugs here!!!!
-app.post('/favorite/:id', async (req, res) => {
-    const { id } = req.params;
-    const { userId, favorite } = req.body;
-
-    try {
-        const user = await student_collection.findById(userId);
-
-        if (favorite) {
-            // Add club to favorites
-            if (!user.favClubs.includes(id)) {
-                user.favClubs.push(id);
-            }
-        } else {
-            // Remove club from favorites
-            user.favClubs = user.favClubs.filter(favId => favId.toString() !== id);
+app.get('/favclub', async(req, res)=>{
+    const username = req.query.username;
+    console.log("HAHAHAHAHAHAHAHAH:",username)
+    try{
+        const favclubdata = await student_collection.findOne({username:username})
+        console.log("This is FavClubData after Fetch:",favclubdata)
+        // await club_collection.findOne({clubname:clubname})
+        if (favclubdata) {
+            res.json(favclubdata)
         }
-
-        await user.save();
-        res.status(200).json({ message: 'Favorites updated successfully' });
-    } catch (error) {
-        res.status(500).json({ message: 'Server error', error });
+        else{
+            res.json("fail")
+        }
     }
-});
+    catch(e){
+        res.json("fail")
+    }
+})
 
-app.listen(8000, () => {
+app.post("/favclubupdate",async(req,res)=>{
+    //console.log(req.body)
+    const username = req.body.userId
+    var favClubArr = req.body.currUserFavClub
+    const clubid = req.body.id
+    console.log("HAHAHAHAHAHAHAHAH:",username)
+    console.log("1234567890",favClubArr)
+    const data={
+    
+    }
+    //favClubArr.push(clubid)
+    try{
+        const user=await student_collection.findOne({username:username});
+        if (!user) {
+            console.error('User not found');
+            res.json('fail');
+            return;
+          }
+        console.log(user.favClubs)
+        var removela = false;
+        if (!favClubArr.includes(clubid)) {
+            favClubArr.push(clubid);
+            console.log('Updated Favorite Clubs:', favClubArr);
+          } else {
+            console.log('Remove Club');
+            const index = favClubArr.indexOf(clubid);
+            if (index !== -1) {
+                favClubArr.splice(index, 1);
+            }
+            console.log("Removed Club:",favClubArr);
+            res.json('remove'); 
+            removela = true;
+          }
+        let check=await student_collection.updateOne({username:username}, {$set:{favClubs: favClubArr}})
+        const newuser=await student_collection.findOne({username:username});
+        console.log("HWG",newuser.favClubs)
+        if(!removela){
+        if(check){
+            res.json("added")
+            
+        }
+        else{
+            console.log(check)
+            res.json("fail")
+        }
+    }
+    
+    }
+    catch(e){
+        console.log(e)
+        res.json("fail")
+    }
+    
+})
+
+app.listen(8000,()=>{
+
     console.log("port connected");
 })
 

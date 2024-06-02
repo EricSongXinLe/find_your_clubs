@@ -32,9 +32,9 @@ const studentSchema=new mongoose.Schema({
         required: false
     },
     favClubs: {
-        type: Array,
-        required: true,
-        default: [] 
+        type: [String],
+        required: false,
+        default:[]
     }
 })
 
