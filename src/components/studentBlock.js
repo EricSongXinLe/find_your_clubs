@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useState } from 'react';
-
+import axios from "axios"
 import '../styles.css';
 
 import ModeSelector from './changeMode'; 
@@ -9,7 +9,7 @@ import SearchBar from './searchBar';
 import FilterBar from './filterBar';
 import PhotoDisplay from './photoDisplay';
 
-function StudentBlock () {
+function StudentBlock (username) {
     const tags = ['Publish Time', 'Experience Needed', 'Popular'];
     const imageLst = [
         './images/logo.webp',
@@ -17,11 +17,13 @@ function StudentBlock () {
         '../images/Econ-Panel.png'
       ];
       const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
-    const [clubs, setClubs] = useState([
-        {title: 'Club One', description: 'Description of Club One' },
-        {title: 'Club Two', description: 'Description of Club Two' },
-    ]);
-
+ 
+    const [clubs, setClubs] = useState([]);
+    console.log("HEllo1")
+    if (clubs.length<=3){
+        RenderClub();
+    }
+    
   const transformClubData = (data) => {
     return {
         title: data.clubname,
@@ -33,7 +35,42 @@ const updateClubs = (newClubInfo) => {
     setClubs([transformedData]);
 };
 
+async function RenderClub(e){
 
+    try{
+        
+        // await axios.get('http://localhost:8000/search', { params: { clubname: search } })
+        await axios.get("http://localhost:8000/recommendClub",{
+            params: { username: username.username }
+        })
+        .then(res=>{
+            if(res.data=="fail"){
+                alert("Error!")
+            }
+            else {
+                // alert("Preference added")
+                console.log(res.data)
+                for (const club of res.data){
+                    const newClubs = clubs.slice()
+                    const element = {title: club.clubname, description: club.clubdescription }
+                    newClubs.push(element)
+                    setClubs(newClubs)
+                }
+               
+
+                // history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}})
+            }
+        })
+        .catch(e=>{
+            alert("An error occured")
+            console.log(e);
+        })
+    }
+    catch(e){
+        console.log(e);
+    }
+    // return("")
+}
     return (
         <div class ="web_page_container">
             <div class="left_cont">
@@ -48,7 +85,7 @@ const updateClubs = (newClubInfo) => {
 
             <div class="right_cont">
                 {<ModeSelector m_mode={selected} m_setMode={setSelected} />}
-
+                
                 {selected === 'search' && <SearchBar setSearchResults={updateClubs}/>}
                 {
                     <div className="club-box">

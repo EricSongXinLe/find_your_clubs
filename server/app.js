@@ -257,6 +257,35 @@ app.post("/addstupref", async (req, res) => {
 
 })
 
+app.get("/recommendClub",async(req,res)=>{
+    const username = req.query.username;
+    // console.log("backend", username)
+    try{
+        let studentInterest=await student_collection.findOne({username:username}, {interestArr:1})
+    const stuInterest = studentInterest.interestArr
+        
+        console.log(stuInterest);
+        const allclub = await club_collection.find({tagsList:{
+            $in:stuInterest
+        }}).limit(2)
+        // console.log(allclub[0].clubname)
+        if(stuInterest){
+            res.json(allclub)
+    
+      
+        }
+        else{
+        
+            res.json("fail")
+        }
+        
+    }
+    catch(e){
+        res.json("fail")
+    }
+
+})
+
 //Potential Bugs here!!!!
 app.post('/favorite/:id', async (req, res) => {
     const { id } = req.params;
