@@ -20,8 +20,10 @@ function Welcome({ userName }) {
           <h1>Find Your Clubs</h1></header>
       <div className="welcome-container">
         
-        <h2>Welcome, {userName}!</h2>
-        <button onClick={handleLogout} className="logout-button">Logout</button>
+      <div className="welcome-header">
+          <h2>Welcome, {userName}!</h2>
+          <button onClick={handleLogout} className="logout-button">Logout</button>
+        </div>
         <button onClick={handlemyFav} className="FavButton">My Favourite Clubs</button>
       </div>
       </div>

@@ -153,25 +153,47 @@ button {
   right: 0;
   padding: 10px;
   z-index: 5;
-  display: flex; 
-  align-items: center; 
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; 
 }
 
-.welcome-container h2 { /*The relative pos of welcome*/
-  margin-top: 17px;
+.welcome-header {
+  display: flex;
+  align-items: center; /* Center align items vertically */
+  justify-content: flex-end; /* Align items to the right */
+  width: 100%;
+}
+
+.welcome-header h2 {
   margin-right: 10px;
-  font-size: 22px; 
+  font-size: 22px;
 }
 
 .logout-button {
   padding: 5px 10px;
   font-size: 15px;
   transition: transform 0.25s ease;
-  cursor: pointer; /* Makes it clear the button is clickable */
+  cursor: pointer; 
+  margin-left: 10px; 
 }
-.logout-button:hover{
+
+.logout-button:hover {
   transform: scale(1.1);
 }
+
+.FavButton {
+  margin-top: 10px; 
+  padding: 5px 10px;
+  font-size: 15px;
+  transition: transform 0.25s ease;
+  cursor: pointer; 
+}
+
+.FavButton:hover {
+  transform: scale(1.1);
+}
+
 
 .searchBar {
   display: flex;
