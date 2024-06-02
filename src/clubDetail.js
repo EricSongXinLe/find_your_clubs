@@ -7,6 +7,8 @@ import axios from "axios"
 
 const ClubDetails = () => {
   const { id } = useParams();
+  const [removed, setRomved] = useState(false);
+  var newarr = [];
   console.log(id);
   const navigate = useNavigate();
   const { userId } = useContext(UserContext);
@@ -112,11 +114,37 @@ const fetchStudent = (data) => {
  
  const toggleFavorite = async () => {
  //console.log(currUserFavClub); // Should do correct here
+ try {
+
+  // console.log(search)
+  await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
+  .then(
+      res=>{
+        console.log("This is username:",res.data);
+        const studentData = fetchStudent(res.data);
+        console.log(studentData);
+        newarr = studentData.favClubArr;
+      }
+  ).catch((e)=>
+      console.log(e)
+  ) 
+}
+catch (error) {
+  console.error('12345', error);
+}
  try{
   console.log(currUserFavClub)
   console.log(userId)
+
+  const updatedFavClubs = isFavorited
+        ? currUserFavClub.filter((clubId) => clubId !== id)
+        : [...currUserFavClub, id];
+
+      // Update state with the new array
+      //setCurrUserFavClub(updatedFavClubs);
+    console.log("The one to BACK: ",newarr)
   await axios.post("http://localhost:8000/favclubupdate",{
-      userId, currUserFavClub, id
+      userId, currUserFavClub:newarr, id
   })
   .then(res=>{
       if(res.data=="fail"){
@@ -124,18 +152,22 @@ const fetchStudent = (data) => {
           setIsFavorited(!isFavorited);
       }
       else if(res.data=="added"){
-          alert(id+" has been Added to your Favourite Clubs!")
+          //alert(id+" has been Added to your Favourite Clubs!")
           setIsFavorited(!isFavorited);
+          setRomved(false);
 
       }else if(res.data=="remove"){
-        alert(id+" has been Removed from your Favourite Clubs!")
+        //alert(id+" has been Removed from your Favourite Clubs!")
         setIsFavorited(!isFavorited);
+        setRomved(true);
       }
   })
   .catch(e=>{
       alert("An error occured")
       console.log(e);
   })
+  if(!removed){
+    /*
   try {
 
     // console.log(search)
@@ -154,11 +186,13 @@ const fetchStudent = (data) => {
   }
     catch (error) {
     console.error('CANNOT find Fav Clubs', error);
-  }
+  }*/
+}
 }
 catch(e){
   console.log(123123);
 }
+ 
 };
 
 

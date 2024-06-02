@@ -256,7 +256,7 @@ app.get('/favclub', async(req, res)=>{
 })
 
 app.post("/favclubupdate",async(req,res)=>{
-    console.log(req.body)
+    //console.log(req.body)
     const username = req.body.userId
     var favClubArr = req.body.currUserFavClub
     const clubid = req.body.id
@@ -274,6 +274,7 @@ app.post("/favclubupdate",async(req,res)=>{
             return;
           }
         console.log(user.favClubs)
+        var removela = false;
         if (!favClubArr.includes(clubid)) {
             favClubArr.push(clubid);
             console.log('Updated Favorite Clubs:', favClubArr);
@@ -285,10 +286,12 @@ app.post("/favclubupdate",async(req,res)=>{
             }
             console.log("Removed Club:",favClubArr);
             res.json('remove'); 
+            removela = true;
           }
         let check=await student_collection.updateOne({username:username}, {$set:{favClubs: favClubArr}})
         const newuser=await student_collection.findOne({username:username});
         console.log("HWG",newuser.favClubs)
+        if(!removela){
         if(check){
             res.json("added")
             
@@ -297,6 +300,7 @@ app.post("/favclubupdate",async(req,res)=>{
             console.log(check)
             res.json("fail")
         }
+    }
     
     }
     catch(e){
