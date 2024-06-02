@@ -10,10 +10,8 @@ const ClubDetails = () => {
   const { id } = useParams();
   const [removed, setRomved] = useState(false);
   var newarr = [];
-  console.log(id);
   //const navigate = useNavigate();
   const { userId } = useContext(UserContext);
-  console.log(userId);
   const [club, setClub] = useState([]);
   const [currUserFavClub,setCurrUserFavClub] = useState([]);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -73,17 +71,9 @@ const location = useLocation();
         await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
         .then(
             res=>{
-              console.log("This is username:",res.data);
               const studentData = fetchStudent(res.data);
-              console.log(studentData);
-              if(Array.isArray(studentData.favClubArr)){
-                console.log(111111111);
-              }else{
-                console.log(222222222);
-              }
               const idExists = studentData.favClubArr.includes(id);
               setCurrUserFavClub(studentData.favClubArr); 
-              console.log(currUserFavClub);
               setIsFavorited(idExists);
             }
         ).catch((e)=>
@@ -135,9 +125,7 @@ const location = useLocation();
   await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
   .then(
       res=>{
-        console.log("This is username:",res.data);
         const studentData = fetchStudent(res.data);
-        console.log(studentData);
         newarr = studentData.favClubArr;
       }
   ).catch((e)=>
@@ -145,11 +133,9 @@ const location = useLocation();
   ) 
 }
 catch (error) {
-  console.error('12345', error);
+  console.error(error);
 }
  try{
-  console.log(currUserFavClub)
-  console.log(userId)
 
   const updatedFavClubs = isFavorited
         ? currUserFavClub.filter((clubId) => clubId !== id)
@@ -157,7 +143,6 @@ catch (error) {
 
       // Update state with the new array
       //setCurrUserFavClub(updatedFavClubs);
-    console.log("The one to BACK: ",newarr)
   await axios.post("http://localhost:8000/favclubupdate",{
       userId, currUserFavClub:newarr, id
   })
@@ -205,7 +190,7 @@ catch (error) {
 }
 }
 catch(e){
-  console.log(123123);
+  console.log(e);
 }
  
 };
@@ -236,7 +221,6 @@ catch(e){
       </div>
       <div className="club-footer-button">
       <button className="navigate-button" onClick={handleButtonClick}>Go to Application Page</button>
-      <button className="navigate-button" onClick={() => navigate('/')}>Back to Home Page</button>
       </div>
     </div>
   );

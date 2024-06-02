@@ -129,7 +129,6 @@ app.post("/application", async (req, res) => {
     const gender = answerList[2]
     const yearOfGraduation = answerList[3]
     const birthday = answerList[4]
-    console.log("This is backend")
     console.log(answerList)
     const data = {
         name: name,
@@ -166,11 +165,9 @@ app.get('/search', async (req, res) => {
     // console.log(clubname)
     try {
         const clubdata = await club_collection.findOne({ clubname: clubname })
-        console.log(clubdata)
         // await club_collection.findOne({clubname:clubname})
         if (clubdata) {
             res.json(clubdata)
-            console.log(clubdata)
         }
         else {
             res.json("fail")
@@ -275,7 +272,6 @@ app.get("/recommendClub",async(req,res)=>{
         let studentInterest=await student_collection.findOne({username:username}, {interestArr:1})
     const stuInterest = studentInterest.interestArr
         
-        console.log(stuInterest);
         const allclub = await club_collection.find({tagsList:{
             $in:stuInterest
         }}).limit(3)
@@ -298,10 +294,8 @@ app.get("/recommendClub",async(req,res)=>{
 
 app.get('/favclub', async(req, res)=>{
     const username = req.query.username;
-    console.log("HAHAHAHAHAHAHAHAH:",username)
     try{
         const favclubdata = await student_collection.findOne({username:username})
-        console.log("This is FavClubData after Fetch:",favclubdata)
         // await club_collection.findOne({clubname:clubname})
         if (favclubdata) {
             res.json(favclubdata)
@@ -321,8 +315,6 @@ app.post("/favclubupdate",async(req,res)=>{
     const username = req.body.userId
     var favClubArr = req.body.currUserFavClub
     const clubid = req.body.id
-    console.log("HAHAHAHAHAHAHAHAH:",username)
-    console.log("1234567890",favClubArr)
     const data={
     
     }

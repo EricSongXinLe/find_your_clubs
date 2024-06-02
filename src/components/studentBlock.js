@@ -12,11 +12,7 @@ import PhotoDisplay from "./photoDisplay";
 var x = 0;
 function StudentBlock(username) {
     const tags = ["Publish Time", "Experience Needed", "Popular"];
-    const imageLst = [
-        "./images/logo.webp",
-        "../images/Econ-Panel.png",
-        "../images/Econ-Panel.png",
-    ];
+    const [imageLst, setImageLst] = useState([]);
     const [selected, setSelected] = useState("recommendation"); // Tracks which button is selected
 
 
