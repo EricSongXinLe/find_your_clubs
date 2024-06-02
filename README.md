@@ -3,10 +3,10 @@
 Confused about what all those clubs are about? Don't know where to apply? Don't worry, **Find Your Clubs** will help you navigate through various STEM clubs, providing detailed information about each. Additionally, you can directly apply to clubs through their individual pages. Most importantly, our website will recommend clubs based on your interests.
 
 ## Table of Contents
-- [Features](link)
-- [Technologies](link)
-- [Setting Up](link)
-- [Authors](link)
+- [Features](https://github.com/EricSongXinLe/find_your_clubs/tree/new-main?tab=readme-ov-file#feature)
+- [Technologies](https://github.com/EricSongXinLe/find_your_clubs/tree/new-main?tab=readme-ov-file#technologies)
+- [Setting Up](https://github.com/EricSongXinLe/find_your_clubs/tree/new-main?tab=readme-ov-file#setting-up)
+- [Authors](https://github.com/EricSongXinLe/find_your_clubs/tree/new-main?tab=readme-ov-file#authors)
 
 ## Key Features
 + ***Club Management:*** Enables club leaders to manage and create their club page, and review applications
