@@ -341,6 +341,24 @@ app.post("/favclubupdate",async(req,res)=>{
     
 })
 
+app.post("/myfavclub", async (req, res) => {
+    const { username } = req.body
+    try {
+        const user = await student_collection.findOne({ username: username })
+        if (!user) {
+            console.error('User not found');
+            res.json('fail');
+            return;
+          }
+          console.log("Info Fetched: ",user.favClubs)
+        res.json("Exist")
+
+    }
+    catch (e) {
+        res.json("fail")
+    }
+})
+
 app.listen(8000,()=>{
 
     console.log("port connected");

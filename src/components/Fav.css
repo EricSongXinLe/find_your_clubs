@@ -1,0 +1,16 @@
+.fav-clubs-container {
+    padding: 20px;
+  }
+  
+  .fav-clubs-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .club-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+  }
+  
