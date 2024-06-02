@@ -10,8 +10,7 @@ body {
   .club-details-container {
     display: flex;
     flex-direction: column;
-    width: 70%;
-    max-width: 1200px;
+    width: 50vw;
     padding: 20px;
     margin: 20px auto;
     border: 1px solid #ddd;
@@ -43,7 +42,8 @@ body {
   }
   
   .club-image {
-    max-width: 100%;
+    max-width: 200px;
+    max-height: 200px;
     height: auto;
     border-radius: 8px;
   }
@@ -67,6 +67,13 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  .club-footer-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
   }
   
   .club-application,

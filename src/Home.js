@@ -34,7 +34,6 @@ export default function Home() {
     <div>
       
       <header>
-        <img id="logo" src={require("./images/logo.webp")} alt="logo"/>
         <h1>Find Your Clubs</h1>
       </header>
       <Welcome userName={username}/>

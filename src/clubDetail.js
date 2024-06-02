@@ -17,11 +17,15 @@ const ClubDetails = () => {
   const [club, setClub] = useState([]);
   const [currUserFavClub,setCurrUserFavClub] = useState([]);
   const [isFavorited, setIsFavorited] = useState(false);
+
+  const [clubImg, setClubImg] = useState('');
+
   const transformClubData = (data) => {
     return {
         description: data.clubdescription,
         requirements: data.requirement,
         activitytime: data.activityTime,
+        image: data.clubimg,
     };
 };
 
@@ -42,9 +46,17 @@ const location = useLocation();
         await axios.get('http://localhost:8000/search', { params: { clubname: id } })
         .then(
             res=>{
-              console.log(res.data);
+              if(res.data == "fail"){
+                alert("Club not found")
+                window.location.href = "/";
+                return
+              }
+              else{
               const transformedData = transformClubData(res.data);
               setClub(transformedData);
+              const base64 = Buffer.from(res.data.clubimg).toString('base64');
+              setClubImg(`data:image/jpeg;base64,${base64}`);
+            }
             }
         ).catch((e)=>
             console.log(e)
@@ -211,7 +223,7 @@ catch(e){
         <p className="club-tag"><strong>Tag:</strong> {club.tag}</p>
       </div>
       <div className="club-image-container">
-        <img src={club.image} alt="Club" className="club-image" />
+        <img src={clubImg} alt="Loading..." className="club-image" />
       </div>
       <div className="club-description-container">
         <pre className="club-description">{club.description}</pre>
@@ -222,7 +234,10 @@ catch(e){
         </p>
         <p className="club-activitytime"><strong>Activity Time:</strong> {club.activitytime}</p>
       </div>
+      <div className="club-footer-button">
       <button className="navigate-button" onClick={handleButtonClick}>Go to Application Page</button>
+      <button className="navigate-button" onClick={() => navigate('/')}>Back to Home Page</button>
+      </div>
     </div>
   );
 };

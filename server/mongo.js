@@ -1,5 +1,6 @@
 const mongoose=require("mongoose")
 mongoose.connect("mongodb://admin:CS35L@110.40.138.15:27017/admin")
+// mongoose.connect("mongodb://localhost:27017/findyourclubDB")
 .then(()=>{
     console.log("mongodb connected");
 })
@@ -44,17 +45,14 @@ const clubsSchema = new mongoose.Schema({
     },
   
     clubimg:{
-        data: Buffer, 
-        contentType: String
+        type:Buffer,
     },
+
     foundingTime:{
         type:Date,
         required:true
     },
-    // tagsList:{
-    //     type:String,
-    //     required:true
-    // },
+
     clubdescription:{
         type:String,
         required:true
@@ -63,34 +61,20 @@ const clubsSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    cs:{
-        type:Boolean,
-        required:true
-    }, 
-    math:{
-        type:Boolean,
-        required:true
-    }, 
-    physics:{
-        type:Boolean,
-        required:true
-    }, 
-    economics:{
-        type:Boolean,
-        required:true
-    }, 
-    ds:{
-        type:Boolean,
-        required:true
-    }, 
-    me:{
-        type:Boolean,
-        required:true
+    tagsList:{
+        type:Array,
+        required: true
     },
     activityTime:{
         type:String,
         required:true
+    },
+    optionalLink:{
+        type:String,
+        required:true
     }
+
+    
 })
 
 const applicationScehma=new mongoose.Schema({
