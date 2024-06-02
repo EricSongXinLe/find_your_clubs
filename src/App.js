@@ -13,7 +13,7 @@ import ClubDetails from './clubDetail.js';
 import Apply from './application.js'
 import Create from './create_application.js'
 import StudentPreference from './stuPref.js';
-
+import FavClubs from "./components/Fav.js"
 const router = createBrowserRouter([
   {
     path: "/",
@@ -49,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/studentpreference",
     element: <StudentPreference/>,
+  },
+  {
+    path: "/myfavclub",
+    element: <FavClubs/>,
   },
 ]);
 
