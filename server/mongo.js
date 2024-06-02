@@ -77,37 +77,32 @@ const clubsSchema = new mongoose.Schema({
     
 })
 
-const appFormSchema=new mongoose.Schema({
-    clubName:{
+const applicationScehma=new mongoose.Schema({
+    name:{
         type:String,
         required:true
     },
-    supplementaryQuestion:{
-        type:[String],
-        required:true
-    }
-})
-
-const answerSchema=new mongoose.Schema({
-    clubName:{
+    email:{
         type:String,
         required:true
     },
-    username:{
+    gender:{
         type:String,
         required:true
     },
-    answers:{
-        type:[String],
+    yearOfGraduation:{
+        type: String,
         required:true
+    },
+    birthday:{
+        type: String,
+        required : true
     }
 })
 
 const student_collection = mongoose.model("students",studentSchema)
 const club_collection = mongoose.model("clubs",clubsSchema)
-const application_collection = mongoose.model("appForm",appFormSchema)
-const answer_collection = mongoose.model("answers", answerSchema)
+const application_collection = mongoose.model("applications",applicationScehma)
 exports.club_collection=club_collection
 exports.student_collection=student_collection
 exports.application_collection=application_collection
-exports.answer_collection=answer_collection

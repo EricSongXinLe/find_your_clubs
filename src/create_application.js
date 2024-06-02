@@ -1,28 +1,28 @@
 import axios from "axios"
-import { useNavigate, useLocation } from "react-router-dom"
 
 // input questions
 const inputs = ["name", "email", "gender", "birthday"];
+const input_num = inputs.length;
+const input_titles = [];
+for (let i = 0; i < input_num; i++)
+  input_titles.push("What is your " + inputs[i] + "?*");
 
 // selection questions
 const selections = ["year of graduation"];
+const selection_titles = [];
+selection_titles.push("What is your Year of Graduation?*");
+const selection_num = selections.length;
+
 
 function Create() {
   // a string that lists out the general questions
-
-  const location = useLocation();
-  const username = location.state?.username || "Guest";
-  const clubName = location.state?.clubname || "Error";
-  console.log("I get the Club Name: ",clubName);
-  console.log("Username:", username);
-
   let question_str = inputs[0];
-  for (let i = 1; i < inputs.length; i++)
+  for (let i = 1; i < input_num; i++)
   {
     question_str += ", " + inputs[i];
   }
 
-  for (let i = 0; i < selections.length; i++)
+  for (let i = 0; i < selection_num; i++)
   {
     question_str += ", " + selections[i];
   }
@@ -51,47 +51,42 @@ function Create() {
       <input type="text" name="" id="club designed question 3 input box" placeholder="Third Question"></input>
     </div>
 
-    <button id="finish creation button" onClick={saveForm(clubName)}>Finish</button>
+    <button id="finish creation button" onClick={saveForm}>Finish</button>
 
   </>
   );
 }
 
-function saveForm(myclubname) {
-
+function saveForm() {
   // gather supplementary questions from input boxes
   let supplementary_questions = []
   for (let i = 1; i <= 3; i++)
   {
     let created_question = document.getElementById("club designed question " + String(i) + " input box");
-
-    if (!(created_question))
-      return;
-
     if (created_question.value == "") // only add the boxes with answer
       continue;
     supplementary_questions.push(created_question.value);
   }
 
+  // generate the general question list
+  let general_questions = structuredClone(input_titles);
+  general_questions.splice(3, 0, selection_titles[0]);
 
-  // send supplementary question lists to database
-  console.log("Name to back:",myclubname);
-  console.log("questions:",supplementary_questions);
-  postForm(myclubname, supplementary_questions);
+  // send both question lists to database
+  postForm(general_questions, supplementary_questions);
 }
 
-async function postForm(clubName, supplementary_questions)
+async function postForm(general_questions, supplementary_questions)
 {
   try{  
     await axios.post("http://localhost:8000/create",{
-        clubName, supplementary_questions
-
+        general_questions, supplementary_questions
     })
     .then(res=>{
         if(res.data=="exist"){
             alert("You've already submitted the created questions")
         }
-        else if(res.data=="notexist"){
+        else if(res.data=="added"){
             alert("Created questions submitted successfully")
         }
     })
