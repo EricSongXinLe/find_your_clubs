@@ -125,7 +125,10 @@ const ClubDetails = () => {
         </p>
         <p className="club-activitytime"><strong>Activity Time:</strong> {club.activitytime}</p>
       </div>
+      <div className="club-footer-button">
       <button className="navigate-button" onClick={handleButtonClick}>Go to Application Page</button>
+      <button className="navigate-button" onClick={() => navigate('/')}>Back to Home Page</button>
+      </div>
     </div>
   );
 };

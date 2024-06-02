@@ -92,27 +92,27 @@ input {
   align-items: flex-start;
   padding: 20px; 
   height: 100vh; 
-  width: 85vw;
+  width: 93vw;
 }
 
 .left_cont{
-  flex: 0 1 35%; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 250px */
-    background-color: #ffffff; /* Light gray background */
+  flex: 0 1 35%;
+    background-color: #ffffff; 
     padding: 10px;
     overflow-y: auto;
 }
 
 .mid_cont{
-  flex: 2 1 35%; /* Takes up the bulk of the space */
-    background-color: #ffffff; /* White background */
+  flex: 2 1 55%; 
+    background-color: #ffffff; 
     padding: 10px;
-    overflow-y: auto; /* Allows vertical scrolling */
+    overflow-y: auto; 
 
 }
 
 .right_cont {
-  flex: 0 1 60%; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 200px */
-  background-color: #ffffff; /* Slightly darker gray than left_cont */
+  flex: 0 1 50%; 
+  background-color: #ffffff; 
   padding: 10px;
   overflow-y: auto;
 }
@@ -187,12 +187,11 @@ button {
 }
 
 .club-block {
-  width: 500px;
+  width: 400px;
   display: flex;
   justify-content: left;
   align-items: right;
   margin: 10px;
-  max-width: 800px; 
   background-color: #f9f9f9; 
   border-radius: 7px;
   cursor: pointer;
@@ -384,24 +383,21 @@ button {
   background-color: #f8f8f8; 
 }
 
-/* Styling for chosen tags */
-/* General styling for the filter bar container */
 .filter-bar {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  border-right: 2px solid #ccc; /* Add a border to the right of the filter bar */
-  height: 100vh; /* Full view height */
-  width: 250px; /* Set width of the filter bar */
-  background-color: #f8f8f8; /* Light grey background */
+  border-right: 2px solid #ccc; 
+  height: 100vh; 
+  width: 250px; 
+  background-color: #f8f8f8; 
 }
 
-/* Styling for chosen tags */
 .chosen-tags {
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 20px;
-  border-bottom: 1px solid #ddd; /* Separator */
+  border-bottom: 1px solid #ddd; 
 }
 
 .chosen-tag {
@@ -410,7 +406,7 @@ button {
   align-items: center;
   margin: 5px;
   padding: 5px 10px;
-  background-color: #007BFF; /* Bootstrap primary blue */
+  background-color: #007BFF; 
   color: white;
   border-radius: 15px;
 }
@@ -430,7 +426,6 @@ button {
   color: black;
 }
 
-/* Styling for available tags */
 .available-tags {
   padding-top: 20px;
 }
@@ -439,13 +434,13 @@ button {
   display: inline-block;
   margin: 5px;
   padding: 5px 10px;
-  background-color: #eeeeee; /* Light grey background */
+  background-color: #eeeeee; 
   cursor: pointer;
   border-radius: 15px;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .tag:hover {
-  background-color: #007BFF; /* Bootstrap primary blue */
+  background-color: #007BFF;
   color: white;
 }
