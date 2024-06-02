@@ -42,25 +42,30 @@ function AddClub() {
 
     async function submit_club() {
         try {
+            // console.log(tagsList)
             const formData = new FormData();
             formData.append("clubname", clubname);
             formData.append("foundingTime", foundingTime.toISOString());
+            //
             formData.append("tagsList", JSON.stringify(tagsList));
+            //
             formData.append("clubdescription", clubdescription);
             formData.append("requirement", requirement);
             formData.append("activityTime", activityTime);
             formData.append("optionalLink", optionalLink);
-            formData.append("cs", cs);
-            formData.append("math", math);
-            formData.append("physics", physics);
-            formData.append("economics", economics);
-            formData.append("ds", ds);
-            formData.append("me", me);
+            // formData.append("tagsList", tagsList);
+            // formData.append("cs", cs);
+            // formData.append("math", math);
+            // formData.append("physics", physics);
+            // formData.append("economics", economics);
+            // formData.append("ds", ds);
+            // formData.append("me", me);
             if (selectedImage) {
                 formData.append("clubimage", selectedImage);
             }
 
-            const response = await axios.post("http://localhost:8000/addclub", formData, {
+            const response = await axios.post("http://localhost:8000/addclub", formData,{
+                
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },
@@ -80,16 +85,16 @@ function AddClub() {
   
     let option_list = [];
 
-  for (let i = 0; i < input_num; i++) {
+    for (let i = 0; i < input_num; i++) {
 
-    option_list.push( <option value={interests[i]} onClick={(e) => {
-        const newArr = interestArr.slice()
-      newArr.push(interests[i])
-      setInterestArr(newArr)
-    }}> {interests[i]}</option> );
+        option_list.push( <option value={interests[i]} onClick={(e) => {
+            const newArr = tagsList.slice()
+        newArr.push(interests[i])
+        setTagsList(newArr)
+        }}> {interests[i]}</option> );
+        
+    }
     
-  }
-
     const getImage = (e) => {
         setSelectedImage(e.target.files[0]);
     };
@@ -150,7 +155,13 @@ function AddClub() {
                 <br />
                 <h2>Please add area tags for your club (Ctrl/Command-click for multiple selection)</h2>
                 <select multiple size="6">
-                    <option
+                    {option_list[0]}
+                    {option_list[1]}
+                    {option_list[2]}
+                    {option_list[3]}
+                    {option_list[4]}
+                    {option_list[5]}    
+                    {/* <option
                         value="Computer Science"
                         onClick={() => setCs((prev) => !prev)}
                     >
@@ -176,7 +187,7 @@ function AddClub() {
                         onClick={() => setMe((prev) => !prev)}
                     >
                         Material Engineering
-                    </option>
+                    </option> */}
                 </select>
                 <br />
                 <button type="submit">Submit</button>

@@ -183,13 +183,15 @@ app.get('/search', async (req, res) => {
 
 
 app.post('/addclub', upload.single('clubimage'), async (req, res) => {
-    const { clubname, foundingTime, tagsList, clubdescription, requirement, activityTime, optionalLink, cs, math, physics, economics, ds, me } = req.body;
+    const { clubname, foundingTime, tagsList, clubdescription, requirement, activityTime, optionalLink } = req.body;
     const file = req.file;
     const data = {}
-
+    
+    const tagsList1 = JSON.parse(tagsList)
+    console.log(clubname, foundingTime, clubdescription, requirement, activityTime, optionalLink, tagsList1)
     try {
         const check = await club_collection.findOne({ clubname: clubname })
-
+        
 
         if (check) {
             res.json("exist")
@@ -206,9 +208,12 @@ app.post('/addclub', upload.single('clubimage'), async (req, res) => {
                         foundingTime: foundingTime,
                         clubdescription: clubdescription,
                         requirement: requirement,
-                        cs: cs,
-                        math: math, physics: physics, economics: economics, ds: ds, me: me,
-                        activityTime: activityTime
+                        tagsList : tagsList1,
+                        activityTime: activityTime,
+                        optionalLink: optionalLink
+                        // cs: cs,
+                        // math: math, physics: physics, economics: economics, ds: ds, me: me,
+                        
                     }])
                     fs.unlink(file.path, (err) => {
                         if (err) console.error('Error deleting file:', err);

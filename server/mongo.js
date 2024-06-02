@@ -52,10 +52,7 @@ const clubsSchema = new mongoose.Schema({
         type:Date,
         required:true
     },
-    // tagsList:{
-    //     type:String,
-    //     required:true
-    // },
+
     clubdescription:{
         type:String,
         required:true
@@ -64,10 +61,20 @@ const clubsSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    interestArr:{
+    tagsList:{
         type:Array,
         required: true
+    },
+    activityTime:{
+        type:String,
+        required:true
+    },
+    optionalLink:{
+        type:String,
+        required:true
     }
+
+    
 })
 
 const applicationScehma=new mongoose.Schema({
