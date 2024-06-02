@@ -36,6 +36,7 @@ function AddClub() {
     }
 
     async function submit_club() {
+        const delay = ms => new Promise(res => setTimeout(res, ms));
         try {
 
             const formData = new FormData();
@@ -63,7 +64,9 @@ function AddClub() {
             if (response.data === "exist") {
                 alert("Club already exists");
             } else if (response.data === "added") {
-                alert("Club added");
+                alert("Club added, You will be redirected in 5 seconds...");
+                await delay(5000); //this delay is very important becuase our DB is in the other side of the world.....
+                window.location.href = "/club/" + clubname;
             }
         } catch (error) {
             alert("An error occurred");

@@ -19,6 +19,22 @@ function StudentBlock(username) {
     ];
     const [selected, setSelected] = useState("recommendation"); // Tracks which button is selected
 
+
+   
+    useEffect(() => {
+        const fetchImages = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/random-images');
+                console.log('Fetched images:', response.data);
+                setImageLst(response.data);
+            } catch (error) {
+                console.error('Error fetching images:', error);
+            }
+        };
+
+        fetchImages();
+    }, []);
+
     const [clubs, setClubs] = useState([]);
     console.log(clubs);
 
