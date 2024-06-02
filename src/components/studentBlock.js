@@ -8,7 +8,7 @@ import ClubBlock from './clubBlock';
 import SearchBar from './searchBar';
 import FilterBar from './filterBar';
 import PhotoDisplay from './photoDisplay';
-
+var x = 0
 function StudentBlock (username) {
     const tags = ['Publish Time', 'Experience Needed', 'Popular'];
     const imageLst = [
@@ -20,9 +20,13 @@ function StudentBlock (username) {
  
     const [clubs, setClubs] = useState([]);
     console.log("HEllo1")
-    if (clubs.length<=3){
+    
+
+    if (clubs.length<2){
         RenderClub();
     }
+
+    x+=1
     
   const transformClubData = (data) => {
     return {
@@ -49,11 +53,15 @@ async function RenderClub(e){
             }
             else {
                 // alert("Preference added")
-                console.log(res.data)
+                // console.log(res.data)
                 for (const club of res.data){
+                    console.log(club)
                     const newClubs = clubs.slice()
                     const element = {title: club.clubname, description: club.clubdescription }
-                    newClubs.push(element)
+                    if (!(element in newClubs)){
+                        newClubs.push(element)
+                    }
+                    
                     setClubs(newClubs)
                 }
                
