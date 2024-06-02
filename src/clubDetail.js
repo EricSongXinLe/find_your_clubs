@@ -35,10 +35,17 @@ const ClubDetails = () => {
         await axios.get('http://localhost:8000/search', { params: { clubname: id } })
         .then(
             res=>{
+              if(res.data == "fail"){
+                alert("Club not found")
+                window.location.href = "/";
+                return
+              }
+              else{
               const transformedData = transformClubData(res.data);
               setClub(transformedData);
               const base64 = Buffer.from(res.data.clubimg).toString('base64');
               setClubImg(`data:image/jpeg;base64,${base64}`);
+            }
             }
         ).catch((e)=>
             console.log(e)
@@ -118,7 +125,10 @@ const ClubDetails = () => {
         </p>
         <p className="club-activitytime"><strong>Activity Time:</strong> {club.activitytime}</p>
       </div>
+      <div className="club-footer-button">
       <button className="navigate-button" onClick={handleButtonClick}>Go to Application Page</button>
+      <button className="navigate-button" onClick={() => navigate('/')}>Back to Home Page</button>
+      </div>
     </div>
   );
 };

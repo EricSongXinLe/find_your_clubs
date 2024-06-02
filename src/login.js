@@ -60,10 +60,10 @@ function Login() {
         <link rel="stylesheet" href="signup.css" />
             <h1>Login</h1>
             <form action="POST">
-                <input class="textInput" type="text" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username" />
-                <input class="textInput" type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
+                <input className="textInput" type="text" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username" />
+                <input className="textInput" type="password" autoComplete="current-password webauthn" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
                 <br/>
-                <input class= "submitButton" type="submit" onClick={submit} />
+                <input className= "submitButton" type="submit" onClick={submit} />
             </form>
             <Link to="/signup">Back to Signup</Link>
         </div>

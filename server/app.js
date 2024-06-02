@@ -181,6 +181,17 @@ app.get('/search', async (req, res) => {
     }
 })
 
+app.get('/random-images', async (req, res) => {
+    try {
+        const randomClubs = await club_collection.aggregate([{ $sample: { size: 3 } }]);
+        const images = randomClubs.map(club => `data:image/jpeg;base64,${club.clubimg.toString('base64')}`);
+        res.json(images);
+    } catch (e) {
+        res.json("fail");
+        console.log(e);
+    }
+});
+
 
 app.post('/addclub', upload.single('clubimage'), async (req, res) => {
     const { clubname, foundingTime, tagsList, clubdescription, requirement, activityTime, optionalLink } = req.body;
