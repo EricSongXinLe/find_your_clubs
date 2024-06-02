@@ -38,7 +38,7 @@ export default function Home() {
       </header>
       <Welcome userName={username}/>
       <div class ="web_page_container">
-        {usertype ? <AddClub /> : <StudentBlock />}
+        {usertype ? <AddClub /> : <StudentBlock username={username}/>}
       </div>
       <footer id="citation"> 
         <a target="_blank" h="https://icons8.com/icon/e4NkZ7kWAD7f/search">Search</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>

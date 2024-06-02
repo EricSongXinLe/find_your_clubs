@@ -11,12 +11,7 @@ function AddClub() {
     const [tagsList, setTagsList] = useState([]);
 
     const [time, setTime] = useState("");
-    const [cs, setCs] = useState(false);
-    const [math, setMath] = useState(false);
-    const [physics, setPhysics] = useState(false);
-    const [economics, setEconomics] = useState(false);
-    const [ds, setDs] = useState(false);
-    const [me, setMe] = useState(false);
+
   
     const interests = ["ComSci", "Math", "Physics", "Data Science", "Economics", "Mechanical Engineering"];
     const input_num = interests.length;
@@ -43,24 +38,18 @@ function AddClub() {
     async function submit_club() {
         const delay = ms => new Promise(res => setTimeout(res, ms));
         try {
-            // console.log(tagsList)
+
             const formData = new FormData();
             formData.append("clubname", clubname);
             formData.append("foundingTime", foundingTime.toISOString());
-            //
+
             formData.append("tagsList", JSON.stringify(tagsList));
-            //
+
             formData.append("clubdescription", clubdescription);
             formData.append("requirement", requirement);
             formData.append("activityTime", activityTime);
             formData.append("optionalLink", optionalLink);
-            // formData.append("tagsList", tagsList);
-            // formData.append("cs", cs);
-            // formData.append("math", math);
-            // formData.append("physics", physics);
-            // formData.append("economics", economics);
-            // formData.append("ds", ds);
-            // formData.append("me", me);
+
             if (selectedImage) {
                 formData.append("clubimage", selectedImage);
             }
