@@ -1,6 +1,5 @@
 const mongoose=require("mongoose")
 mongoose.connect("mongodb://admin:CS35L@110.40.138.15:27017/admin")
-// mongoose.connect("mongodb://localhost:27017/findyourclubDB")
 .then(()=>{
     console.log("mongodb connected");
 })
@@ -26,33 +25,26 @@ const studentSchema=new mongoose.Schema({
     userIsClubLeader:{
         type:Boolean,
         required:true
-    },
-    interestArr:{
-        type:Array,
-        required: false
-    },
-    favClubs: {
-        type: [String],
-        required: false,
-        default:[]
     }
 })
 
-const clubsSchema = new mongoose.Schema({
-    clubname: {
-      type: String,
-      required: true
+const clubsSchema=new mongoose.Schema({
+    clubname:{
+        type:String,
+        required:true
     },
-  
     clubimg:{
-        type:Buffer,
+        data: Buffer, 
+        contentType: String
     },
-
     foundingTime:{
         type:Date,
         required:true
     },
-
+    // tagsList:{
+    //     type:String,
+    //     required:true
+    // },
     clubdescription:{
         type:String,
         required:true
@@ -61,20 +53,30 @@ const clubsSchema = new mongoose.Schema({
         type:String,
         required:true
     },
-    tagsList:{
-        type:Array,
-        required: true
-    },
-    activityTime:{
-        type:String,
+    cs:{
+        type:Boolean,
         required:true
-    },
-    optionalLink:{
-        type:String,
+    }, 
+    math:{
+        type:Boolean,
+        required:true
+    }, 
+    physics:{
+        type:Boolean,
+        required:true
+    }, 
+    economics:{
+        type:Boolean,
+        required:true
+    }, 
+    ds:{
+        type:Boolean,
+        required:true
+    }, 
+    me:{
+        type:Boolean,
         required:true
     }
-
-    
 })
 
 const appFormSchema=new mongoose.Schema({

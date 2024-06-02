@@ -37,15 +37,7 @@ function Signup() {
                     alert("User already exists")
                 }
                 else if(res.data=="notexist"){
-                    //  //passes the username as the id in the next page
-                    if (userIsClubLeader){
-                        history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}})
-                    }
-                    else{
-                        history("/studentpreference",{state:{username:username, userIsClubLeader:userIsClubLeader}})
-                    }
-                    
-                    
+                    history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}}) //passes the username as the id in the next page
                     console.log("User created")
                 }
             })
@@ -68,18 +60,18 @@ function Signup() {
         <link rel="stylesheet" href="signup.css" />
             <h1>Create an Account</h1>
             <form action="POST">
-                <input className="textInput" type="text" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username" />
-                <input className="textInput" type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email"  />
-                <input className="textInput" type="password" autoComplete="new-password webauthn" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
+                <input class="textInput" type="text" onChange={(e) => {setUsername(e.target.value)}} placeholder="Username" />
+                <input class="textInput" type="email" onChange={(e) => { setEmail(e.target.value) }} placeholder="Email"  />
+                <input class="textInput" type="password" onChange={(e) => { setPassword(e.target.value) }} placeholder="Password" />
                 <br/>
                 <label>Are you a club leader?</label>
-                <label className="switch">
-                    <input className="checkbox" type="checkbox" onChange={(e) => {
+                <label class="switch">
+                    <input class="checkbox" type="checkbox" onChange={(e) => {
                         setUserIsClubLeader(e.target.checked)}}/> 
-                    <span className="slider round"></span>
+                    <span class="slider round"></span>
                 </label>
                 <br/>
-                <input className= "submitButton" type="submit" onClick={submit} />
+                <input class= "submitButton" type="submit" onClick={submit} />
             </form>
             <Link to="/login">Back to Login</Link>
         </div>

@@ -1,59 +1,27 @@
 import React, { useState } from 'react';
-import axios from "axios"
 
+const SearchBar = () => {
+    const [query, setQuery] = useState('');
 
-    // const handleInputChange = (event) => {
-        // setQuery(event.target.value);
-
-    // };
-
-
-const SearchBar = ({setSearchResults}) => {
-const [search, setSearch] = useState('')
-const [clubinfo, setClubInfo] = useState('')
-
-async function handleInputChange(e)  {
-        e.preventDefault();
-        try{
-
-            // console.log(search)
-            await axios.get('http://localhost:8000/search', { params: { clubname: search } })
-            .then(
-                res=>{
-                    if(res.data=="fail"){
-                        alert("Club "+search+" does not not exist!")
-                    }
-                    else{
-                        setSearchResults(res.data);
-                        console.log(clubinfo)
-                    }
-                }
-            ).catch((e)=>
-                console.log(e)
-            )        
-        }
-        catch(e){
-            console.log(e);
-        }
-        // console.log(clubinfo["clubname"])
+    const handleInputChange = (event) => {
+        setQuery(event.target.value);
     };
 
-    
+    const handleSearch = () => {
+        // Perform search logic here using the query
+        alert('Searching for: '+query);
+    };
+
     return (
-        
         <div className='searchBar'>
-        
             <input
                 id="searchInput"
                 type="text"
                 placeholder="Search..."
-                // value={query}
-                // onChange={handleInputChange}
-                onChange={(e) => { setSearch(e.target.value) }}
+                value={query}
+                onChange={handleInputChange}
             />
-            <img id="searchButton"src={require("../images/search.gif")} onClick={handleInputChange}
-            // onClick={handleSearch}
-            />
+            <img id="searchButton"src={require("../images/search.gif")} onClick={handleSearch}/>
         </div>
     );
 };

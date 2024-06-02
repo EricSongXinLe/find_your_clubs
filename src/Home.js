@@ -6,8 +6,6 @@ import { useLocation } from "react-router-dom";
 import AddClub from './AddClub';
 import StudentBlock from './components/studentBlock';
 import Welcome from './components/welcomeModule';
-import { useContext } from 'react';
-import { UserContext } from './userContext';
 
 /*Now there are bugs in giving the whole array as a parameter. CHECK that later!*/
 export default function Home() {
@@ -22,23 +20,23 @@ export default function Home() {
     { id: 2, image: 'image2.jpg', title: 'Club Two', description: 'Description of Club Two' },
     //Delete this part and extract data from back-end!!!
   ]);
+  
 
-  const { setUserId } = useContext(UserContext);
+
   useEffect(() => {
-    // Fetch or set the userId
-    const fetchedUserId = username; 
-    setUserId(fetchedUserId);
-  }, [setUserId]);
+  }, []);
 
+  
   return (
     <div>
       
       <header>
+        <img id="logo" src={require("./images/logo.webp")} alt="logo"/>
         <h1>Find Your Clubs</h1>
       </header>
       <Welcome userName={username}/>
       <div class ="web_page_container">
-        {usertype ? <AddClub /> : <StudentBlock username={username}/>}
+        {usertype ? <AddClub /> : <StudentBlock />}
       </div>
       <footer id="citation"> 
         <a target="_blank" h="https://icons8.com/icon/e4NkZ7kWAD7f/search">Search</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>

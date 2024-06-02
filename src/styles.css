@@ -92,27 +92,26 @@ input {
   align-items: flex-start;
   padding: 20px; 
   height: 100vh; 
-  width: 93vw;
 }
 
 .left_cont{
-  flex: 0 1 35%;
-    background-color: #ffffff; 
+  flex: 0 1 450px; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 250px */
+    background-color: #ffffff; /* Light gray background */
     padding: 10px;
     overflow-y: auto;
 }
 
 .mid_cont{
-  flex: 2 1 55%; 
-    background-color: #ffffff; 
+  flex: 2 1 40%; /* Takes up the bulk of the space */
+    background-color: #ffffff; /* White background */
     padding: 10px;
-    overflow-y: auto; 
+    overflow-y: auto; /* Allows vertical scrolling */
 
 }
 
 .right_cont {
-  flex: 0 1 50%; 
-  background-color: #ffffff; 
+  flex: 0 1 100%; /* Flex-grow: 0, Flex-shrink: 1, Flex-basis: 200px */
+  background-color: #ffffff; /* Slightly darker gray than left_cont */
   padding: 10px;
   overflow-y: auto;
 }
@@ -153,47 +152,25 @@ button {
   right: 0;
   padding: 10px;
   z-index: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end; 
+  display: flex; 
+  align-items: center; 
 }
 
-.welcome-header {
-  display: flex;
-  align-items: center; /* Center align items vertically */
-  justify-content: flex-end; /* Align items to the right */
-  width: 100%;
-}
-
-.welcome-header h2 {
+.welcome-container h2 { /*The relative pos of welcome*/
+  margin-top: 17px;
   margin-right: 10px;
-  font-size: 22px;
+  font-size: 22px; 
 }
 
 .logout-button {
   padding: 5px 10px;
   font-size: 15px;
   transition: transform 0.25s ease;
-  cursor: pointer; 
-  margin-left: 10px; 
+  cursor: pointer; /* Makes it clear the button is clickable */
 }
-
-.logout-button:hover {
+.logout-button:hover{
   transform: scale(1.1);
 }
-
-.FavButton {
-  margin-top: 10px; 
-  padding: 5px 10px;
-  font-size: 15px;
-  transition: transform 0.25s ease;
-  cursor: pointer; 
-}
-
-.FavButton:hover {
-  transform: scale(1.1);
-}
-
 
 .searchBar {
   display: flex;
@@ -202,6 +179,7 @@ button {
 }
 
 .club-box{
+  margin-right: 150px;
   margin-left: auto;
   width: 40%;
   display: grid;
@@ -209,11 +187,12 @@ button {
 }
 
 .club-block {
-  width: 400px;
+  width: 500px;
   display: flex;
   justify-content: left;
   align-items: right;
   margin: 10px;
+  max-width: 800px; 
   background-color: #f9f9f9; 
   border-radius: 7px;
   cursor: pointer;
@@ -405,21 +384,24 @@ button {
   background-color: #f8f8f8; 
 }
 
+/* Styling for chosen tags */
+/* General styling for the filter bar container */
 .filter-bar {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  border-right: 2px solid #ccc; 
-  height: 100vh; 
-  width: 250px; 
-  background-color: #f8f8f8; 
+  border-right: 2px solid #ccc; /* Add a border to the right of the filter bar */
+  height: 100vh; /* Full view height */
+  width: 250px; /* Set width of the filter bar */
+  background-color: #f8f8f8; /* Light grey background */
 }
 
+/* Styling for chosen tags */
 .chosen-tags {
   display: flex;
   flex-wrap: wrap;
   padding-bottom: 20px;
-  border-bottom: 1px solid #ddd; 
+  border-bottom: 1px solid #ddd; /* Separator */
 }
 
 .chosen-tag {
@@ -428,7 +410,7 @@ button {
   align-items: center;
   margin: 5px;
   padding: 5px 10px;
-  background-color: #007BFF; 
+  background-color: #007BFF; /* Bootstrap primary blue */
   color: white;
   border-radius: 15px;
 }
@@ -448,6 +430,7 @@ button {
   color: black;
 }
 
+/* Styling for available tags */
 .available-tags {
   padding-top: 20px;
 }
@@ -456,13 +439,13 @@ button {
   display: inline-block;
   margin: 5px;
   padding: 5px 10px;
-  background-color: #eeeeee; 
+  background-color: #eeeeee; /* Light grey background */
   cursor: pointer;
   border-radius: 15px;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .tag:hover {
-  background-color: #007BFF;
+  background-color: #007BFF; /* Bootstrap primary blue */
   color: white;
 }

@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { useNavigate, Link, useLocation } from "react-router-dom"
@@ -27,10 +26,7 @@ function AddClub() {
     const [me, setMe] = useState(false)
     let year, month, date
 
-
-    let year, month, date;
     let foundingTime;
-
     let tagsList = []
     async function data_process(e) {
         var timeArray = time.split('-')
@@ -97,12 +93,7 @@ function AddClub() {
         }
         catch (e) {
             console.log(e);
-
         }
-        foundingTime = new Date(year, month, date);
-
-
-        submit_club();
     }
 
     document.body.style.overflow = "visible";
@@ -165,8 +156,6 @@ function AddClub() {
 
         </div>
 
-
     )
 }
-
-export default AddClub;
+export default AddClub
