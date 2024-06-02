@@ -46,7 +46,9 @@ function AddClub() {
             const formData = new FormData();
             formData.append("clubname", clubname);
             formData.append("foundingTime", foundingTime.toISOString());
-            // formData.append("tagsList", tagsList);
+            //
+            formData.append("tagsList", JSON.stringify(tagsList));
+            //
             formData.append("clubdescription", clubdescription);
             formData.append("requirement", requirement);
             formData.append("activityTime", activityTime);
@@ -62,8 +64,8 @@ function AddClub() {
                 formData.append("clubimage", selectedImage);
             }
 
-            const response = await axios.post("http://localhost:8000/addclub", {
-                formData, tagsList,
+            const response = await axios.post("http://localhost:8000/addclub", formData,{
+                
                 headers: {
                     "Content-Type": "multipart/form-data",
                 },

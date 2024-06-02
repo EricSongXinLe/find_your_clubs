@@ -183,11 +183,12 @@ app.get('/search', async (req, res) => {
 
 
 app.post('/addclub', upload.single('clubimage'), async (req, res) => {
-    const { clubname, foundingTime, clubdescription, requirement, activityTime, optionalLink, tagsList } = req.body;
+    const { clubname, foundingTime, tagsList, clubdescription, requirement, activityTime, optionalLink } = req.body;
     const file = req.file;
     const data = {}
-    console.log(clubname, foundingTime, clubdescription, requirement, activityTime, optionalLink, tagsList)
-
+    
+    const tagsList1 = JSON.parse(tagsList)
+    console.log(clubname, foundingTime, clubdescription, requirement, activityTime, optionalLink, tagsList1)
     try {
         const check = await club_collection.findOne({ clubname: clubname })
         
@@ -207,7 +208,7 @@ app.post('/addclub', upload.single('clubimage'), async (req, res) => {
                         foundingTime: foundingTime,
                         clubdescription: clubdescription,
                         requirement: requirement,
-                        tagsList : tagsList,
+                        tagsList : tagsList1,
                         activityTime: activityTime,
                         optionalLink: optionalLink
                         // cs: cs,
