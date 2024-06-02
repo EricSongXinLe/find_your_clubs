@@ -86,6 +86,10 @@ const fetchStudent = (data) => {
   const handleButtonClick = () => {
     navigate('/application'); 
   };
+
+  const handleRedirect = () => {
+    navigate('/'); // Change '/redirectPage' to your desired route
+  };
   /*
 //potential bug here!!!!
   const toggleFavorite = async () => {
@@ -123,8 +127,9 @@ const fetchStudent = (data) => {
           alert(id+" has been Added to your Favourite Clubs!")
           setIsFavorited(!isFavorited);
 
-          
-          
+      }else if(res.data=="remove"){
+        alert(id+" has been Removed from your Favourite Clubs!")
+        setIsFavorited(!isFavorited);
       }
   })
   .catch(e=>{
@@ -162,6 +167,7 @@ catch(e){
       <div className="star-icon" onClick={toggleFavorite}>
         <FaStar color={isFavorited ? 'yellow' : 'grey'} size={26} />
       </div>
+      <div className="close-button" onClick={handleRedirect}>X</div>
       <div className="club-header">
         <h1 className="club-title">{id}</h1>
         <p className="club-requirements"><strong>Requirements:</strong> {club.requirements}</p>

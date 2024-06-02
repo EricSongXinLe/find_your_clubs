@@ -100,4 +100,22 @@ body {
     transform: scale(1.1);
     background-color: #0056b3;
   }
+
+  .club-details-container {
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: red;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+    border-radius: 3px;
+  }
+  
   

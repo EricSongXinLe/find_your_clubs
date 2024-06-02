@@ -266,8 +266,7 @@ app.post("/favclubupdate",async(req,res)=>{
     
     }
     //favClubArr.push(clubid)
-    console.log("This is new",favClubArr)
-    //try{
+    try{
         const user=await student_collection.findOne({username:username});
         if (!user) {
             console.error('User not found');
@@ -279,12 +278,17 @@ app.post("/favclubupdate",async(req,res)=>{
             favClubArr.push(clubid);
             console.log('Updated Favorite Clubs:', favClubArr);
           } else {
-            console.log('Club ID already in favorite clubs');
-            res.json('nochange'); 
-            return;
+            console.log('Remove Club');
+            const index = favClubArr.indexOf(clubid);
+            if (index !== -1) {
+                favClubArr.splice(index, 1);
+            }
+            console.log("Removed Club:",favClubArr);
+            res.json('remove'); 
           }
         let check=await student_collection.updateOne({username:username}, {$set:{favClubs: favClubArr}})
-        console.log("HWG",user.favClubs)
+        const newuser=await student_collection.findOne({username:username});
+        console.log("HWG",newuser.favClubs)
         if(check){
             res.json("added")
             
@@ -293,13 +297,13 @@ app.post("/favclubupdate",async(req,res)=>{
             console.log(check)
             res.json("fail")
         }
-    /*
+    
     }
     catch(e){
         console.log(e)
         res.json("fail")
     }
-    */
+    
 })
 
 app.listen(8000,()=>{
