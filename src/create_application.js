@@ -73,14 +73,14 @@ function saveForm() {
   general_questions.splice(3, 0, selection_titles[0]);
 
   // send both question lists to database
-  postForm(general_questions, supplementary_questions);
+  postForm("ABC", general_questions, supplementary_questions);
 }
 
-async function postForm(general_questions, supplementary_questions)
+async function postForm(clubName, general_questions, supplementary_questions)
 {
   try{  
     await axios.post("http://localhost:8000/create",{
-        general_questions, supplementary_questions
+        clubName, general_questions, supplementary_questions
     })
     .then(res=>{
         if(res.data=="exist"){

@@ -106,6 +106,34 @@ app.post("/club_search",async(req,res)=>{
     }
 })
 
+app.post("/create",async(req,res)=>{
+    const {clubName, general_questions, supplementary_questions} = req.body
+    
+    const data={
+        clubName: clubName,
+        generalQuestion: general_questions,
+        supplementaryQuestion: supplementary_questions
+    }
+
+    try{
+        const check=await student_collection.findOne({clubName:clubName})
+
+        if(check){
+            res.json("exist")
+        }
+        else{
+            res.json("notexist")
+            await student_collection.insertMany([data])
+        }
+
+    }
+    catch(e){
+        res.json("fail")
+    }
+
+})
+
+
 app.get("/addclub", (req, res)=>{
     
 }) 
