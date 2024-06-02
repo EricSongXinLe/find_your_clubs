@@ -1,86 +1,81 @@
-import * as React from 'react';
-import { useState } from 'react';
-import axios from "axios"
-import '../styles.css';
+import * as React from "react";
+import { useState } from "react";
+import axios from "axios";
+import "../styles.css";
 
-import ModeSelector from './changeMode'; 
-import ClubBlock from './clubBlock';
-import SearchBar from './searchBar';
-import FilterBar from './filterBar';
-import PhotoDisplay from './photoDisplay';
-var x = 0
-function StudentBlock (username) {
-    const tags = ['Publish Time', 'Experience Needed', 'Popular'];
+import ModeSelector from "./changeMode";
+import ClubBlock from "./clubBlock";
+import SearchBar from "./searchBar";
+import FilterBar from "./filterBar";
+import PhotoDisplay from "./photoDisplay";
+
+var x = 0;
+function StudentBlock(username) {
+    const tags = ["Publish Time", "Experience Needed", "Popular"];
     const imageLst = [
-        './images/logo.webp',
-        '../images/Econ-Panel.png',
-        '../images/Econ-Panel.png'
-      ];
-      const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
- 
+        "./images/logo.webp",
+        "../images/Econ-Panel.png",
+        "../images/Econ-Panel.png",
+    ];
+    const [selected, setSelected] = useState("recommendation"); // Tracks which button is selected
+
     const [clubs, setClubs] = useState([]);
-    console.log("HEllo1")
-    
+    console.log(clubs);
 
-    if (clubs.length<2){
+    React.useEffect(() => {
         RenderClub();
-    }
+    }, []);
 
-    x+=1
-    
-  const transformClubData = (data) => {
-    return {
-        title: data.clubname,
-        description: data.clubdescription,
+    x += 1;
+
+    const transformClubData = (data) => {
+        return {
+            title: data.clubname,
+            description: data.clubdescription,
+        };
     };
-};
-const updateClubs = (newClubInfo) => {
-    const transformedData = transformClubData(newClubInfo);
-    setClubs([transformedData]);
-};
 
-async function RenderClub(e){
+    const updateClubs = (newClubInfo) => {
+        const transformedData = transformClubData(newClubInfo);
+        setClubs([transformedData]);
+    };
 
-    try{
-        
-        // await axios.get('http://localhost:8000/search', { params: { clubname: search } })
-        await axios.get("http://localhost:8000/recommendClub",{
-            params: { username: username.username }
-        })
-        .then(res=>{
-            if(res.data=="fail"){
-                alert("Error!")
-            }
-            else {
-                // alert("Preference added")
-                // console.log(res.data)
-                for (const club of res.data){
-                    console.log(club)
-                    const newClubs = clubs.slice()
-                    const element = {title: club.clubname, description: club.clubdescription }
-                    if (!(element in newClubs)){
-                        newClubs.push(element)
+    async function RenderClub(e) {
+        try {
+            // await axios.get('http://localhost:8000/search', { params: { clubname: search } })
+            await axios
+                .get("http://localhost:8000/recommendClub", {
+                    params: { username: username.username },
+                })
+                .then((res) => {
+                    if (res.data == "fail") {
+                        alert("Error!");
+                    } else {
+
+                        var newClubs = []
+                        for (const club of res.data) {
+                            const element = {
+                                title: club.clubname,
+                                description: club.clubdescription,
+                            };
+                            newClubs.push(element);
+                        }
+                        setClubs(newClubs);
+
+                        // history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}})
                     }
-                    
-                    setClubs(newClubs)
-                }
-               
-
-                // history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}})
-            }
-        })
-        .catch(e=>{
-            alert("An error occured")
+                })
+                .catch((e) => {
+                    alert("An error occured");
+                    console.log(e);
+                });
+        } catch (e) {
             console.log(e);
-        })
+        }
+        // return("")
     }
-    catch(e){
-        console.log(e);
-    }
-    // return("")
-}
     return (
-        <div class ="web_page_container">
+        <div class="web_page_container">
             <div class="left_cont">
                 <div class="FilterBar">
                     <FilterBar tags={tags} />
@@ -93,21 +88,22 @@ async function RenderClub(e){
 
             <div class="right_cont">
                 {<ModeSelector m_mode={selected} m_setMode={setSelected} />}
-                
-                {selected === 'search' && <SearchBar setSearchResults={updateClubs}/>}
+
+                {selected === "search" && <SearchBar setSearchResults={updateClubs} />}
                 {
                     <div className="club-box">
                         {clubs.map((club) => (
-                        <ClubBlock
-                            image={require('../images/logo.webp')}
-                            title={club.title}
-                            id={club.title}
-                        />
-                    ))}
+                            <ClubBlock
+                                image={require("../images/logo.webp")}
+                                title={club.title}
+                                id={club.title}
+                            />
+                        ))}
                     </div>
                 }
             </div>
         </div>
-    )
+    );
 }
-export default StudentBlock
+
+export default StudentBlock;
