@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext, act } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import './clubDetail.css';
 import { FaStar } from 'react-icons/fa';
 import { UserContext } from './userContext';
@@ -10,7 +11,7 @@ const ClubDetails = () => {
   const [removed, setRomved] = useState(false);
   var newarr = [];
   console.log(id);
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
   const { userId } = useContext(UserContext);
   console.log(userId);
   const [club, setClub] = useState([]);
@@ -29,6 +30,8 @@ const fetchStudent = (data) => {
       favClubArr: data.favClubs
   };
 };
+const location = useLocation();
+  const history=useNavigate();
 
   useEffect(() => {
     
@@ -90,7 +93,7 @@ const fetchStudent = (data) => {
   };
 
   const handleRedirect = () => {
-    navigate('/'); // Change '/redirectPage' to your desired route
+    history("/",{state:{username:userId, userIsClubLeader:false}})
   };
   /*
 //potential bug here!!!!
