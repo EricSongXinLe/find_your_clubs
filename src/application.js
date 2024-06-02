@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import axios from "axios"
 // useless comment
 
@@ -207,21 +207,21 @@ async function postAnswer(answers, supplementary_answers)
     await axios.post("http://localhost:8000/application",{
         answers, supplementary_answers
     })
-    .then(res=>{
-        if(res.data=="exist"){
-            alert("You've already submitted the application")
+      .then(res => {
+        if (res.data == "exist") {
+          alert("You've already submitted the application")
         }
-        else if(res.data=="added"){
-            alert("Application submitted successfully")
+        else if (res.data == "added") {
+          alert("Application submitted successfully")
         }
-    })
-    .catch(e=>{
+      })
+      .catch(e => {
         alert("An error occured")
         console.log(e);
-    })
+      })
   }
-  catch(e){
-      console.log(e);
+  catch (e) {
+    console.log(e);
   }
 }
 
