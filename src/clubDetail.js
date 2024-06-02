@@ -12,8 +12,8 @@ const ClubDetails = () => {
   const { userId } = useContext(UserContext);
   console.log(userId);
   const [club, setClub] = useState([]);
-  let currUserFavClub = [];
-  const [isFavorited, setIsFavorited] = useState(true);
+  const [currUserFavClub,setCurrUserFavClub] = useState([]);
+  const [isFavorited, setIsFavorited] = useState(false);
   const transformClubData = (data) => {
     return {
         description: data.clubdescription,
@@ -56,7 +56,7 @@ const fetchStudent = (data) => {
         await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
         .then(
             res=>{
-              console.log(res.data);
+              console.log("This is username:",res.data);
               const studentData = fetchStudent(res.data);
               console.log(studentData);
               if(Array.isArray(studentData.favClubArr)){
@@ -65,8 +65,8 @@ const fetchStudent = (data) => {
                 console.log(222222222);
               }
               const idExists = studentData.favClubArr.includes(id);
-              currUserFavClub = studentData.favClubArr;
-              console.log(idExists);
+              setCurrUserFavClub(studentData.favClubArr); 
+              console.log(currUserFavClub);
               setIsFavorited(idExists);
             }
         ).catch((e)=>
@@ -109,18 +109,21 @@ const fetchStudent = (data) => {
  const toggleFavorite = async () => {
  //console.log(currUserFavClub); // Should do correct here
  try{
-        
+  console.log(currUserFavClub)
+  console.log(userId)
   await axios.post("http://localhost:8000/favclubupdate",{
-      userId, currUserFavClub
+      userId, currUserFavClub, id
   })
   .then(res=>{
       if(res.data=="fail"){
-          alert("123456")
+          alert("Error may occur!")
           setIsFavorited(!isFavorited);
       }
       else if(res.data=="added"){
-          alert("45678 added")
+          alert(id+" has been Added to your Favourite Clubs!")
           setIsFavorited(!isFavorited);
+
+          
           
       }
   })
@@ -128,6 +131,25 @@ const fetchStudent = (data) => {
       alert("An error occured")
       console.log(e);
   })
+  try {
+
+    // console.log(search)
+    await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
+    .then(
+        res=>{
+          const studentData = fetchStudent(res.data);
+          const idExists = studentData.favClubArr.includes(id);
+          //setCurrUserFavClub(studentData.favClubArr);
+          console.log("Updated Fetch:",idExists);
+          setIsFavorited(idExists);
+        }
+    ).catch((e)=>
+        console.log(e)
+    ) 
+  }
+    catch (error) {
+    console.error('CANNOT find Fav Clubs', error);
+  }
 }
 catch(e){
   console.log(123123);

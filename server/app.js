@@ -241,11 +241,10 @@ app.get('/favclub', async(req, res)=>{
     console.log("HAHAHAHAHAHAHAHAH:",username)
     try{
         const favclubdata = await student_collection.findOne({username:username})
-        console.log(favclubdata)
+        console.log("This is FavClubData after Fetch:",favclubdata)
         // await club_collection.findOne({clubname:clubname})
         if (favclubdata) {
             res.json(favclubdata)
-            console.log(favclubdata)
         }
         else{
             res.json("fail")
@@ -257,29 +256,50 @@ app.get('/favclub', async(req, res)=>{
 })
 
 app.post("/favclubupdate",async(req,res)=>{
-    const{username, favClubArr} = req.body
-
+    console.log(req.body)
+    const username = req.body.userId
+    var favClubArr = req.body.currUserFavClub
+    const clubid = req.body.id
+    console.log("HAHAHAHAHAHAHAHAH:",username)
+    console.log("1234567890",favClubArr)
     const data={
     
     }
-
-    try{
-        const check=await student_collection.updateOne({username:username}, {$set:{favClubs: favClubArr}})
-
+    //favClubArr.push(clubid)
+    console.log("This is new",favClubArr)
+    //try{
+        const user=await student_collection.findOne({username:username});
+        if (!user) {
+            console.error('User not found');
+            res.json('fail');
+            return;
+          }
+        console.log(user.favClubs)
+        if (!favClubArr.includes(clubid)) {
+            favClubArr.push(clubid);
+            console.log('Updated Favorite Clubs:', favClubArr);
+          } else {
+            console.log('Club ID already in favorite clubs');
+            res.json('nochange'); 
+            return;
+          }
+        let check=await student_collection.updateOne({username:username}, {$set:{favClubs: favClubArr}})
+        console.log("HWG",user.favClubs)
         if(check){
             res.json("added")
             
         }
         else{
-        
+            console.log(check)
             res.json("fail")
         }
-        
+    /*
     }
     catch(e){
+        console.log(e)
         res.json("fail")
     }
-
+    */
 })
 
 app.listen(8000,()=>{

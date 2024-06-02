@@ -31,7 +31,7 @@ const studentSchema=new mongoose.Schema({
         required: false
     },
     favClubs: {
-        type: Array,
+        type: [String],
         required: false,
         default:[]
     }
