@@ -4,7 +4,6 @@ import axios from "axios"
 import "./application.css"
 // useless comment
 
-// input questions
 const inputs = ["name", "email", "gender", "birthday"];
 const input_num = inputs.length;
 const input_hints = [];
@@ -14,16 +13,22 @@ for (let i = 0; i < input_num; i++)
   input_hints.push("Enter your " + inputs[i] + " here");
   input_titles.push("What is your " + inputs[i] + "?*");
 }
-// selection questions
+
 const selections = ["year of graduation"];
 const selection_titles = [];
 selection_titles.push("What is your Year of Graduation?*");
 const selection_num = selections.length;
 
+
 // transferred username and clubName
 const username = location.state?.username || "Guest";
 const clubName = location.state?.clubname || "Error";
 
+
+function saveAnswer() {
+  // var fs = require('fs');
+  // fs.appendFile("testOutput.txt", "Hello World");
+  // console.log(fs.readFile("testInput.txt"));
 
 function Apply() {
   
@@ -143,17 +148,27 @@ function saveAnswer(supplementaries) {
       finished = false;
     }
     else if (question.innerHTML != input_titles[i]) // revert to normal
-    {
-      question.style.color = '#000000';
-      question.innerHTML = input_titles[i];
-    }
-  }
 
-  // check for any unanswered required selection question
+    {
+      let text_box = document.getElementById(inputs[i]);
+      let question = document.getElementById("iTitle" + String(i));
+      if (text_box.value == "") // if empty
+      {
+        question.innerHTML = input_titles[i] + " Required";
+        question.style.color = '#FF5733';
+        finished = false;
+      }
+      else if (question.innerHTML != input_titles[i]) // revert to normal
+      {
+        question.style.color = '#000000';
+        question.innerHTML = input_titles[i];
+      }
+    }
+
   for (let i = 0; i < selection_num; i++)
   {
-    let select = document.getElementById("sTitle");
     let selection = document.getElementById("Select1");
+    let select = document.getElementById("sTitle");
     if (selection.value == "select") // if no selection
     {
       select.innerHTML = selection_titles[i] + " Required";
@@ -168,6 +183,7 @@ function saveAnswer(supplementaries) {
       select.innerHTML = selection_titles[i];
     }
   }
+
 
   // check for any unanswered required supplementary question
   for (let i = 0; i < supplementaries.length; i++)
@@ -195,19 +211,21 @@ function saveAnswer(supplementaries) {
 
   let answers = [];
 
-  // add input questions' answers to list
+
   for (let i = 0; i < input_num; i++)
   {
     let text_box = document.getElementById(inputs[i]);
-    answers.push(text_box.value);
+    answer_list.push(text_box.value);
   }
 
-  // add selection questions' answers to list
   for (let i = 0; i < selection_num; i++)
   {
     let selection = document.getElementById("Select1");
-    answers.push(selection.value);
+    answer_list.push(selection.value);
   }
+  
+  postAnswer(answer_list);
+
 
   // add supplementary questions' answers to list
   for (let i = 0; i < supplementaries.length; i++)
@@ -225,7 +243,29 @@ function saveAnswer(supplementaries) {
   if (condition)
     document.getElementById('egg').style.display = "";
 
+  document.getElementById('texto').innerHTML = "Happy Birthday".concat(
+    " ", document.getElementById(inputs[0]).value);
+
+
 }
+
+function Apply() {
+  
+  // let inputs = createInputs();
+  // console.log(inputs[0])
+
+  let block_list = [];
+  let title_list = [];
+  
+  for (let i = 0; i < input_num; i++) {
+    block_list.push(<input type="text" name="" id={inputs[i]} placeholder={input_hints[i]}></input>);
+    title_list.push(<p className="text" id={"iTitle" + String(i)}>{input_titles[i]}</p>)
+  }
+  // let a = <input type="text" name="" id="myform" placeholder="Enter your name here"></input>;
+  // let sh = String(inputs[0]);
+
+  // created_questions = db.user.find({clubname: {clubname}}, {created_questions: 1});
+  
 
 
 async function postAnswer(clubName, username, answers)
@@ -233,6 +273,7 @@ async function postAnswer(clubName, username, answers)
   try{  
     await axios.post("http://localhost:8000/application",{
         clubName, username, answers
+
     })
       .then(res => {
         if (res.data == "exist") {
@@ -253,8 +294,38 @@ async function postAnswer(clubName, username, answers)
 }
 
 
+/*
+async function getCreation(e){
+  e.preventDefault();
 
+  try{
 
+      await axios.post("http://localhost:8000/club_search",{
+          clubname
+      })
+      .then(res=>{
+          if(res.data){
+              alert("Club found")
+          }
+          else{
+              alert("Club not found")
+          }
+      })
+      .catch(e=>{
+          alert("An error occurred")
+          console.log(e);
+      })
+
+  }
+  catch(e){
+      console.log(e);
+
+  }
+
+  res
+
+}
+*/
 
 
 export default Apply;

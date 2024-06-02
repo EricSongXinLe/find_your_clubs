@@ -7,9 +7,9 @@ const inputs = ["name", "email", "gender", "birthday"];
 // selection questions
 const selections = ["year of graduation"];
 
-
 function Create() {
   // a string that lists out the general questions
+
   const location = useLocation();
   const username = location.state?.username || "Guest";
   const clubName = location.state?.clubname || "Error";
@@ -58,11 +58,13 @@ function Create() {
 }
 
 function saveForm(myclubname) {
+
   // gather supplementary questions from input boxes
   let supplementary_questions = []
   for (let i = 1; i <= 3; i++)
   {
     let created_question = document.getElementById("club designed question " + String(i) + " input box");
+
     if (!(created_question))
       return;
 
@@ -70,6 +72,7 @@ function saveForm(myclubname) {
       continue;
     supplementary_questions.push(created_question.value);
   }
+
 
   // send supplementary question lists to database
   console.log("Name to back:",myclubname);
@@ -82,6 +85,7 @@ async function postForm(clubName, supplementary_questions)
   try{  
     await axios.post("http://localhost:8000/create",{
         clubName, supplementary_questions
+
     })
     .then(res=>{
         if(res.data=="exist"){
