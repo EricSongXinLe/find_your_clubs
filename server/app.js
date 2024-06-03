@@ -9,6 +9,7 @@ const application_collection = methods.application_collection
 const cors = require("cors")
 const fs = require('fs');
 const path = require('path');
+const { FaLessThan } = require("react-icons/fa6");
 const app = express()
 
 app.use(express.json())
@@ -284,9 +285,27 @@ app.post("/recommendClub",async(req,res)=>{
                 $in:stuInterest
             }}).limit(3)
         }
+        else if (selected.includes("No Experience Needed") && selected.includes("Popular") && selected.includes("Latest"))
+            {
+    
+                allclub = await club_collection.find({requirement:"N/A"}).sort({likes: -1,foundingTime: -1}).limit(3)
+            }
+        
         else if (selected.includes("No Experience Needed") && selected.includes("Latest")){
             allclub = await club_collection.find({requirement:"N/A"}).sort({foundingTime: -1}).limit(3)
         }
+
+        else if (selected.includes("No Experience Needed") && selected.includes("Popular"))
+            {
+    
+                allclub = await club_collection.find({requirement:"N/A"}).sort({foundingTime: -1}).limit(3)
+            }
+
+        else if (selected.includes("Latest") && selected.includes("Popular"))
+            {
+        
+                    allclub = await club_collection.find().sort({likes: -1, foundingTime: -1}).limit(3)
+            }
         else if (selected.includes("No Experience Needed")){
             allclub = await club_collection.find({requirement:"N/A"}).limit(3)
         }
@@ -295,6 +314,11 @@ app.post("/recommendClub",async(req,res)=>{
 
             allclub = await club_collection.find().sort({foundingTime: -1}).limit(3)
         }
+        else if (selected.includes("Popular"))
+            {
+    
+                allclub = await club_collection.find().sort({likes: -1}).limit(3)
+            }
         
        
         
@@ -367,9 +391,22 @@ app.post("/favclubupdate",async(req,res)=>{
           }
         let check=await student_collection.updateOne({username:username}, {$set:{favClubs: favClubArr}})
         const newuser=await student_collection.findOne({username:username});
+        let moreLike
+        if (removela){
+            const currList = await club_collection.findOne({clubname:clubid}, {likes:1});
+            const currLikes = currList.likes
+            moreLike = await club_collection.updateOne({clubname:clubid}, {$set:{likes: currLikes-1}})
+        }
+    
+        else{
+            const currList = await club_collection.findOne({clubname:clubid}, {likes:1});
+            const currLikes = currList.likes
+            moreLike = await club_collection.updateOne({clubname:clubid}, {$set:{likes: currLikes+1}})
+        }
+        
         console.log("HWG",newuser.favClubs)
         if(!removela){
-        if(check){
+        if(check && moreLike){
             res.json("added")
             
         }

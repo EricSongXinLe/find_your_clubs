@@ -72,6 +72,11 @@ const clubsSchema = new mongoose.Schema({
     optionalLink:{
         type:String,
         required:true
+    },
+    likes:{
+        type:Number,
+        // required:false,
+        default : 0
     }
 
     
