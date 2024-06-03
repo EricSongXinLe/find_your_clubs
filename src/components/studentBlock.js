@@ -86,7 +86,6 @@ function StudentBlock(username) {
         }
         // return("")
     }
-
     return (
         <div class="web_page_container">
             <div class="left_cont">
