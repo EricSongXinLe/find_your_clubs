@@ -274,7 +274,7 @@ app.get("/recommendClub",async(req,res)=>{
         
         const allclub = await club_collection.find({tagsList:{
             $in:stuInterest
-        }}).limit(3)
+        }}).sort({foundingTime: 1}).limit(3)
         // console.log(allclub[0].clubname)
         if(stuInterest){
             res.json(allclub)

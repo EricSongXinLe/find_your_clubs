@@ -2,14 +2,23 @@ import React from 'react';
 import { useState } from 'react';
 
 // FilterBar component to display filter options
-const FilterBar = ({ tags}) => {
-    const [activeTags, setActiveTags] = useState([]); 
+const FilterBar = ({ tags, setSelected, activeTags, setActiveTags}) => {
+    
     const handleTagClick = (tag) => {
+        let activatetags;
+
         if (activeTags.includes(tag)) {
-            setActiveTags(activeTags.filter(t => t !== tag)); // Remove tag from activeTags
+            activatetags = activeTags.filter(t => t !== tag); // Remove tag from activeTags
         } else {
-            setActiveTags([...activeTags, tag]); // Add tag to activeTags
+            activatetags = [...activeTags, tag]; // Add tag to activeTags
         }
+
+        setActiveTags(activatetags);
+
+        if(activatetags.length === 0) {
+            setSelected("recommendation")
+        }
+        else setSelected("filter")
     };
 
     return (

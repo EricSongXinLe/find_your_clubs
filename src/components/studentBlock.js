@@ -12,9 +12,9 @@ import PhotoDisplay from "./photoDisplay";
 var x = 0;
 function StudentBlock(username) {
     const tags = ["Publish Time", "Experience Needed", "Popular"];
+    const [activeTags, setActiveTags] = useState([]); 
     const [imageLst, setImageLst] = useState([]);
     const [selected, setSelected] = useState("recommendation"); // Tracks which button is selected
-
 
    
     useEffect(() => {
@@ -32,7 +32,7 @@ function StudentBlock(username) {
     }, []);
 
     const [clubs, setClubs] = useState([]);
-    console.log(clubs);
+    // console.log(clubs);
 
     React.useEffect(() => {
         RenderClub();
@@ -90,7 +90,7 @@ function StudentBlock(username) {
         <div class="web_page_container">
             <div class="left_cont">
                 <div class="FilterBar">
-                    <FilterBar tags={tags} />
+                    <FilterBar tags={tags} setSelected={setSelected} activeTags={activeTags} setActiveTags={setActiveTags}/>
                 </div>
             </div>
 
