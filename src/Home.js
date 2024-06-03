@@ -14,6 +14,7 @@ export default function Home() {
 
   const location = useLocation();
   const username = location.state?.username || "Guest";
+  // console.log("Test", username)
   const usertype = location.state?.userIsClubLeader ||  false;
   const [selected, setSelected] = useState('recommendation'); // Tracks which button is selected
   const [clubs, setClubs] = useState([

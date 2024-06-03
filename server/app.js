@@ -265,17 +265,34 @@ app.post("/addstupref", async (req, res) => {
 
 })
 
-app.get("/recommendClub",async(req,res)=>{
-    const username = req.query.username;
+app.post("/recommendClub",async(req,res)=>{
+    // const {username, selected} = req.body;
+    const username = req.body.stuname
+    const selected = req.body.selected
+    console.log("WTF", req.body.stuname)
+    // const username = usrname.username
+    console.log("hell", selected)
     // console.log("backend", username)
     try{
         let studentInterest=await student_collection.findOne({username:username}, {interestArr:1})
     const stuInterest = studentInterest.interestArr
+    let allclub;
+        if (selected == "recommendation"){
         
-        const allclub = await club_collection.find({tagsList:{
-            $in:stuInterest
-        }}).sort({foundingTime: 1}).limit(3)
-        // console.log(allclub[0].clubname)
+             allclub = await club_collection.find({tagsList:{
+                $in:stuInterest
+            }}).limit(3)
+        }
+        else if (selected == "experience"){
+            allclub = await club_collection.find({requirement:"N/A"}).limit(3)
+        }
+        else  if (selected == "time")
+        {
+
+            allclub = await club_collection.find().sort({foundingTime: -1}).limit(3)
+        }
+        
+        // console.log(allclub)
         if(stuInterest){
             res.json(allclub)
         }
@@ -283,6 +300,7 @@ app.get("/recommendClub",async(req,res)=>{
         
             res.json("fail")
         }
+        console.log("Finish!")
         
     }
     catch(e){
