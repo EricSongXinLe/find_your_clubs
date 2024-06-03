@@ -91,7 +91,7 @@ const location = useLocation();
   }, [id]);
 
   const handleButtonClick = () => {
-    navigate('/application'); 
+    history("/apply",{state:{username:userId, userIsClubLeader:false, clubname: id}})
   };
 
   const handleRedirect = () => {

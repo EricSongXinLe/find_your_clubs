@@ -54,6 +54,10 @@ const router = createBrowserRouter([
     path: "/myfavclub",
     element: <FavClubs/>,
   },
+  {
+    path: "/viewApp",
+    element: <viewApp/>,
+  },
 ]);
 
 export default function App() {
