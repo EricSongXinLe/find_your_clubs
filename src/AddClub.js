@@ -1,7 +1,14 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react"
+import axios from "axios"
+import { useNavigate, Link, useLocation } from "react-router-dom"
+import e from "cors"
+//import viewApp from './viewApp';
 
 function AddClub() {
+    const location = useLocation();
+    const username = location.state?.username || "Guest";
+    const [needapplication, setNeedApplication] = useState(false)
+
     const [clubname, setClubname] = useState("");
     const [clubdescription, setClubdescription] = useState("");
     const [requirement, setRequirement] = useState("");
@@ -12,6 +19,11 @@ function AddClub() {
 
     const [time, setTime] = useState("");
 
+    const history = useNavigate()
+
+    const handleCheckboxChange = () => {
+        setNeedApplication(!needapplication);
+    };
   
     const interests = ["ComSci", "Math", "Physics", "Data Science", "Economics", "Mechanical Engineering"];
     const input_num = interests.length;
@@ -33,6 +45,7 @@ function AddClub() {
 
 
         submit_club();
+
     }
 
     async function submit_club() {
@@ -63,10 +76,12 @@ function AddClub() {
 
             if (response.data === "exist") {
                 alert("Club already exists");
-            } else if (response.data === "added") {
+            } else if (response.data === "added"&&!needapplication) {
                 alert("Club added, You will be redirected in 5 seconds...");
                 await delay(5000); //this delay is very important becuase our DB is in the other side of the world.....
                 window.location.href = "/club/" + clubname;
+            }else if(needapplication){
+                history("/create",{state:{username:username, userIsClubLeader:true, clubname:clubname}})
             }
         } catch (error) {
             alert("An error occurred");
@@ -94,6 +109,7 @@ function AddClub() {
     return (
         <div style={{ overflowY: "scroll", maxHeight: "80%", margin: "50px"}}>
             <h1>Create a Club</h1>
+            
             <form onSubmit={data_process}>
                 <h2>Club Name</h2>
                 <input
@@ -183,6 +199,14 @@ function AddClub() {
                 </select>
                 <br />
                 <button type="submit">Submit</button>
+                <label>
+                    <input
+                        type="checkbox"
+                        checked={needapplication}
+                        onChange={handleCheckboxChange}
+                    />
+                    Need Supplementary Application Form
+                </label>
             </form>
         </div>
     )

@@ -11,6 +11,7 @@ const selections = ["year of graduation"];
 function Create() {
   // a string that lists out the general questions
   const location = useLocation();
+  const history = useNavigate();
   const username = location.state?.username || "Guest";
   const clubName = location.state?.clubname || "Error";
   console.log("I get the Club Name: ",clubName);
@@ -27,6 +28,27 @@ function Create() {
     question_str += ", " + selections[i];
   }
   // console.log(question_str);
+
+  async function saveForm() {
+    // gather supplementary questions from input boxes
+    let supplementary_questions = []
+    for (let i = 1; i <= 3; i++)
+    {
+      let created_question = document.getElementById("club designed question " + String(i) + " input box");
+      if (!(created_question))
+        return;
+  
+      if (created_question.value == "") // only add the boxes with answer
+        continue;
+      supplementary_questions.push(created_question.value);
+    }
+  
+    // send supplementary question lists to database
+    console.log("Name to back:",clubName);
+    console.log("questions:",supplementary_questions);
+    postForm(clubName, supplementary_questions);
+    history("/",{state:{username:username, userIsClubLeader:true}})
+  }
 
   return (
   <>
@@ -51,31 +73,13 @@ function Create() {
       <input type="text" name="" id="club designed question 3 input box" placeholder="Third Question"></input>
     </div>
 
-    <button id="finish creation button" onClick={saveForm(clubName)}>Finish</button>
+    <button id="finish creation button" onClick={saveForm}>Finish</button>
 
   </>
   );
 }
 
-function saveForm(myclubname) {
-  // gather supplementary questions from input boxes
-  let supplementary_questions = []
-  for (let i = 1; i <= 3; i++)
-  {
-    let created_question = document.getElementById("club designed question " + String(i) + " input box");
-    if (!(created_question))
-      return;
 
-    if (created_question.value == "") // only add the boxes with answer
-      continue;
-    supplementary_questions.push(created_question.value);
-  }
-
-  // send supplementary question lists to database
-  console.log("Name to back:",myclubname);
-  console.log("questions:",supplementary_questions);
-  postForm(myclubname, supplementary_questions);
-}
 
 async function postForm(clubName, supplementary_questions)
 {
