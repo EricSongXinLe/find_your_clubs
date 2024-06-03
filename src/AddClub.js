@@ -92,7 +92,7 @@ function AddClub() {
     };
 
     return (
-        <div style={{ overflowY: "scroll", maxHeight: "90%", margin: "50px"}}>
+        <div style={{ overflowY: "scroll", maxHeight: "80%", margin: "50px"}}>
             <h1>Create a Club</h1>
             <form onSubmit={data_process}>
                 <h2>Club Name</h2>
