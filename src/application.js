@@ -21,17 +21,16 @@ selection_titles.push("What is your Year of Graduation?*");
 const selection_num = selections.length;
 
 // transferred username and clubName
-const username = location.state?.username || "Guest";
-const clubName = location.state?.clubname || "Error";
-
 
 function Apply() {
-  
+  const location = useLocation();
+  const username = location.state?.username || "Guest";
+  const clubName = location.state?.clubname || "Error";
 
   // supplementary questions  
   const [supplementaries, setData] = useState([]);
   if (supplementaries.length == 0)
-    getCreation("xdf");
+    getCreation(clubName);
   
   async function getCreation(clubName){
 
@@ -60,6 +59,113 @@ function Apply() {
 
     }
   }
+
+  async function saveAnswer(supplementaries) {
+  
+    if (!(document.getElementById("iTitle0")))
+      return;
+  
+    let finished = true;
+  
+    // check for any unanswered required input question
+    
+    for (let i = 0; i < input_num; i++)
+    {
+      let question = document.getElementById("iTitle" + String(i));
+      let text_box = document.getElementById(inputs[i]);
+      if (text_box.value == "") // if empty
+      {
+        question.innerHTML = input_titles[i] + " Required";
+        question.style.color = '#FF5733';
+        if (finished)
+          alert(inputs[i] + " is required")
+        finished = false;
+      }
+      else if (question.innerHTML != input_titles[i]) // revert to normal
+      {
+        question.style.color = '#000000';
+        question.innerHTML = input_titles[i];
+      }
+    }
+  
+    // check for any unanswered required selection question
+    for (let i = 0; i < selection_num; i++)
+    {
+      let select = document.getElementById("sTitle");
+      let selection = document.getElementById("Select1");
+      if (selection.value == "select") // if no selection
+      {
+        select.innerHTML = selection_titles[i] + " Required";
+        select.style.color='#FF5733';
+        if (finished)
+          alert(selections[i] + " is required")
+        finished = false;
+      }
+      else if (select.innerHTML != selection_titles[i]) // revert to normal
+      {
+        select.style.color='#000000';
+        select.innerHTML = selection_titles[i];
+      }
+    }
+  
+    // check for any unanswered required supplementary question
+    for (let i = 0; i < supplementaries.length; i++)
+    {
+      let question = document.getElementById("sTitle" + String(i));
+      let text_box = document.getElementById("supplementary" + String(i));
+      if (text_box.value == "") // if empty
+      {
+        question.innerHTML = supplementaries[i] + "* Required";
+        question.style.color = '#FF5733';
+        if (finished)
+          alert("Supplementary " + String(i) + " is required")
+        finished = false;
+      }
+      else if (question.innerHTML != supplementaries[i]) // revert to normal
+      {
+        question.style.color = '#000000';
+        question.innerHTML = supplementaries[i]+"*";
+      }
+    }
+  
+    // don't process if unfinished
+    if (!finished)
+      return;
+  
+    let answers = [];
+  
+    // add input questions' answers to list
+    for (let i = 0; i < input_num; i++)
+    {
+      let text_box = document.getElementById(inputs[i]);
+      answers.push(text_box.value);
+    }
+  
+    // add selection questions' answers to list
+    for (let i = 0; i < selection_num; i++)
+    {
+      let selection = document.getElementById("Select1");
+      answers.push(selection.value);
+    }
+  
+    // add supplementary questions' answers to list
+    for (let i = 0; i < supplementaries.length; i++)
+    {
+      let text_box = document.getElementById("supplementary" + String(i));
+      answers.push(text_box.value);
+    }
+    console.log(11111);
+    postAnswer(clubName, username, answers); // send answers to backend database
+    console.log(22222);
+    // Happy Birthday
+    if (document.getElementById(inputs[0]).value == "Paul Eggert")
+      document.getElementById('texto').innerHTML = "Welcome! You must be THE Paul Eggert!";
+    let condition = false;
+    if (condition)
+      document.getElementById('egg').style.display = "";
+  
+  }
+  
 
   let general_show = []
   let supplementary_show = []
@@ -120,116 +226,11 @@ function Apply() {
     <p class="egg" id="egg"></p>
   </>
   );
-}
 
-function saveAnswer(supplementaries) {
-  if (!(document.getElementById("iTitle0")))
-    return;
-
-  let finished = true;
-
-  // check for any unanswered required input question
-  
-  for (let i = 0; i < input_num; i++)
-  {
-    let question = document.getElementById("iTitle" + String(i));
-    let text_box = document.getElementById(inputs[i]);
-    if (text_box.value == "") // if empty
-    {
-      question.innerHTML = input_titles[i] + " Required";
-      question.style.color = '#FF5733';
-      if (finished)
-        alert(inputs[i] + " is required")
-      finished = false;
-    }
-    else if (question.innerHTML != input_titles[i]) // revert to normal
-    {
-      question.style.color = '#000000';
-      question.innerHTML = input_titles[i];
-    }
-  }
-
-  // check for any unanswered required selection question
-  for (let i = 0; i < selection_num; i++)
-  {
-    let select = document.getElementById("sTitle");
-    let selection = document.getElementById("Select1");
-    if (selection.value == "select") // if no selection
-    {
-      select.innerHTML = selection_titles[i] + " Required";
-      select.style.color='#FF5733';
-      if (finished)
-        alert(selections[i] + " is required")
-      finished = false;
-    }
-    else if (select.innerHTML != selection_titles[i]) // revert to normal
-    {
-      select.style.color='#000000';
-      select.innerHTML = selection_titles[i];
-    }
-  }
-
-  // check for any unanswered required supplementary question
-  for (let i = 0; i < supplementaries.length; i++)
-  {
-    let question = document.getElementById("sTitle" + String(i));
-    let text_box = document.getElementById("supplementary" + String(i));
-    if (text_box.value == "") // if empty
-    {
-      question.innerHTML = supplementaries[i] + "* Required";
-      question.style.color = '#FF5733';
-      if (finished)
-        alert("Supplementary " + String(i) + " is required")
-      finished = false;
-    }
-    else if (question.innerHTML != supplementaries[i]) // revert to normal
-    {
-      question.style.color = '#000000';
-      question.innerHTML = supplementaries[i]+"*";
-    }
-  }
-
-  // don't process if unfinished
-  if (!finished)
-    return;
-
-  let answers = [];
-
-  // add input questions' answers to list
-  for (let i = 0; i < input_num; i++)
-  {
-    let text_box = document.getElementById(inputs[i]);
-    answers.push(text_box.value);
-  }
-
-  // add selection questions' answers to list
-  for (let i = 0; i < selection_num; i++)
-  {
-    let selection = document.getElementById("Select1");
-    answers.push(selection.value);
-  }
-
-  // add supplementary questions' answers to list
-  for (let i = 0; i < supplementaries.length; i++)
-  {
-    let text_box = document.getElementById("supplementary" + String(i));
-    answers.push(text_box.value);
-  }
-
-  postAnswer("xdf", username, answers); // send answers to backend database
-
-  // Happy Birthday
-  if (document.getElementById(inputs[0]).value == "Paul Eggert")
-    document.getElementById('texto').innerHTML = "Welcome! You must be THE Paul Eggert!";
-  let condition = false;
-  if (condition)
-    document.getElementById('egg').style.display = "";
-
-}
-
-
-async function postAnswer(clubName, username, answers)
+  async function postAnswer(clubName, username, answers)
 {
+  console.log(clubName)
+  console.log(username)
   try{  
     await axios.post("http://localhost:8000/application",{
         clubName, username, answers
@@ -251,6 +252,11 @@ async function postAnswer(clubName, username, answers)
     console.log(e);
   }
 }
+
+}
+
+
+
 
 
 
