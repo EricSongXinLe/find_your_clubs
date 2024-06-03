@@ -17,7 +17,7 @@ function StudentBlock(username) {
     
     const [imageLst, setImageLst] = useState([]);
     const [selected, setSelected] = useState(
-        "recommendation"
+        []
     ); // Tracks which button is selected
 
    

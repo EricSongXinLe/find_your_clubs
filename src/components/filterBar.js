@@ -1,14 +1,15 @@
 import React from 'react';
 import { useState } from 'react';
-
+let activatetags = ["recommendation"]
 // FilterBar component to display filter options
 const FilterBar = ({ tags, setSelected}) => {
-    let activatetags = []
+    
+    
     const [activeTags, setActiveTags] = useState([]); 
     const handleTagClick = (tag) => {
         
         console.log("Current tag", tag)
-        if (activeTags.includes(tag)) {
+        if (activatetags.includes(tag)) {
             activatetags = activatetags.filter(t => t !== tag); // Remove tag from activeTags
             // setActivatetags(tmp)
         } else {
@@ -18,23 +19,24 @@ const FilterBar = ({ tags, setSelected}) => {
             // setActiveTags(tmp)
             activatetags = [...activeTags, tag]; // Add tag to activeTags
         }
-
+        console.log("KEYI", activatetags);
         setActiveTags(activatetags);
-        console.log(activatetags);
+        
         // console.log(typeof(tag))
         // console.log(tag)
-        
-         if (activatetags.includes("No Experience Needed")){
-            setSelected("experience")
-        }
-        else if (activatetags.includes("Latest")){
-            console.log("hAH")
-            setSelected("time")
-        }
-        else if(activatetags.length === 0) {
-            console.log("NIHAO")
-            setSelected("recommendation")
-        }
+        const newTags = activatetags.slice()
+        setSelected(newTags)
+        //  if (activatetags.includes("No Experience Needed")){
+        //     setSelected("experience")
+        // }
+        // else if (activatetags.includes("Latest")){
+        //     console.log("hAH")
+        //     setSelected("time")
+        // }
+        // else  {
+        //     console.log("NIHAO")
+        //     setSelected("recommendation")
+        // }
         // console.log("KUKU")
         // setSelected("filter")
     };

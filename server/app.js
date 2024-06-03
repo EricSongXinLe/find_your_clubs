@@ -277,20 +277,26 @@ app.post("/recommendClub",async(req,res)=>{
         let studentInterest=await student_collection.findOne({username:username}, {interestArr:1})
     const stuInterest = studentInterest.interestArr
     let allclub;
-        if (selected == "recommendation"){
+    console.log("Huh", selected)
+        if (selected.includes("recommendation")){
         
              allclub = await club_collection.find({tagsList:{
                 $in:stuInterest
             }}).limit(3)
         }
-        else if (selected == "experience"){
+        else if (selected.includes("No Experience Needed") && selected.includes("Latest")){
+            allclub = await club_collection.find({requirement:"N/A"}).sort({foundingTime: -1}).limit(3)
+        }
+        else if (selected.includes("No Experience Needed")){
             allclub = await club_collection.find({requirement:"N/A"}).limit(3)
         }
-        else  if (selected == "time")
+        else if (selected.includes("Latest"))
         {
 
             allclub = await club_collection.find().sort({foundingTime: -1}).limit(3)
         }
+        
+       
         
         // console.log(allclub)
         if(stuInterest){
