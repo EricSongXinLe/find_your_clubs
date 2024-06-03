@@ -227,7 +227,7 @@ function Apply() {
   </>
   );
 
-  async function postAnswer(clubName, username, answers)
+async function postAnswer(clubName, username, answers)
 {
   console.log(clubName)
   console.log(username)
@@ -249,6 +249,7 @@ function Apply() {
       })
   }
   catch (e) {
+    alert("e")
     console.log(e);
   }
 }

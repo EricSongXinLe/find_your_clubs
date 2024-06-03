@@ -6,6 +6,7 @@ const upload = multer({ dest: '../upload/' });
 const student_collection = methods.student_collection
 const club_collection = methods.club_collection
 const application_collection = methods.application_collection
+const answer_collection = methods.answer_collection
 const cors = require("cors")
 const fs = require('fs');
 const path = require('path');
