@@ -94,23 +94,27 @@ app.post("/clubs", async (req, res) => {
         res.json()
     }
 })
-app.get("/fetch_question",async(req,res)=>{
-    const clubName = req.query.clubName
-    try{
-        const check = await application_collection.findOne({clubName:clubName})
 
-        if(check){
+app.post("/club_search", async (req, res) => {
+    const { clubname } = req.body
+    try {
+        const check = await club_collection.findOne({ clubname: clubname })
+
+        if (check) {
             res.json(check)
-            // +console.log(check)
         }
-        else{
+        else {
             res.json()
         }
 
     }
-    catch(e){
+    catch (e) {
         res.json()
     }
+})
+
+app.get("/addclub", (req, res) => {
+
 })
 
 app.post("/create",async(req,res)=>{
@@ -147,28 +151,23 @@ app.post("/create",async(req,res)=>{
 
 })
 
+app.get("/fetch_question",async(req,res)=>{
+    const clubName = req.query.clubName
+    try{
+        const check = await application_collection.findOne({clubName:clubName})
 
-
-app.post("/club_search", async (req, res) => {
-    const { clubname } = req.body
-    try {
-        const check = await club_collection.findOne({ clubname: clubname })
-
-        if (check) {
+        if(check){
             res.json(check)
+            // console.log(check)
         }
-        else {
+        else{
             res.json()
         }
 
     }
-    catch (e) {
+    catch(e){
         res.json()
     }
-})
-
-app.get("/addclub", (req, res) => {
-
 })
 
 app.post("/application", async(req, res)=>{
@@ -205,6 +204,24 @@ app.post("/application", async(req, res)=>{
         res.json("fail") }
 })
 
+app.get('/fetch_answer', async(req, res)=>{
+    const clubName = req.query.clubName;
+    try{
+        const answers = await answer_collection.find({clubName:clubName}, {clubName:0});
+        if(answers){
+            res.json(answers);
+            console.log(answers)
+        }
+        else{
+            console.log("Not Found");
+            res.json("Not Found");
+        }    
+    }
+    catch(e){
+        console.log(e);
+        res.json("fail")
+    }
+})
 
 app.get('/search', async (req, res) => {
     const clubname = req.query.clubname;

@@ -14,6 +14,8 @@ import Apply from './application.js'
 import Create from './create_application.js'
 import StudentPreference from './stuPref.js';
 import FavClubs from "./components/Fav.js"
+import ViewApp from './viewApp.js'
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -56,7 +58,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/viewApp",
-    element: <viewApp/>,
+    element: <ViewApp/>,
   },
 ]);
 

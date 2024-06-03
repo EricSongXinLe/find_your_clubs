@@ -1,107 +1,110 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios"
 import './viewApp.css'
 
 
-
-function ViewApp() {
-    /*
-    const [applications, setApplications] = useState([]);
-
-    const getApplications = () => {
-        fetch('http://localhost:8000/application')
-        .then(response => response.json())
-        .then(data => setApplications(data))
-    }
-
-    useEffect(() => {
-        getApplications();
-    }, []);
-    */
-
+async function viewApp() {
     document.body.style.overflow = "visible";
+    const [applicant, setApplicant] = useState("Default");
+    const [applicant_list, setApplicantList] = useState(["Default"])
+    const [answer_dict, setAnswerDict] = useState({"Default":["Default Answer"]})
 
-    // dictionary of dictionaries, one dictionry for one applicant
-    // each dictionary contains general questions and possible supplementary questions
-    let general = {"Alex": {"Birthday": "1227"}, "Bob": {"Birthday": "0511"}};
-    let supplementary = {"Alex": {"Hobby": "laugh"}, "Bob": {"Age": "99", "Marriage Status": "Yes"}};
-    let applicant_list = [];
-    for (var key in general)
-        applicant_list.push(key);
-    //if (applicants.length > 0)
-        //applicant = applicants[0];
-    const [applicant, setApplicant] = useState(applicant_list[0]);
-    console.log(applicant);
+    const [answers, setAnswer] = useState([]);
+    if (answers.length == 0)
+        await getAnswer("xdf");
+
+    async function getAnswer(clubName) {
+        return new Promise((resolve, reject) => {
+            try {
+                console.log("getting")
+                axios.get("http://localhost:8000/fetch_answer", {
+                    params: { clubName: clubName }
+                })
+                    .then(res => {
+                        if (res.data) {
+                            alert("Club found")
+                            setAnswer(res.data)
+                            console.log("answers found", res.data);
+                            return res.data;
+                        }
+                        else {
+                            alert("Club not found")
+                        }
+                    })
+                    .catch(e => {
+                        alert("An error occurred")
+                        console.log(e);
+                    })
     
-    // change each applicant's data into list of "tuples"
-    for (var key in general)
-    {
-        let general_dict = general[key];
-        let supp_dict = supplementary[key];
-        let general_arr = [];
-        let supp_arr = []
+            }
+            catch (e) {
+    
+            }
+        });
         
-        // general questions
-        for (var question in general_dict)
-        {
-            if (general_dict.hasOwnProperty(question))
-            {
-                general_arr.push([question, general_dict[question]]);
-            }
-        }
-
-        // supplementary questions
-        for (var question in supp_dict)
-        {
-            if (supp_dict.hasOwnProperty(question))
-            {
-                supp_arr.push([question, supp_dict[question]]);
-            }
-        }
-
-        general[key] = general_arr;
-        supplementary[key] = supp_arr;
     }
 
-    /*
-    // change question-answer pairs to tags for each applicant
-    let general_show = {};
-    let supplementary_show = {};
-    for (var key in general)
-    {
+    // supplementary questions  
+    const [supplementaries, setData] = useState([]);
+    await getQuestion("xdf")
 
-        let general_arr = structuredClone(general[key]);
-        let supp_arr = structuredClone(supplementary[key]);
+    async function getQuestion(clubName) {
+        return new Promise((resolve, reject) => {
+        try {
 
-        // general questions
-        for (let i = 0; i < general_arr.length; i++)
-        {
-            general_arr[i][0] = <h1>{general_arr[i][0]}</h1>;
-            general_arr[i][1] = <h2>{general_arr[i][1]}</h2>;
+            axios.get("http://localhost:8000/fetch_question", {
+                params: { clubName: clubName }
+            })
+                .then(res => {
+                    if (res.data) {
+                        // alert("Club found")
+                        setData(res.data["supplementaryQuestion"])
+                        console.log("supp questions", res.data["supplementaryQuestion"]);
+                        return res.data;
+                    }
+                    else {
+                        alert("Club not found")
+                    }
+                })
+                .catch(e => {
+                    alert("An error occurred")
+                    console.log(e);
+                })
+
         }
+        catch (e) {
 
-        // supplementary questions
-        for (let i = 0; i < 3; i++)
-        {
-            if (i < supp_arr.length)
-            {
-                supp_arr[i][0] = <h1>{supp_arr[i][0]}</h1>;
-                supp_arr[i][1] = <h2>{supp_arr[i][1]}</h2>;
-            }
         }
-
-        general_show[key] = general_arr;
-        supplementary_show[key] = supp_arr;
+        });
     }
-    */
 
-    function refresh()
-    {
+
+    // build answer dictionary
+    let temp_applicant_list = [];
+    let temp_answer_dict = {};
+    for (let i = 0; i < answers.length; i++) {
+        // for each applicant
+        temp_applicant_list.push(answers[i]["username"]);
+        temp_answer_dict[answers[i]["username"]] = answers[i]["answers"];
+    }
+    console.log("upper", applicant_list,answer_dict, answers);
+    setApplicantList(temp_applicant_list);
+    setAnswerDict(temp_answer_dict);
+
+
+    setApplicant(applicant_list[0]);
+
+    // build question dictionary
+    const general_questions = ["name", "email", "gender", "birthday", "yog"];
+    const question_list = general_questions.concat(supplementaries);
+
+    
+    function refresh() {
         if (document.getElementById("applicant_selection"))
             setApplicant(document.getElementById("applicant_selection").value);
     }
-    
-    
 
+    console.log("lower", applicant_list,answer_dict);
     return (
         <>
             <select id="applicant_selection" onChange={refresh}>
@@ -109,59 +112,47 @@ function ViewApp() {
                     <option key={name}>{name}</option>
                 ))}
             </select><p></p>
-            
-            {general[applicant].map((pair) => (
-                <>
-                    <div>
-                        <h2 className="Title">Question: </h2>
-                        <a className="Content">{pair[0]}</a>
-                    </div>
-                    <div>
-                        <h2 className="Title">Answer: </h2>
-                        <a className="Content">{pair[1]}</a>
-                        <p></p>
-                    </div>
-                </>
-            ))}
 
-            {supplementary[applicant].map((pair) => (
+            {answer_dict[applicant].map((answer, index) => (
                 <>
                     <div>
                         <h2 className="Title">Question: </h2>
-                        <a className="Content">{pair[0]}</a>
+                        <a className="Content">{question_list[index]}</a>
                     </div>
                     <div>
                         <h2 className="Title">Answer: </h2>
-                        <a className="Content">{pair[1]}</a>
+                        <a className="Content">{answer}</a>
                         <p></p>
                     </div>
                 </>
             ))}
         </>
     );
+}
 
-    /*
-    return (
-        <div className="right_cont">
-            {applications.map(application => (
-                <div key={application.id}>
-                    <h2>Name: {application.name}</h2>
-                    <h2>Email: {application.email}</h2>
-                    <h2>Year of Graduation: {application.yearOfGraduation}</h2>
-                    <h2>Birthday: {application.birthday}</h2>
-                    <h2>Question 1: {application.question1}</h2>
-                    <h2>Answer 1: {application.answer1}</h2>
-                    <h2>Question 2: {application.question2}</h2>
-                    <h2>Answer 2: {application.answer2}</h2>
-                    <h2>Question 3: {application.question3}</h2>
-                    <h2>Answer 3: {application.answer3}</h2>
-                </div>
-            ))}
-        </div>
-    );
-    */
+function ViewApp()
+{
+    return viewApp();
 }
 
 
 
 export default ViewApp;
+
+
+
+/*
+{supplementary[applicant].map((pair) => (
+    <>
+        <div>
+            <h2 className="Title">Question: </h2>
+            <a className="Content">{pair[0]}</a>
+        </div>
+        <div>
+            <h2 className="Title">Answer: </h2>
+            <a className="Content">{pair[1]}</a>
+            <p></p>
+        </div>
+    </>
+))}
+*/
