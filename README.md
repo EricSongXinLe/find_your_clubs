@@ -44,7 +44,7 @@ Set up the backend database with Nodemon
 cd server
 npx nodemon app.js
 ```
-
+the database was deployed in another VPS. If you want to change the database you want to connect to, you must modify line 2 of the ``mongo.js`` file from ``mongoose.connect("mongodb://admin:CS35L@110.40.138.15:27017/admin")`` to the database you want to connect to.
 
 #### Step 3 - Set up frontend
 
