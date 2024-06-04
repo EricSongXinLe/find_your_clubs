@@ -3,3 +3,12 @@
     font-size: 2rem;
     color: red;
 }
+
+.application_form{
+    margin-top: -200px;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* vertical-align: top; */
+    position: absolute;
+    /* min-height: 200vh; */
+}

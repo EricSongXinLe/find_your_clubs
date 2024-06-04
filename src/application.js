@@ -193,7 +193,7 @@ function Apply() {
     document.getElementById("egg").style.display = "none";
 
   return (
-  <>
+  <div className="application_form">
     <div className="row">
       {general_show.map((pair_show) => (
         <>
@@ -224,7 +224,7 @@ function Apply() {
     <button id="submit application button" onClick={saveAnswer.bind(this, supplementaries)}>Submit</button>
     <p id="texto"></p>
     <p class="egg" id="egg"></p>
-  </>
+  </div>
   );
 
 async function postAnswer(clubName, username, answers)
