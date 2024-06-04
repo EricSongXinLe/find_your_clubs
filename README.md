@@ -50,7 +50,7 @@ npx nodemon app.js
 
 Open another terminal to start the frontend while keep the  pervious terminal to run the backend
 
-Set the diretory to the frontend source and then install the dependencies 
+Set the directory to the frontend source and then install the dependencies 
 ```bash
 cd find_your_clubs/src
 npm install
