@@ -139,36 +139,6 @@ useEffect(() => {
     }
 
     /*
-    // change question-answer pairs to tags for each applicant
-    let general_show = {};
-    let supplementary_show = {};
-    for (var key in general)
-    {
-
-        let general_arr = structuredClone(general[key]);
-        let supp_arr = structuredClone(supplementary[key]);
-
-        // general questions
-        for (let i = 0; i < general_arr.length; i++)
-        {
-            general_arr[i][0] = <h1>{general_arr[i][0]}</h1>;
-            general_arr[i][1] = <h2>{general_arr[i][1]}</h2>;
-        }
-
-        // supplementary questions
-        for (let i = 0; i < 3; i++)
-        {
-            if (i < supp_arr.length)
-            {
-                supp_arr[i][0] = <h1>{supp_arr[i][0]}</h1>;
-                supp_arr[i][1] = <h2>{supp_arr[i][1]}</h2>;
-            }
-        }
-
-        general_show[key] = general_arr;
-        supplementary_show[key] = supp_arr;
-    }
-    */
 
     function refresh()
     {
