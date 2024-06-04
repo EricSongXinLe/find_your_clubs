@@ -16,8 +16,6 @@ function Create() {
   const history = useNavigate();
   const username = location.state?.username || "Guest";
   const clubName = location.state?.clubname || "Error";
-  console.log("I get the Club Name: ",clubName);
-  console.log("Username:", username);
 
   let question_str = inputs[0];
   for (let i = 1; i < inputs.length; i++)
@@ -46,8 +44,6 @@ function Create() {
     }
   
     // send supplementary question lists to database
-    console.log("Name to back:",clubName);
-    console.log("questions:",supplementary_questions);
     postForm(clubName, supplementary_questions);
     history("/",{state:{username:username, userIsClubLeader:true}})
   }

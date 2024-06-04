@@ -23,7 +23,6 @@ function StudentBlock(username) {
         const fetchImages = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/random-images');
-                console.log('Fetched images:', response.data);
                 setImageLst(response.data);
             } catch (error) {
                 console.error('Error fetching images:', error);
@@ -54,6 +53,7 @@ function StudentBlock(username) {
         return {
             title: data.clubname,
             description: data.clubdescription,
+            image: `data:image/jpeg;base64,${Buffer.from(data.clubimg).toString('base64')}`,
         };
     };
 
@@ -61,7 +61,6 @@ function StudentBlock(username) {
         const transformedData = transformClubData(newClubInfo);
         setClubs([transformedData]);
     };
-    console.log("NOWAY",selected)
 
     useEffect( () => {
         async function RenderClub(e) {
@@ -69,7 +68,6 @@ function StudentBlock(username) {
             // flag ++
             const stuname = username.username
 
-            console.log("HellYay",selected)
             
             try {
                 // console.log("New", stuname)
@@ -88,9 +86,13 @@ function StudentBlock(username) {
                                 const element = {
                                     title: club.clubname,
                                     description: club.clubdescription,
+                                    image: `data:image/jpeg;base64,${Buffer.from(club.clubimg).toString('base64')}`,
                                 };
                                 newClubs.push(element);
                             }
+
+                            newClubs.sort(() => Math.random() - 0.5);
+                            newClubs = newClubs.slice(0, 3);
                             setClubs(newClubs);
     
                             // history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}})
@@ -103,7 +105,6 @@ function StudentBlock(username) {
             } catch (e) {
                 console.log(e);
 
-                console.log("Not Domain")
             }
         
         
@@ -134,7 +135,7 @@ function StudentBlock(username) {
                     <div className="club-box">
                         {clubs.map((club) => (
                             <ClubBlock
-                                image={require("../images/logo.webp")}
+                                image={club.image}
                                 title={club.title}
                                 id={club.title}
                             />

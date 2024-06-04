@@ -34,11 +34,9 @@ function Login() {
                 }
                 else if(res.data=="successLeader"){
                     history("/",{state:{username:username, userIsClubLeader:true}}) //passes the username as the id in the next page
-                    console.log("Logged in")
                 }
                 else if(res.data=="successStudent"){
                     history("/",{state:{username:username, userIsClubLeader:false}}) //passes the username as the id in the next page
-                    console.log("Logged in")
                 }
             })
             .catch(e=>{

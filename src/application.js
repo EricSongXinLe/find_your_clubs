@@ -44,7 +44,6 @@ function Apply() {
             if(res.data){
               // alert("Club found")
               setData(res.data["supplementaryQuestion"])
-              console.log("wtf", res.data["supplementaryQuestion"]);
             }
             else{
               alert("Club not found")
@@ -156,6 +155,7 @@ function Apply() {
       answers.push(text_box.value);
     }
 
+
     let saved_pairs = input_titles.concat(selection_titles);
     for (let i = 0; i < supplementaries.length; i++)
       saved_pairs.push(supplementaries[i]);
@@ -164,6 +164,7 @@ function Apply() {
     console.log(11111);
     postAnswer(clubName, username, saved_pairs); // send answers to backend database
     console.log(22222);
+
     // Happy Birthday
     if (document.getElementById(inputs[0]).value == "Paul Eggert")
       document.getElementById('texto').innerHTML = "Welcome! You must be THE Paul Eggert!";
@@ -200,7 +201,7 @@ function Apply() {
     document.getElementById("egg").style.display = "none";
 
   return (
-  <>
+  <div className="application_form">
     <div className="row">
       {general_show.map((pair_show) => (
         <>
@@ -231,13 +232,11 @@ function Apply() {
     <button id="submit application button" onClick={saveAnswer.bind(this, supplementaries)}>Submit</button>
     <p id="texto"></p>
     <p class="egg" id="egg"></p>
-  </>
+  </div>
   );
 
 async function postAnswer(clubName, username, saved_pairs)
 {
-  console.log(clubName)
-  console.log(username)
   try{  
     await axios.post("http://localhost:8000/application",{
         clubName, username, saved_pairs

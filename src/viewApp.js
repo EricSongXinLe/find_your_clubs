@@ -17,6 +17,7 @@ function ViewApp() {
         getApplications();
     }, []);
     */
+
     const [cclubsCreated, setClubsCreated] = useState(["Default"]);
     var clubsCreated = [];
     //const [clubAnswer, setClubAnswer] = useState([{"username": "Default", "answers":["Default"]}])
@@ -62,6 +63,7 @@ function ViewApp() {
                 ).catch((e) =>
                     console.log(e)
                 )
+
         }
         catch (error) {
             console.error('CANNOT find Fav Clubs', error);

@@ -8,7 +8,6 @@ const FilterBar = ({ tags, setSelected}) => {
     const [activeTags, setActiveTags] = useState([]); 
     const handleTagClick = (tag) => {
         
-        console.log("Current tag", tag)
         if (activatetags.includes(tag)) {
             activatetags = activatetags.filter(t => t !== tag); // Remove tag from activeTags
             // setActivatetags(tmp)
@@ -19,7 +18,6 @@ const FilterBar = ({ tags, setSelected}) => {
             // setActiveTags(tmp)
             activatetags = [...activeTags, tag]; // Add tag to activeTags
         }
-        console.log("KEYI", activatetags);
         setActiveTags(activatetags);
         
         // console.log(typeof(tag))

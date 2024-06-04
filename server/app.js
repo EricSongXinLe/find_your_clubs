@@ -330,7 +330,7 @@ app.post("/recommendClub",async(req,res)=>{
         
              allclub = await club_collection.find({tagsList:{
                 $in:stuInterest
-            }}).limit(3)
+            }}).limit(6)
         }
         else if (selected.includes("No Experience Needed") && selected.includes("Popular") && selected.includes("Latest"))
             {
