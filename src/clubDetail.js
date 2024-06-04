@@ -144,7 +144,7 @@ catch (error) {
       // Update state with the new array
       //setCurrUserFavClub(updatedFavClubs);
   await axios.post("http://localhost:8000/favclubupdate",{
-      userId, currUserFavClub:newarr, id
+      username:userId, currUserFavClub:newarr, clubname:id
   })
   .then(res=>{
       if(res.data=="fail"){

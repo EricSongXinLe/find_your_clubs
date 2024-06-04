@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles.css';
 import { useNavigate } from 'react-router-dom';
 
-function Welcome({ userName }) {
+function Welcome({ userName, isLeader }) {
   const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -13,6 +13,10 @@ function Welcome({ userName }) {
       const handlemyFav= () => {
         navigate(`/myfavclub`);
         };
+      
+      const viewApp= () => {
+        navigate(`/ViewApp`,{state:{username:userName, userIsClubLeader:true}})
+      }
 
     return (
       <div>
@@ -24,7 +28,9 @@ function Welcome({ userName }) {
           <h2>Welcome, {userName}!</h2>
           <button onClick={handleLogout} className="logout-button">Logout</button>
         </div>
-        <button onClick={handlemyFav} className="FavButton">My Favourite Clubs</button>
+        {isLeader ? <button onClick={viewApp} className="FavButton">View Application</button> : 
+        <button onClick={handlemyFav} className="FavButton">My Favourite Clubs</button>}
+        
       </div>
       </div>
     );

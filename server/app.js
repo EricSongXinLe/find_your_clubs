@@ -406,9 +406,9 @@ app.get('/favclub', async(req, res)=>{
 
 app.post("/favclubupdate",async(req,res)=>{
     //console.log(req.body)
-    const username = req.body.userId
+    const username = req.body.username
     var favClubArr = req.body.currUserFavClub
-    const clubid = req.body.id
+    const clubid = req.body.clubname
     const data={
     
     }

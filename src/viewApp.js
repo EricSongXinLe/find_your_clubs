@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import './viewApp.css'
-
-
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from "axios"
 
 function ViewApp() {
     /*
@@ -17,7 +17,33 @@ function ViewApp() {
         getApplications();
     }, []);
     */
+    console.log("12345")
+    const history = useNavigate();
+    const location = useLocation();
+    const username = location.state?.username
+    console.log(username)
+    
+    async function fetchCreateClub(){
+  try {
 
+    // console.log(search)
+    await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
+    .then(
+        res=>{
+          const studentData = fetchStudent(res.data);
+          const idExists = studentData.favClubArr.includes(id);
+          //setCurrUserFavClub(studentData.favClubArr);
+          console.log("Updated Fetch:",idExists);
+          setIsFavorited(idExists);
+        }
+    ).catch((e)=>
+        console.log(e)
+    ) 
+  }
+    catch (error) {
+    console.error('CANNOT find Fav Clubs', error);
+  }
+}
     document.body.style.overflow = "visible";
 
     // dictionary of dictionaries, one dictionry for one applicant
