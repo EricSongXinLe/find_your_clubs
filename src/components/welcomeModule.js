@@ -1,10 +1,17 @@
 import React from 'react';
 import '../styles.css';
+
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Welcome({ userName, isLeader }) {
+  const [logOutText, setLogOutText] = useState('Logout');
   const navigate = useNavigate();
-
+    useEffect(() => {
+      if (userName === "Guest") {
+        setLogOutText('Login');
+      }
+    }, [userName]);
     const handleLogout = () => {
       window.history.replaceState({}, '')
       window.location.href = '/login';
@@ -26,7 +33,7 @@ function Welcome({ userName, isLeader }) {
         
       <div className="welcome-header">
           <h2>Welcome, {userName}!</h2>
-          <button onClick={handleLogout} className="logout-button">Logout</button>
+          <button onClick={handleLogout} className="logout-button">{logOutText}</button>
         </div>
         {isLeader ? <button onClick={viewApp} className="FavButton">View Application</button> : 
         <button onClick={handlemyFav} className="FavButton">My Favourite Clubs</button>}
