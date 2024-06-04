@@ -18,6 +18,8 @@ function ViewApp() {
     }, []);
     */
    var clubsCreated = []
+   var clubAnswer = []
+   var currAnswer = []
     console.log("12345")
     const history = useNavigate();
     const location = useLocation();
@@ -49,8 +51,47 @@ function ViewApp() {
     console.error('CANNOT find Fav Clubs', error);
   }
 }
-    fetchCreateClub();
-    console.log(clubsCreated);
+
+async function fetchFormforaClub(clubname){
+    try {
+  
+      console.log("This is",clubname)
+      await axios.get('http://localhost:8000/viewclubApp', { params: { clubName: clubname } })
+      .then(
+          res=>{
+            clubAnswer = res.data;
+            console.log("456",clubAnswer);
+          }
+      ).catch((e)=>
+          console.log(e)
+      ) 
+    }
+      catch (error) {
+      console.error('CANNOT find Fav Clubs', error);
+    }
+}
+useEffect(() => {
+    const fetchData = async () => {
+      await fetchCreateClub();
+      console.log(333, clubsCreated); // This will now run after fetchCreateClub has completed
+      for (let i = 0; i < clubsCreated.length; i++) {
+        const currClub = clubsCreated[i];
+        console.log(i,currClub);
+        await fetchFormforaClub(currClub);
+        console.log(clubAnswer.length);
+        for(let j = 0; j<clubAnswer.length; j++){
+            console.log("Here!")
+            currAnswer= clubAnswer[j].answers;
+            console.log("Hi",j,currAnswer);
+        }
+    }
+    };
+
+    fetchData();
+  }, [username]);
+
+ 
+
 
     
     document.body.style.overflow = "visible";

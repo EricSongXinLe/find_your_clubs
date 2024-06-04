@@ -187,6 +187,7 @@ app.post("/application", async(req, res)=>{
     try{
         const check1=await answer_collection.findOne({clubName:clubName});
         const check2=await answer_collection.findOne({username:username});
+        //const result = await answer_collection.find({clubName:clubName});
 
         if(check1 && check2){
             res.json("exist")
@@ -485,6 +486,25 @@ app.post("/myfavclub", async (req, res) => {
     }
     catch (e) {
         res.json("fail")
+    }
+})
+
+
+app.get("/viewclubApp", async (req, res) => {
+    const clubname = req.query.clubName;
+    try {
+        const check = await answer_collection.find({ clubName: clubname })
+
+        if (check) {
+            res.json(check)
+        }
+        else {
+            res.json()
+        }
+
+    }
+    catch (e) {
+        res.json()
     }
 })
 
