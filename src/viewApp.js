@@ -192,6 +192,7 @@ function ViewApp() {
 
     return (
         <>
+            <div className="close-button" onClick={handleRedirect}>X</div>
             <select id="club_selection" onChange={refresh1}>
                 {cclubsCreated.map((name) => (
                     <option key={name}>{name}</option>
