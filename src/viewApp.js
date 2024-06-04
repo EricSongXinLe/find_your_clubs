@@ -17,24 +17,29 @@ function ViewApp() {
         getApplications();
     }, []);
     */
+   var clubsCreated = []
     console.log("12345")
     const history = useNavigate();
     const location = useLocation();
     const username = location.state?.username
     console.log(username)
     
+    const fetchStudent = (data) => {
+        return {
+            favClubArr: data.favClubs
+        };
+      };
+
     async function fetchCreateClub(){
   try {
 
     // console.log(search)
-    await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
+    await axios.get('http://localhost:8000/favclub', { params: { username: username } })
     .then(
         res=>{
           const studentData = fetchStudent(res.data);
-          const idExists = studentData.favClubArr.includes(id);
-          //setCurrUserFavClub(studentData.favClubArr);
-          console.log("Updated Fetch:",idExists);
-          setIsFavorited(idExists);
+          clubsCreated = studentData.favClubArr
+          console.log("123",clubsCreated)
         }
     ).catch((e)=>
         console.log(e)
@@ -44,6 +49,10 @@ function ViewApp() {
     console.error('CANNOT find Fav Clubs', error);
   }
 }
+    fetchCreateClub();
+    console.log(clubsCreated);
+
+    
     document.body.style.overflow = "visible";
 
     // dictionary of dictionaries, one dictionry for one applicant
