@@ -154,8 +154,14 @@ function Apply() {
       let text_box = document.getElementById("supplementary" + String(i));
       answers.push(text_box.value);
     }
+
+    let saved_pairs = input_titles.concat(selection_titles);
+    for (let i = 0; i < supplementaries.length; i++)
+      saved_pairs.push(supplementaries[i]);
+    for (let i = 0; i < saved_pairs.length; i++)
+      saved_pairs[i] = saved_pairs[i] + ":" + answers[i];
     console.log(11111);
-    postAnswer(clubName, username, answers); // send answers to backend database
+    postAnswer(clubName, username, saved_pairs); // send answers to backend database
     console.log(22222);
     // Happy Birthday
     if (document.getElementById(inputs[0]).value == "Paul Eggert")
@@ -227,17 +233,17 @@ function Apply() {
   </>
   );
 
-async function postAnswer(clubName, username, answers)
+async function postAnswer(clubName, username, saved_pairs)
 {
   console.log(clubName)
   console.log(username)
   try{  
     await axios.post("http://localhost:8000/application",{
-        clubName, username, answers
+        clubName, username, saved_pairs
     })
       .then(res => {
         if (res.data == "exist") {
-          alert("You've already submitted the application")
+          alert(clubName + " " + username + " You've already submitted the application")
         }
         else if (res.data == "added") {
           alert("Application submitted successfully")

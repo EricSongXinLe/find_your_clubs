@@ -173,7 +173,7 @@ app.get("/addclub", (req, res) => {
 })
 
 app.post("/application", async(req, res)=>{
-    const {clubName, username, answers} = req.body;
+    const {clubName, username, saved_pairs} = req.body;
     // const questionList = ["Name", "Email", "Gender", "YearOfGraduation", "Birthday"]
     // for (const i = 0; i < answerList.length; i++){
     //     questionList[i] = answerList[i]
@@ -181,7 +181,7 @@ app.post("/application", async(req, res)=>{
     const data = {
         clubName: clubName,
         username: username,
-        answers: answers
+        answers: saved_pairs
     }
     console.log(data)
     try{
