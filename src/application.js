@@ -43,7 +43,6 @@ function Apply() {
             if(res.data){
               // alert("Club found")
               setData(res.data["supplementaryQuestion"])
-              console.log("wtf", res.data["supplementaryQuestion"]);
             }
             else{
               alert("Club not found")
@@ -154,9 +153,7 @@ function Apply() {
       let text_box = document.getElementById("supplementary" + String(i));
       answers.push(text_box.value);
     }
-    console.log(11111);
     postAnswer(clubName, username, answers); // send answers to backend database
-    console.log(22222);
     // Happy Birthday
     if (document.getElementById(inputs[0]).value == "Paul Eggert")
       document.getElementById('texto').innerHTML = "Welcome! You must be THE Paul Eggert!";
@@ -229,8 +226,6 @@ function Apply() {
 
 async function postAnswer(clubName, username, answers)
 {
-  console.log(clubName)
-  console.log(username)
   try{  
     await axios.post("http://localhost:8000/application",{
         clubName, username, answers

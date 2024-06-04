@@ -23,7 +23,6 @@ function StudentBlock(username) {
         const fetchImages = async () => {
             try {
                 const response = await axios.get('http://localhost:8000/random-images');
-                console.log('Fetched images:', response.data);
                 setImageLst(response.data);
             } catch (error) {
                 console.error('Error fetching images:', error);
@@ -62,7 +61,6 @@ function StudentBlock(username) {
         const transformedData = transformClubData(newClubInfo);
         setClubs([transformedData]);
     };
-    console.log("NOWAY",selected)
 
     useEffect( () => {
         async function RenderClub(e) {
@@ -70,7 +68,6 @@ function StudentBlock(username) {
             // flag ++
             const stuname = username.username
 
-            console.log("HellYay",selected)
             
             try {
                 // console.log("New", stuname)
@@ -105,7 +102,6 @@ function StudentBlock(username) {
             } catch (e) {
                 console.log(e);
 
-                console.log("Not Domain")
             }
         
         

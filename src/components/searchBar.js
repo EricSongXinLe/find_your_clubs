@@ -25,7 +25,6 @@ async function handleInputChange(e)  {
                     }
                     else{
                         setSearchResults(res.data);
-                        console.log(clubinfo)
                     }
                 }
             ).catch((e)=>

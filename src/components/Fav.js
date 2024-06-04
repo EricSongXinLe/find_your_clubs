@@ -33,7 +33,6 @@ const FavClubs = () => {
           }
           );
         }
-        console.log(clubinfo);
         setClubs(clubinfo);
       } catch (error) {
         console.error('Error fetching favorite clubs:', error);

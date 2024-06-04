@@ -46,7 +46,6 @@ function Signup() {
                     }
                     
                     
-                    console.log("User created")
                 }
             })
             .catch(e=>{
