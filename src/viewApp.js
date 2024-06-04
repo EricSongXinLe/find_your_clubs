@@ -17,19 +17,26 @@ function ViewApp() {
         getApplications();
     }, []);
     */
-    const [clubsCreated, setClubsCreated] = useState(["Default"]);
-    const [clubAnswer, setClubAnswer] = useState([{"username": "Default", "answers":["Default"]}])
+    const [cclubsCreated, setClubsCreated] = useState(["Default"]);
+    var clubsCreated = [];
+    //const [clubAnswer, setClubAnswer] = useState([{"username": "Default", "answers":["Default"]}])
+    var clubAnswer = []
+    var currClub = '';
     var currAnswer = []
+    let temp_applicant_list = [];
+    let temp_pair_dict = {};
     const [club, setClub] = useState("Default");
     const [applicant, setApplicant] = useState("Default");
     const [applicant_list, setApplicantList] = useState(["Default"])
+    var aa_list = [];
     const [pair_dict, setPairDict] = useState({"Default":["Default Question", "Default Answer"]})
+    const [yourenshenqing, setshenq] = useState(true);
 
-    console.log("12345")
+    //console.log("12345")
     const history = useNavigate();
     const location = useLocation();
     const username = location.state?.username
-    console.log(username)
+    //console.log(username)
 
     const handleRedirect = () => {
         history("/", { state: { username: username, userIsClubLeader: true } })
@@ -49,7 +56,7 @@ function ViewApp() {
                 .then(
                     res => {
                         const studentData = fetchStudent(res.data);
-                        setClubsCreated(studentData.favClubArr);
+                        clubsCreated = studentData.favClubArr;
                         console.log("123", clubsCreated)
                     }
                 ).catch((e) =>
@@ -68,7 +75,7 @@ function ViewApp() {
             await axios.get('http://localhost:8000/viewclubApp', { params: { clubName: clubname } })
                 .then(
                     res => {
-                        setClubAnswer(res.data);
+                        clubAnswer = res.data;
                         console.log("456", clubAnswer);
                     }
                 ).catch((e) =>
@@ -79,75 +86,126 @@ function ViewApp() {
             console.error('CANNOT find Fav Clubs', error);
         }
     }
+
+    const fetspecificClub = async () => {
+        currClub!=' ' &&await fetchFormforaClub(currClub);
+        console.log("你啊",currClub)
+        temp_applicant_list = [];
+        temp_pair_dict = {};
+        console.log("789", clubAnswer);
+                for (let j = 0; j < clubAnswer.length; j++)
+                {
+                    temp_applicant_list.push(clubAnswer[j]["username"]);
+                    console.log("NOW list is:",temp_applicant_list)
+                    
+                    let qa_pair = [];
+
+                    for (let k = 0; k < clubAnswer[j]["answers"].length; k++)
+                    {
+                        qa_pair.push(clubAnswer[j]["answers"][k].split(':'));
+                    }
+                    temp_pair_dict[clubAnswer[j]["username"]] = qa_pair;
+                    
+                }
+            }
     useEffect(() => {
         const fetchData = async () => {
             await fetchCreateClub();
-            console.log(333, clubsCreated); // This will now run after fetchCreateClub has completed
+            console.log(333, clubsCreated); 
+            setClubsCreated(clubsCreated)// This will now run after fetchCreateClub has completed
+            /*
             for (let i = 0; i < clubsCreated.length; i++) {
                 const currClub = clubsCreated[i];
                 console.log(i, currClub);
                 await fetchFormforaClub(currClub);
-                console.log(clubAnswer.length);
+                //console.log(clubAnswer.length);
+                
+                //console.log("NOTICE",clubAnswer)
+                for (let j = 0; j < clubAnswer.length; j++)
+                {
+                    temp_applicant_list.push(clubAnswer[j]["username"]);
+                    console.log("NOW list is:",temp_applicant_list)
+                    let qa_pair = [];
+
+                    for (let k = 0; k < clubAnswer[j]["answers"].length; k++)
+                    {
+                        qa_pair.push(clubAnswer[j]["answers"][k].split(':'));
+                    }
+                    temp_pair_dict[clubAnswer[j]["username"]] = qa_pair;
+                }
+                
                 for (let j = 0; j < clubAnswer.length; j++) {
                     console.log("Here!")
                     currAnswer = clubAnswer[j].answers;
                     console.log("Hi", j, currAnswer);
                 }
+                
             }
-            console.log(clubsCreated); // correct here
-
+            //console.log(clubsCreated); // correct here
+            */
         };
+        
+         
 
         fetchData();
+
 
     }, [username]);
 
 
-    let temp_applicant_list = [];
-    let temp_pair_dict = {};
-    for (let i = 0; i < clubAnswer.length; i++)
-    {
-        temp_applicant_list.push(clubAnswer[i]["username"]);
-        let qa_pair = [];
-        for (let j = 0; j < clubAnswer[i]["answers"].length; j++)
-        {
-            qa_pair.push(clubAnswer[i]["answers"][j].split(':'));
-        }
-        temp_pair_dict[clubAnswer[i]["username"]] = qa_pair;
-    }
-
-    useEffect(() => {
-        if (temp_applicant_list.length == 0)
+    async function applicAndQ () {
+        console.log("start to set applicant & Questions")
+        if (temp_applicant_list.length == 0){
+            console.log("NoApplicant");
+            setshenq(false);
+            setApplicantList(["Default"]);
             return;
+        }
+        setshenq(true);
+        console.log("Now set",temp_applicant_list)
         setApplicantList(temp_applicant_list);
+        aa_list = temp_applicant_list;
         setPairDict(temp_pair_dict);
         setApplicant(temp_applicant_list[0]);
-    }, [clubAnswer, clubsCreated]);
+    }
+    
 
-
-    function refresh() {
-        if (document.getElementById("club_selection"))
+    async function refresh1() {
+        if (document.getElementById("club_selection")){
             setClub(document.getElementById("club_selection").value);
-        if (document.getElementById("applicant_selection"))
-            setClub(document.getElementById("applicant_selection").value);
+            currClub = document.getElementById("club_selection").value;
+            console.log(currClub)
+            await fetspecificClub();
+            await applicAndQ();
+        }
+    
     }
 
+    async function refresh2() {
+        if (document.getElementById("applicant_selection")){
+            await setClub(document.getElementById("applicant_selection").value);
+            console.log(document.getElementById("applicant_selection").value);
+            setApplicant(document.getElementById("applicant_selection").value);
+
+        }
+    }
 
     return (
         <>
-            <select id="club_selection" onChange={refresh}>
-                {clubsCreated.map((name) => (
+            <select id="club_selection" onChange={refresh1}>
+                {cclubsCreated.map((name) => (
                     <option key={name}>{name}</option>
                 ))}
             </select><p></p>
 
-            <select id="applicant_selection" onChange={refresh}>
+            <select id="applicant_selection" onChange={refresh2}>
                 {applicant_list.map((name) => (
                     <option key={name}>{name}</option>
                 ))}
             </select><p></p>
 
-            {pair_dict[applicant].map((pair) => (
+            {!yourenshenqing? <h1>No One Applied YET !!!</h1>
+            :pair_dict[applicant].map((pair) => (
                 <>
                     <div>
                         <h2 className="Title">Question: </h2>
@@ -159,7 +217,8 @@ function ViewApp() {
                         <p></p>
                     </div>
                 </>
-            ))}
+            ))
+        }
         </>
     );
 
