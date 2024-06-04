@@ -46,7 +46,7 @@ function Apply() {
               setData(res.data["supplementaryQuestion"])
             }
             else{
-              alert("Club not found")
+              //alert("Club not found")
             }
         })
         .catch(e=>{
