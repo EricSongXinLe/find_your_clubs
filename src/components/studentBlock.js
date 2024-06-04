@@ -54,6 +54,7 @@ function StudentBlock(username) {
         return {
             title: data.clubname,
             description: data.clubdescription,
+            image: `data:image/jpeg;base64,${Buffer.from(data.clubimg).toString('base64')}`,
         };
     };
 
@@ -88,6 +89,7 @@ function StudentBlock(username) {
                                 const element = {
                                     title: club.clubname,
                                     description: club.clubdescription,
+                                    image: `data:image/jpeg;base64,${Buffer.from(club.clubimg).toString('base64')}`,
                                 };
                                 newClubs.push(element);
                             }
@@ -134,7 +136,7 @@ function StudentBlock(username) {
                     <div className="club-box">
                         {clubs.map((club) => (
                             <ClubBlock
-                                image={require("../images/logo.webp")}
+                                image={club.image}
                                 title={club.title}
                                 id={club.title}
                             />
