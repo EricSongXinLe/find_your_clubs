@@ -54,6 +54,7 @@ function StudentBlock(username) {
         return {
             title: data.clubname,
             description: data.clubdescription,
+            image: `data:image/jpeg;base64,${Buffer.from(data.clubimg).toString('base64')}`,
         };
     };
 
