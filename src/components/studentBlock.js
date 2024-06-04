@@ -16,9 +16,7 @@ function StudentBlock(username) {
     const tags = ["Latest", "No Experience Needed", "Popular"];
     
     const [imageLst, setImageLst] = useState([]);
-    const [selected, setSelected] = useState(
-        []
-    ); // Tracks which button is selected
+    const [selected, setSelected] = useState("recommendation"); // Tracks which button is selected
 
    
     useEffect(() => {
