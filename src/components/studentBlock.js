@@ -2,6 +2,8 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "../styles.css";
+// import { useDispatch } from "react-redux";
+
 
 import ModeSelector from "./changeMode";
 import ClubBlock from "./clubBlock";
@@ -11,10 +13,12 @@ import PhotoDisplay from "./photoDisplay";
 
 var x = 0;
 function StudentBlock(username) {
-    const tags = ["Publish Time", "Experience Needed", "Popular"];
+    const tags = ["Latest", "No Experience Needed", "Popular"];
+    
     const [imageLst, setImageLst] = useState([]);
-    const [selected, setSelected] = useState("recommendation"); // Tracks which button is selected
-
+    const [selected, setSelected] = useState(
+        []
+    ); // Tracks which button is selected
 
    
     useEffect(() => {
@@ -32,13 +36,21 @@ function StudentBlock(username) {
     }, []);
 
     const [clubs, setClubs] = useState([]);
-    console.log(clubs);
+    // console.log(clubs);
+    // const dispatch = useDispatch();
+    
+    
+    
+    // useEffect(() => {
+    //     dispatch(RenderClub());
+    // }, [dispatch, selected]);
 
-    React.useEffect(() => {
-        RenderClub();
-    }, []);
+    // rest of component
 
-    x += 1;
+
+    
+
+    // RenderClub()
 
     const transformClubData = (data) => {
         return {
@@ -51,46 +63,64 @@ function StudentBlock(username) {
         const transformedData = transformClubData(newClubInfo);
         setClubs([transformedData]);
     };
+    console.log("NOWAY",selected)
 
-    async function RenderClub(e) {
-        try {
-            // await axios.get('http://localhost:8000/search', { params: { clubname: search } })
-            await axios
-                .get("http://localhost:8000/recommendClub", {
-                    params: { username: username.username },
-                })
-                .then((res) => {
-                    if (res.data == "fail") {
-                        alert("Error!");
-                    } else {
+    useEffect( () => {
+        async function RenderClub(e) {
+            // if(flag != 0) return
+            // flag ++
+            const stuname = username.username
 
-                        var newClubs = []
-                        for (const club of res.data) {
-                            const element = {
-                                title: club.clubname,
-                                description: club.clubdescription,
-                            };
-                            newClubs.push(element);
+            console.log("HellYay",selected)
+            
+            try {
+                // console.log("New", stuname)
+                // await axios.get('http://localhost:8000/search', { params: { clubname: search } })
+                await axios
+                    .post("http://localhost:8000/recommendClub", {
+                        stuname, selected
+                    })
+                    .then((res) => {
+                        if (res.data == "fail") {
+                            alert("Error!");
+                        } else {
+    
+                            var newClubs = []
+                            for (const club of res.data) {
+                                const element = {
+                                    title: club.clubname,
+                                    description: club.clubdescription,
+                                };
+                                newClubs.push(element);
+                            }
+                            setClubs(newClubs);
+    
+                            // history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}})
                         }
-                        setClubs(newClubs);
+                    })
+                    .catch((e) => {
+                        alert("An error occured");
+                        console.log(e);
+                    });
+            } catch (e) {
+                console.log(e);
 
-                        // history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}})
-                    }
-                })
-                .catch((e) => {
-                    alert("An error occured");
-                    console.log(e);
-                });
-        } catch (e) {
-            console.log(e);
-        }
+                console.log("Not Domain")
+            }
+        
+        
         // return("")
     }
+        RenderClub()
+    }, [selected]);
+    
     return (
         <div class="web_page_container">
             <div class="left_cont">
                 <div class="FilterBar">
-                    <FilterBar tags={tags} />
+                    <FilterBar tags={tags} setSelected={setSelected} 
+                    // {/* // activeTags={activeTags} setActiveTags={setActiveTags} */}
+                    />
                 </div>
             </div>
 
