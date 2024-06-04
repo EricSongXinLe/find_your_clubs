@@ -29,9 +29,7 @@ function ViewApp() {
         applicant_list.push(key);
     //if (applicants.length > 0)
         //applicant = applicants[0];
-    const [applicant, setApplicant] = useState(applicant_list[0]);
-    console.log(applicant);
-    
+    const [applicant, setApplicant] = useState(applicant_list[0]);    
     // change each applicant's data into list of "tuples"
     for (var key in general)
     {

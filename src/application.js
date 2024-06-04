@@ -43,7 +43,6 @@ function Apply() {
             if(res.data){
               // alert("Club found")
               setData(res.data["supplementaryQuestion"])
-              console.log("wtf", res.data["supplementaryQuestion"]);
             }
             else{
               alert("Club not found")
@@ -154,9 +153,7 @@ function Apply() {
       let text_box = document.getElementById("supplementary" + String(i));
       answers.push(text_box.value);
     }
-    console.log(11111);
     postAnswer(clubName, username, answers); // send answers to backend database
-    console.log(22222);
     // Happy Birthday
     if (document.getElementById(inputs[0]).value == "Paul Eggert")
       document.getElementById('texto').innerHTML = "Welcome! You must be THE Paul Eggert!";
@@ -193,7 +190,7 @@ function Apply() {
     document.getElementById("egg").style.display = "none";
 
   return (
-  <>
+  <div className="application_form">
     <div className="row">
       {general_show.map((pair_show) => (
         <>
@@ -224,13 +221,11 @@ function Apply() {
     <button id="submit application button" onClick={saveAnswer.bind(this, supplementaries)}>Submit</button>
     <p id="texto"></p>
     <p class="egg" id="egg"></p>
-  </>
+  </div>
   );
 
 async function postAnswer(clubName, username, answers)
 {
-  console.log(clubName)
-  console.log(username)
   try{  
     await axios.post("http://localhost:8000/application",{
         clubName, username, answers
