@@ -90,6 +90,9 @@ function StudentBlock(username) {
                                 };
                                 newClubs.push(element);
                             }
+
+                            newClubs.sort(() => Math.random() - 0.5);
+                            newClubs = newClubs.slice(0, 3);
                             setClubs(newClubs);
     
                             // history("/",{state:{username:username, userIsClubLeader:userIsClubLeader}})
