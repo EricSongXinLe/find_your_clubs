@@ -25,6 +25,10 @@ function ViewApp() {
     const location = useLocation();
     const username = location.state?.username
     console.log(username)
+
+    const handleRedirect = () => {
+        history("/",{state:{username:username, userIsClubLeader:true}})
+      };
     
     const fetchStudent = (data) => {
         return {
@@ -85,127 +89,16 @@ useEffect(() => {
             console.log("Hi",j,currAnswer);
         }
     }
+    console.log(clubsCreated); // correct here
+
     };
 
     fetchData();
+    
   }, [username]);
 
- 
+  
 
-
-    
-    document.body.style.overflow = "visible";
-
-    // dictionary of dictionaries, one dictionry for one applicant
-    // each dictionary contains general questions and possible supplementary questions
-    let general = {"Alex": {"Birthday": "1227"}, "Bob": {"Birthday": "0511"}};
-    let supplementary = {"Alex": {"Hobby": "laugh"}, "Bob": {"Age": "99", "Marriage Status": "Yes"}};
-    let applicant_list = [];
-    for (var key in general)
-        applicant_list.push(key);
-    //if (applicants.length > 0)
-        //applicant = applicants[0];
-    const [applicant, setApplicant] = useState(applicant_list[0]);
-    console.log(applicant);
-    
-    // change each applicant's data into list of "tuples"
-    for (var key in general)
-    {
-        let general_dict = general[key];
-        let supp_dict = supplementary[key];
-        let general_arr = [];
-        let supp_arr = []
-        
-        // general questions
-        for (var question in general_dict)
-        {
-            if (general_dict.hasOwnProperty(question))
-            {
-                general_arr.push([question, general_dict[question]]);
-            }
-        }
-
-        // supplementary questions
-        for (var question in supp_dict)
-        {
-            if (supp_dict.hasOwnProperty(question))
-            {
-                supp_arr.push([question, supp_dict[question]]);
-            }
-        }
-
-        general[key] = general_arr;
-        supplementary[key] = supp_arr;
-    }
-
-    /*
-
-    function refresh()
-    {
-        if (document.getElementById("applicant_selection"))
-            setApplicant(document.getElementById("applicant_selection").value);
-    }
-    
-    
-
-    return (
-        <>
-            <select id="applicant_selection" onChange={refresh}>
-                {applicant_list.map((name) => (
-                    <option key={name}>{name}</option>
-                ))}
-            </select><p></p>
-            
-            {general[applicant].map((pair) => (
-                <>
-                    <div>
-                        <h2 className="Title">Question: </h2>
-                        <a className="Content">{pair[0]}</a>
-                    </div>
-                    <div>
-                        <h2 className="Title">Answer: </h2>
-                        <a className="Content">{pair[1]}</a>
-                        <p></p>
-                    </div>
-                </>
-            ))}
-
-            {supplementary[applicant].map((pair) => (
-                <>
-                    <div>
-                        <h2 className="Title">Question: </h2>
-                        <a className="Content">{pair[0]}</a>
-                    </div>
-                    <div>
-                        <h2 className="Title">Answer: </h2>
-                        <a className="Content">{pair[1]}</a>
-                        <p></p>
-                    </div>
-                </>
-            ))}
-        </>
-    );
-
-    /*
-    return (
-        <div className="right_cont">
-            {applications.map(application => (
-                <div key={application.id}>
-                    <h2>Name: {application.name}</h2>
-                    <h2>Email: {application.email}</h2>
-                    <h2>Year of Graduation: {application.yearOfGraduation}</h2>
-                    <h2>Birthday: {application.birthday}</h2>
-                    <h2>Question 1: {application.question1}</h2>
-                    <h2>Answer 1: {application.answer1}</h2>
-                    <h2>Question 2: {application.question2}</h2>
-                    <h2>Answer 2: {application.answer2}</h2>
-                    <h2>Question 3: {application.question3}</h2>
-                    <h2>Answer 3: {application.answer3}</h2>
-                </div>
-            ))}
-        </div>
-    );
-    */
 }
 
 
