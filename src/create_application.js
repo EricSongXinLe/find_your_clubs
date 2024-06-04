@@ -1,6 +1,8 @@
 import axios from "axios"
 import { useNavigate, useLocation } from "react-router-dom"
 
+import './createapp.css'
+
 // input questions
 const inputs = ["name", "email", "gender", "birthday"];
 
@@ -51,31 +53,31 @@ function Create() {
   }
 
   return (
-  <>
+    <div className="Container">
     <div className="welcome info">
-      <p>General questions provided:</p>
+      <h2>The following general questions will be included in the application form:</h2>
       <p>{question_str}</p>
-      <p>Please enter at most three questions you wish your applicants to answer.</p>
+      <h2>Please enter at most three additional questions you wish your applicants to answer.</h2>
     </div>
 
     <div className="club designed question 1">
       <p>Question 1</p>
-      <input type="text" name="" id="club designed question 1 input box" placeholder="First Question"></input>
+      <input className="inputBox"type="text" name="" id="club designed question 1 input box" placeholder="Please input question 1"></input>
     </div>
 
     <div className="club designed question 2">
       <p>Question 2</p>
-      <input type="text" name="" id="club designed question 2 input box" placeholder="Second Question"></input>
+      <input className="inputBox" type="text" name="" id="club designed question 2 input box" placeholder="Please input question 2, or leave it blank if you club doesn't need it."></input>
     </div>
 
     <div className="club designed question 3">
       <p>Question 3</p>
-      <input type="text" name="" id="club designed question 3 input box" placeholder="Third Question"></input>
+      <input className="inputBox" type="text" name="" id="club designed question 3 input box" placeholder="Please input question 3, or leave it blank if you club doesn't need it."></input>
     </div>
 
     <button id="finish creation button" onClick={saveForm}>Finish</button>
 
-  </>
+  </div>
   );
 }
 
