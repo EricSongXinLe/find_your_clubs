@@ -23,6 +23,7 @@ const selection_num = selections.length;
 // transferred username and clubName
 
 function Apply() {
+  const history = useNavigate();
   const location = useLocation();
   const username = location.state?.username || "Guest";
   const clubName = location.state?.clubname || "Error";
@@ -247,6 +248,7 @@ async function postAnswer(clubName, username, saved_pairs)
         }
         else if (res.data == "added") {
           alert("Application submitted successfully")
+          history("/",{state:{username:username, userIsClubLeader:false}})
         }
       })
       .catch(e => {
