@@ -5,10 +5,19 @@
 }
 
 .application_form{
-    margin-top: -200px;
     /* display: flex; */
     /* flex-direction: column; */
     /* vertical-align: top; */
     position: absolute;
     /* min-height: 200vh; */
+    width: 80vw;
+    height: 80vh;
+}
+
+.row{
+    width: 50vw;
+}
+
+#Select1{
+    width: 10vw;
 }
