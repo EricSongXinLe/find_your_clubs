@@ -1,6 +1,29 @@
 .Title {
     display: inline;
 }
+.scrollable-content {
+    max-height: 100vh;
+    overflow-y: auto;
+    width: 40vw;
+}
+.viewApp{
+    overflow-y: scroll;
+    flex: auto;
+}
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.applicationContainer {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
 
 .close-button {
     position: absolute;

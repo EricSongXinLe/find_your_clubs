@@ -3,7 +3,7 @@ import axios from "axios"
 import { useNavigate, Link, useLocation } from "react-router-dom"
 import e from "cors"
 //import viewApp from './viewApp';
-
+import './addclub.css';
 function AddClub() {
     const location = useLocation();
     const username = location.state?.username || "Guest";
@@ -163,6 +163,7 @@ function AddClub() {
             <form onSubmit={data_process}>
                 <h2>Club Name</h2>
                 <input
+                    className="clubInput"
                     type="text"
                     onChange={(e) => setClubname(e.target.value)}
                     placeholder="Eg: SouLA"
@@ -174,6 +175,7 @@ function AddClub() {
                 <br />
                 <h2>Founding Time</h2>
                 <input
+                className="clubInput"
                     type="text"
                     onChange={(e) => setTime(e.target.value)}
                     placeholder="YYYY-MM-DD"
@@ -182,6 +184,7 @@ function AddClub() {
                 <br />
                 <h2>Club Description</h2>
                 <input
+                className="clubInput"
                     type="text"
                     onChange={(e) => setClubdescription(e.target.value)}
                     placeholder="Please give a brief club description in less than 200 words"
@@ -190,6 +193,7 @@ function AddClub() {
                 <br />
                 <h2>Application Requirement</h2>
                 <input
+                className="clubInput"
                     type="text"
                     onChange={(e) => setRequirement(e.target.value)}
                     placeholder="Requirements for club entry"
@@ -198,6 +202,7 @@ function AddClub() {
                 <br />
                 <h2>Activity Time Period</h2>
                 <input
+                className="clubInput"
                     type="text"
                     onChange={(e) => setActivityTime(e.target.value)}
                     placeholder="MWF 8-10 pm"
@@ -206,6 +211,7 @@ function AddClub() {
                 <br />
                 <h2>Do you want to use an external link for application? i.e., Google Form link</h2>
                 <input
+                className="clubInput"
                     type="text"
                     onChange={(e) => setOptionalLink(e.target.value)}
                     placeholder="www.apply.com"
@@ -248,8 +254,7 @@ function AddClub() {
                     </option> */}
                 </select>
                 <br />
-                <button type="submit">Submit</button>
-                <label>
+                <label className="needSupp">
                     <input
                         type="checkbox"
                         checked={needapplication}
@@ -257,6 +262,8 @@ function AddClub() {
                     />
                     Need Supplementary Application Form
                 </label>
+                <button className="submitButton" type="submit">Submit</button>
+
             </form>
         </div>
     )

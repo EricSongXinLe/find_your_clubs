@@ -30,8 +30,8 @@ function ViewApp() {
     const [applicant, setApplicant] = useState("Default");
     const [applicant_list, setApplicantList] = useState(["Default"])
     var aa_list = [];
-    const [pair_dict, setPairDict] = useState({"Default":["Default Question", "Default Answer"]})
-    const [yourenshenqing, setshenq] = useState(true);
+    const [pair_dict, setPairDict] = useState({ "Default": ["Default Question", "Default Answer"] })
+    const [hasApplication, setshenq] = useState(true);
 
     //console.log("12345")
     const history = useNavigate();
@@ -90,30 +90,26 @@ function ViewApp() {
     }
 
     const fetspecificClub = async () => {
-        currClub!=' ' &&await fetchFormforaClub(currClub);
-        console.log("你啊",currClub)
+        currClub != ' ' && await fetchFormforaClub(currClub);
         temp_applicant_list = [];
         temp_pair_dict = {};
-        console.log("789", clubAnswer);
-                for (let j = 0; j < clubAnswer.length; j++)
-                {
-                    temp_applicant_list.push(clubAnswer[j]["username"]);
-                    console.log("NOW list is:",temp_applicant_list)
-                    
-                    let qa_pair = [];
+        for (let j = 0; j < clubAnswer.length; j++) {
+            temp_applicant_list.push(clubAnswer[j]["username"]);
+            console.log("NOW list is:", temp_applicant_list)
 
-                    for (let k = 0; k < clubAnswer[j]["answers"].length; k++)
-                    {
-                        qa_pair.push(clubAnswer[j]["answers"][k].split(':'));
-                    }
-                    temp_pair_dict[clubAnswer[j]["username"]] = qa_pair;
-                    
-                }
+            let qa_pair = [];
+
+            for (let k = 0; k < clubAnswer[j]["answers"].length; k++) {
+                qa_pair.push(clubAnswer[j]["answers"][k].split(':'));
             }
+            temp_pair_dict[clubAnswer[j]["username"]] = qa_pair;
+
+        }
+    }
     useEffect(() => {
         const fetchData = async () => {
             await fetchCreateClub();
-            console.log(333, clubsCreated); 
+            console.log(333, clubsCreated);
             setClubsCreated(clubsCreated)// This will now run after fetchCreateClub has completed
             /*
             for (let i = 0; i < clubsCreated.length; i++) {
@@ -146,8 +142,8 @@ function ViewApp() {
             //console.log(clubsCreated); // correct here
             */
         };
-        
-         
+
+
 
         fetchData();
 
@@ -155,36 +151,36 @@ function ViewApp() {
     }, [username]);
 
 
-    async function applicAndQ () {
+    async function applicAndQ() {
         console.log("start to set applicant & Questions")
-        if (temp_applicant_list.length == 0){
+        if (temp_applicant_list.length == 0) {
             console.log("NoApplicant");
             setshenq(false);
             setApplicantList(["Default"]);
             return;
         }
         setshenq(true);
-        console.log("Now set",temp_applicant_list)
+        console.log("Now set", temp_applicant_list)
         setApplicantList(temp_applicant_list);
         aa_list = temp_applicant_list;
         setPairDict(temp_pair_dict);
         setApplicant(temp_applicant_list[0]);
     }
-    
+
 
     async function refresh1() {
-        if (document.getElementById("club_selection")){
+        if (document.getElementById("club_selection")) {
             setClub(document.getElementById("club_selection").value);
             currClub = document.getElementById("club_selection").value;
             console.log(currClub)
             await fetspecificClub();
             await applicAndQ();
         }
-    
+
     }
 
     async function refresh2() {
-        if (document.getElementById("applicant_selection")){
+        if (document.getElementById("applicant_selection")) {
             await setClub(document.getElementById("applicant_selection").value);
             console.log(document.getElementById("applicant_selection").value);
             setApplicant(document.getElementById("applicant_selection").value);
@@ -193,36 +189,42 @@ function ViewApp() {
     }
 
     return (
-        <>
-            <div className="close-button" onClick={handleRedirect}>X</div>
-            <select id="club_selection" onChange={refresh1}>
-                {cclubsCreated.map((name) => (
-                    <option key={name}>{name}</option>
-                ))}
-            </select><p></p>
-
-            <select id="applicant_selection" onChange={refresh2}>
-                {applicant_list.map((name) => (
-                    <option key={name}>{name}</option>
-                ))}
-            </select><p></p>
-
-            {!yourenshenqing? <h1>No One Applied YET !!!</h1>
-            :pair_dict[applicant].map((pair) => (
-                <>
-                    <div>
-                        <h2 className="Title">Question: </h2>
-                        <a className="Content">{pair[0]}</a>
+        <div className="scrollable-content">
+        <div className="viewApp">
+            <div className="select">
+                <h2>Select Club</h2>
+                <div className="close-button" onClick={handleRedirect}>X</div>
+                <select id="club_selection" onChange={refresh1}>
+                    {cclubsCreated.map((name) => (
+                        <option key={name}>{name}</option>
+                    ))}
+                </select><p></p>
+                <h2>Select Applicant:</h2>
+                <select id="applicant_selection" onChange={refresh2}>
+                    {applicant_list.map((name) => (
+                        <option key={name}>{name}</option>
+                    ))}
+                </select><p></p>
+            </div>
+            {!hasApplication ? <h2>No application has been received yet. Please come back later.</h2>
+                : pair_dict[applicant].map((pair) => (
+                    <div className="applicationContainer">
+                        <div className="Q&A">
+                            <h2 className="Title">Question: </h2>
+                            <br></br>
+                            <a className="Content">{pair[0]}</a>
+                        </div>
+                        <div className="QA">
+                            <h2 className="Title">Answer: </h2>
+                            <br></br>
+                            <a className="Content">{pair[1]}</a>
+                            <p></p>
+                        </div>
                     </div>
-                    <div>
-                        <h2 className="Title">Answer: </h2>
-                        <a className="Content">{pair[1]}</a>
-                        <p></p>
-                    </div>
-                </>
-            ))
-        }
-        </>
+                ))
+            }
+        </div>
+        </div>
     );
 
 }

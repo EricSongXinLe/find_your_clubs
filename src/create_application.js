@@ -4,10 +4,10 @@ import { useNavigate, useLocation } from "react-router-dom"
 import './createapp.css'
 
 // input questions
-const inputs = ["name", "email", "gender", "birthday"];
+const inputs = ["Name", "Email", "Major", "GPA"];
 
 // selection questions
-const selections = ["year of graduation"];
+const selections = ["Year of Graduation"];
 
 
 function Create() {

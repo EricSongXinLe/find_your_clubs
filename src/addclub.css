@@ -1,0 +1,31 @@
+.needSupp {
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #333;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.needSupp input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+.needSupp input[type="checkbox"]:checked {
+    accent-color: #3498db;
+}
+
+.needSupp input[type="checkbox"] + span {
+    vertical-align: middle;
+}
+.clubInput{
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
