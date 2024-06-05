@@ -5,7 +5,7 @@ import "./application.css"
 // useless comment
 
 // input questions
-const inputs = ["name", "email", "gender", "birthday"];
+const inputs = ["Name", "Email", "Major", "GPA"];
 const input_num = inputs.length;
 const input_hints = [];
 const input_titles = [];
@@ -230,8 +230,6 @@ function Apply() {
     </div>
 
     <button id="submit application button" onClick={saveAnswer.bind(this, supplementaries)}>Submit</button>
-    <p id="texto"></p>
-    <p class="egg" id="egg"></p>
   </div>
   );
 
