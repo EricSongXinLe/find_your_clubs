@@ -410,6 +410,10 @@ app.post("/favclubupdate",async(req,res)=>{
     const username = req.body.username
     var favClubArr = req.body.currUserFavClub
     const clubid = req.body.clubname
+    if(username==null || clubid==null || username=="" || clubid=="" || username ==="Guest"){
+        res.json("fail")
+        return;
+    }
     const data={
     
     }

@@ -25,7 +25,8 @@ const ClubDetails = () => {
         requirements: data.requirement,
         activitytime: data.activityTime,
         image: data.clubimg,
-        application: data.optionalLink
+        application: data.optionalLink,
+        tag: data.tagsList 
     };
 };
 
@@ -130,7 +131,10 @@ const location = useLocation();
  const toggleFavorite = async () => {
  //console.log(currUserFavClub); // Should do correct here
  try {
-
+  if (userId === "Guest") {
+    alert("You need to login to add this club to your favourite list!")
+    return
+  }
   // console.log(search)
   await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
   .then(

@@ -27,10 +27,13 @@ const PhotoDisplay = ({ images }) => {
     }
 
     return (
+        <div>
         <div className="photo-display">
             <button className="left-button" onClick={prevImage}>&lt;</button>
             <img width="350px" height="350px" src={images[current]} alt="Club" />
             <button className="right-button" onClick={nextImage}>&gt;</button>
+        </div>
+        <p>Club Photo Gallery</p>
         </div>
     );
 };

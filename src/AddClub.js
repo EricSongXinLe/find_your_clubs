@@ -32,7 +32,7 @@ function AddClub() {
     };
   };
   
-    const interests = ["ComSci", "Math", "Physics", "Data Science", "Economics", "Mechanical Engineering"];
+    const interests = ["ComSci  ", "Math  ", "Physics  ", "Data Science  ", "Economics  ", "Mechanical Engineering  "];
     const input_num = interests.length;
 
     let year, month, date;

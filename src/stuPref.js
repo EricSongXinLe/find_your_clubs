@@ -4,7 +4,7 @@ import "./stuPref.css"
 import { useLocation } from "react-router-dom";
 import { useNavigate, Link } from "react-router-dom"
 
-const interests = ["ComSci", "Math", "Physics", "Data Science", "Economics", "Mechanical Engineering"];
+const interests = ["ComSci  ", "Math  ", "Physics  ", "Data Science  ", "Economics  ", "Mechanical Engineering  "];
 const input_num = interests.length;
 
 const input_titles = [];
