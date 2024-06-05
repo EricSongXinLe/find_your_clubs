@@ -8,7 +8,6 @@ function ViewApp() {
     const [applicant_list, setApplicantList] = useState([]);
     const [application_list, setApplicationList] = useState([]); // the list of all applicants for the club
 
-    const [club, setClub] = useState(""); // the club selected
     const [applicant, setApplicant] = useState(""); // the applicant selected
 
     const navigate = useNavigate();
@@ -29,15 +28,13 @@ function ViewApp() {
         selectClub(res.data.favClubs[0]);
     }
 
-    async function selectClub(club) {
+    async function selectClub(clubname) {
         const the_selection = document.getElementById("club_selection");
         if (the_selection) {
-            setClub(the_selection.value);
             fetchClubForm(the_selection.value);
         }
-        else if (club) {
-            setClub(club);
-            fetchClubForm(club);
+        else if (clubname) {
+            fetchClubForm(clubname);
         }
     }
 
