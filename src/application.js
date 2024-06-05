@@ -160,7 +160,7 @@ function Apply() {
     for (let i = 0; i < supplementaries.length; i++)
       saved_pairs.push(supplementaries[i]);
     for (let i = 0; i < saved_pairs.length; i++)
-      saved_pairs[i] = saved_pairs[i] + ":" + answers[i];
+      saved_pairs[i] = saved_pairs[i] + "\t" + answers[i];
     console.log(11111);
     postAnswer(clubName, username, saved_pairs); // send answers to backend database
     console.log(22222);

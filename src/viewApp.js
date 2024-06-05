@@ -1,234 +1,144 @@
 import React, { useEffect, useState } from "react";
-import './viewApp.css'
-import { useNavigate, useLocation } from 'react-router-dom';
-import axios from "axios"
+import "./viewApp.css";
+import { useNavigate, useLocation } from "react-router-dom";
+import axios from "axios";
 
 function ViewApp() {
-    /*
-    const [applications, setApplications] = useState([]);
+    const [clubsCreated, setClubsCreated] = useState([]);
+    const [applicant_list, setApplicantList] = useState([]);
+    const [application_list, setApplicationList] = useState([]); // the list of all applicants for the club
 
-    const getApplications = () => {
-        fetch('http://localhost:8000/application')
-        .then(response => response.json())
-        .then(data => setApplications(data))
-    }
+    const [club, setClub] = useState(""); // the club selected
+    const [applicant, setApplicant] = useState(""); // the applicant selected
 
-    useEffect(() => {
-        getApplications();
-    }, []);
-    */
-
-    const [cclubsCreated, setClubsCreated] = useState(["Default"]);
-    var clubsCreated = [];
-    //const [clubAnswer, setClubAnswer] = useState([{"username": "Default", "answers":["Default"]}])
-    var clubAnswer = []
-    var currClub = '';
-    var currAnswer = []
-    let temp_applicant_list = [];
-    let temp_pair_dict = {};
-    const [club, setClub] = useState("Default");
-    const [applicant, setApplicant] = useState("Default");
-    const [applicant_list, setApplicantList] = useState(["Default"])
-    var aa_list = [];
-    const [pair_dict, setPairDict] = useState({ "Default": ["Default Question", "Default Answer"] })
-    const [hasApplication, setshenq] = useState(true);
-
-    //console.log("12345")
-    const history = useNavigate();
+    const navigate = useNavigate();
     const location = useLocation();
-    const username = location.state?.username
-    //console.log(username)
+    const username = location.state?.username;
 
     const handleRedirect = () => {
-        history("/", { state: { username: username, userIsClubLeader: true } })
-    };
-
-    const fetchStudent = (data) => {
-        return {
-            favClubArr: data.favClubs
-        };
+        navigate("/", { state: { username: username, userIsClubLeader: true } });
     };
 
     async function fetchCreateClub() {
+        // fetch all the clubs created by the user
+        const res = await axios.get("http://localhost:8000/favclub", {
+            params: { username: username },
+        });
+        // console.log("fetchCreateClub", res.data.favClubs);
+        setClubsCreated(res.data.favClubs);
+        selectClub(res.data.favClubs[0]);
+    }
+
+    async function selectClub(club) {
+        const the_selection = document.getElementById("club_selection");
+        if (the_selection) {
+            setClub(the_selection.value);
+            fetchClubForm(the_selection.value);
+        }
+        else if (club) {
+            setClub(club);
+            fetchClubForm(club);
+        }
+    }
+
+    async function fetchClubForm(club) {
+        // fetch all the forms for a specific club
         try {
+            const res = await axios.get("http://localhost:8000/viewclubApp", {
+                params: { clubName: club },
+            });
+            // console.log("fetchClubForm", res.data);
+            const applicationList = res.data.map((app) =>
+                app.answers.map((answer) => answer.split("\t"))
+            );
+            const applicantList = res.data.map((app) => app.username);
 
-            // console.log(search)
-            await axios.get('http://localhost:8000/favclub', { params: { username: username } })
-                .then(
-                    res => {
-                        const studentData = fetchStudent(res.data);
-                        clubsCreated = studentData.favClubArr;
-                        console.log("123", clubsCreated)
-                    }
-                ).catch((e) =>
-                    console.log(e)
-                )
-
-        }
-        catch (error) {
-            console.error('CANNOT find Fav Clubs', error);
+            setApplicationList(applicationList);
+            setApplicantList(applicantList);
+        } catch (error) {
+            console.error("cannot find", clubname, error);
         }
     }
 
-    async function fetchFormforaClub(clubname) {
-        try {
-
-            console.log("This is", clubname)
-            await axios.get('http://localhost:8000/viewclubApp', { params: { clubName: clubname } })
-                .then(
-                    res => {
-                        clubAnswer = res.data;
-                        console.log("456", clubAnswer);
-                    }
-                ).catch((e) =>
-                    console.log(e)
-                )
-        }
-        catch (error) {
-            console.error('CANNOT find Fav Clubs', error);
+    async function selectStudent() {
+        const the_selection = document.getElementById("applicant_selection");
+        if (the_selection && the_selection.value !== "no applicant submitted") {
+            setApplicant(the_selection.value);
         }
     }
 
-    const fetspecificClub = async () => {
-        currClub != ' ' && await fetchFormforaClub(currClub);
-        temp_applicant_list = [];
-        temp_pair_dict = {};
-        for (let j = 0; j < clubAnswer.length; j++) {
-            temp_applicant_list.push(clubAnswer[j]["username"]);
-            console.log("NOW list is:", temp_applicant_list)
-
-            let qa_pair = [];
-
-            for (let k = 0; k < clubAnswer[j]["answers"].length; k++) {
-                qa_pair.push(clubAnswer[j]["answers"][k].split(':'));
-            }
-            temp_pair_dict[clubAnswer[j]["username"]] = qa_pair;
-
-        }
-    }
     useEffect(() => {
-        const fetchData = async () => {
-            await fetchCreateClub();
-            console.log(333, clubsCreated);
-            setClubsCreated(clubsCreated)// This will now run after fetchCreateClub has completed
-            /*
-            for (let i = 0; i < clubsCreated.length; i++) {
-                const currClub = clubsCreated[i];
-                console.log(i, currClub);
-                await fetchFormforaClub(currClub);
-                //console.log(clubAnswer.length);
-                
-                //console.log("NOTICE",clubAnswer)
-                for (let j = 0; j < clubAnswer.length; j++)
-                {
-                    temp_applicant_list.push(clubAnswer[j]["username"]);
-                    console.log("NOW list is:",temp_applicant_list)
-                    let qa_pair = [];
-
-                    for (let k = 0; k < clubAnswer[j]["answers"].length; k++)
-                    {
-                        qa_pair.push(clubAnswer[j]["answers"][k].split(':'));
-                    }
-                    temp_pair_dict[clubAnswer[j]["username"]] = qa_pair;
-                }
-                
-                for (let j = 0; j < clubAnswer.length; j++) {
-                    console.log("Here!")
-                    currAnswer = clubAnswer[j].answers;
-                    console.log("Hi", j, currAnswer);
-                }
-                
-            }
-            //console.log(clubsCreated); // correct here
-            */
-        };
-
-
-
-        fetchData();
-
-
-    }, [username]);
-
-
-    async function applicAndQ() {
-        console.log("start to set applicant & Questions")
-        if (temp_applicant_list.length == 0) {
-            console.log("NoApplicant");
-            setshenq(false);
-            setApplicantList(["Default"]);
-            return;
-        }
-        setshenq(true);
-        console.log("Now set", temp_applicant_list)
-        setApplicantList(temp_applicant_list);
-        aa_list = temp_applicant_list;
-        setPairDict(temp_pair_dict);
-        setApplicant(temp_applicant_list[0]);
-    }
-
-
-    async function refresh1() {
-        if (document.getElementById("club_selection")) {
-            setClub(document.getElementById("club_selection").value);
-            currClub = document.getElementById("club_selection").value;
-            console.log(currClub)
-            await fetspecificClub();
-            await applicAndQ();
-        }
-
-    }
-
-    async function refresh2() {
-        if (document.getElementById("applicant_selection")) {
-            await setClub(document.getElementById("applicant_selection").value);
-            console.log(document.getElementById("applicant_selection").value);
-            setApplicant(document.getElementById("applicant_selection").value);
-
-        }
-    }
+        fetchCreateClub().then(() => {
+        selectClub();});
+    }, []);
 
     return (
         <div className="scrollable-content">
-        <div className="viewApp">
-            <div className="select">
-                <h2>Select Club</h2>
-                <div className="close-button" onClick={handleRedirect}>X</div>
-                <select id="club_selection" onChange={refresh1}>
-                    {cclubsCreated.map((name) => (
-                        <option key={name}>{name}</option>
-                    ))}
-                </select><p></p>
-                <h2>Select Applicant:</h2>
-                <select id="applicant_selection" onChange={refresh2}>
-                    {applicant_list.map((name) => (
-                        <option key={name}>{name}</option>
-                    ))}
-                </select><p></p>
-            </div>
-            {!hasApplication ? <h2>No application has been received yet. Please come back later.</h2>
-                : pair_dict[applicant].map((pair) => (
-                    <div className="applicationContainer">
-                        <div className="Q&A">
-                            <h2 className="Title">Question: </h2>
-                            <br></br>
-                            <a className="Content">{pair[0]}</a>
-                        </div>
-                        <div className="QA">
-                            <h2 className="Title">Answer: </h2>
-                            <br></br>
-                            <a className="Content">{pair[1]}</a>
-                            <p></p>
-                        </div>
+            <div className="viewApp">
+                <div className="select">
+                    <h2>Select Club</h2>
+                    <div className="close-button" onClick={handleRedirect}>
+                        X
                     </div>
-                ))
-            }
-        </div>
+                    <select id="club_selection" onChange={selectClub}>
+                        {clubsCreated.length === 0 ? (
+                            <option>{"no club submitted"}</option>
+                        ) : (
+                            clubsCreated.map((name) => (
+                                <option key={name}>{name}</option>
+                            ))
+                        )}
+                    </select>
+
+                    <h2>Select Applicant:</h2>
+                    <select id="applicant_selection" onChange={selectStudent}>
+                        {applicant_list.length === 0 ? (
+                            <option>{"no applicant submitted"}</option>
+                        ) : (
+                            applicant_list.map((name) => (
+                                <option key={name}>{name}</option>
+                            ))
+                        )}
+                    </select>
+                    <p></p>
+                </div>
+
+                {applicant_list.length === 0 ? (
+                    <h2>No application has been received yet. Please come back later.</h2>
+                ) : (
+                    applicant ? (
+                        <div>
+                            {application_list[applicant_list.indexOf(applicant)].map((pair, idx) => (
+                                <div key={idx} className="applicationContainer">
+                                    <div className="Q&A">
+                                        <h2 className="Title">Question:</h2>
+                                        <p className="Content">{pair[0]}</p>
+                                    </div>
+                                    <div className="QA">
+                                        <h2 className="Title">Answer:</h2>
+                                        <p className="Content">{pair[1]}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    ) : <div>
+                    {application_list[0].map((pair, idx) => (
+                        <div key={idx} className="applicationContainer">
+                            <div className="Q&A">
+                                <h2 className="Title">Question:</h2>
+                                <p className="Content">{pair[0]}</p>
+                            </div>
+                            <div className="QA">
+                                <h2 className="Title">Answer:</h2>
+                                <p className="Content">{pair[1]}</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+                )}
+            </div>
         </div>
     );
-
 }
-
-
 
 export default ViewApp;
