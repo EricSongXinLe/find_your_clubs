@@ -86,4 +86,4 @@ npm start
 
 ## Authors
 Find Your Clubs was developed as a project for CS 35L taught by Professor Paul Eggert at UCLA in Spring 2024. 
-Team member: Eric Song, Yike Shi, Bomin Wei, Zhiyi Chen, Boyan Yu, Yingshi Ye
+Team member: Eric Song (@EricSongXinLe), Yike Shi (@Yik3), Bomin Wei (@David-BominWei), Zhiyi Chen (@gigichen880), Boyan Yu (@Samaritan001), Yingshi Ye (@yingshiye)
