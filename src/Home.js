@@ -27,7 +27,7 @@ export default function Home() {
 
   return (
     <div>
-      
+      <br></br>
       <header>
         <h1>Find Your Clubs</h1>
       </header>
