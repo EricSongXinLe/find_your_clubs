@@ -23,6 +23,7 @@ const selection_num = selections.length;
 // transferred username and clubName
 
 function Apply() {
+  const history = useNavigate();
   const location = useLocation();
   const username = location.state?.username || "Guest";
   const clubName = location.state?.clubname || "Error";
@@ -45,7 +46,7 @@ function Apply() {
               setData(res.data["supplementaryQuestion"])
             }
             else{
-              alert("Club not found")
+              //alert("Club not found")
             }
         })
         .catch(e=>{
@@ -153,7 +154,17 @@ function Apply() {
       let text_box = document.getElementById("supplementary" + String(i));
       answers.push(text_box.value);
     }
-    postAnswer(clubName, username, answers); // send answers to backend database
+
+
+    let saved_pairs = input_titles.concat(selection_titles);
+    for (let i = 0; i < supplementaries.length; i++)
+      saved_pairs.push(supplementaries[i]);
+    for (let i = 0; i < saved_pairs.length; i++)
+      saved_pairs[i] = saved_pairs[i] + ":" + answers[i];
+    console.log(11111);
+    postAnswer(clubName, username, saved_pairs); // send answers to backend database
+    console.log(22222);
+
     // Happy Birthday
     if (document.getElementById(inputs[0]).value == "Paul Eggert")
       document.getElementById('texto').innerHTML = "Welcome! You must be THE Paul Eggert!";
@@ -224,18 +235,19 @@ function Apply() {
   </div>
   );
 
-async function postAnswer(clubName, username, answers)
+async function postAnswer(clubName, username, saved_pairs)
 {
   try{  
     await axios.post("http://localhost:8000/application",{
-        clubName, username, answers
+        clubName, username, saved_pairs
     })
       .then(res => {
         if (res.data == "exist") {
-          alert("You've already submitted the application")
+          alert(clubName + " " + username + " You've already submitted the application")
         }
         else if (res.data == "added") {
           alert("Application submitted successfully")
+          history("/",{state:{username:username, userIsClubLeader:false}})
         }
       })
       .catch(e => {

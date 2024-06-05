@@ -104,7 +104,8 @@ const answerSchema=new mongoose.Schema({
     },
     answers:{
         type:[String],
-        required:true
+        required:true,
+        default:[]
     }
 })
 

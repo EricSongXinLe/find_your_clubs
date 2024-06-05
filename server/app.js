@@ -173,7 +173,7 @@ app.get("/addclub", (req, res) => {
 })
 
 app.post("/application", async(req, res)=>{
-    const {clubName, username, answers} = req.body;
+    const {clubName, username, saved_pairs} = req.body;
     // const questionList = ["Name", "Email", "Gender", "YearOfGraduation", "Birthday"]
     // for (const i = 0; i < answerList.length; i++){
     //     questionList[i] = answerList[i]
@@ -181,12 +181,13 @@ app.post("/application", async(req, res)=>{
     const data = {
         clubName: clubName,
         username: username,
-        answers: answers
+        answers: saved_pairs
     }
     console.log(data)
     try{
         const check1=await answer_collection.findOne({clubName:clubName});
         const check2=await answer_collection.findOne({username:username});
+        //const result = await answer_collection.find({clubName:clubName});
 
         if(check1 && check2){
             res.json("exist")
@@ -406,9 +407,9 @@ app.get('/favclub', async(req, res)=>{
 
 app.post("/favclubupdate",async(req,res)=>{
     //console.log(req.body)
-    const username = req.body.userId
+    const username = req.body.username
     var favClubArr = req.body.currUserFavClub
-    const clubid = req.body.id
+    const clubid = req.body.clubname
     const data={
     
     }
@@ -485,6 +486,25 @@ app.post("/myfavclub", async (req, res) => {
     }
     catch (e) {
         res.json("fail")
+    }
+})
+
+
+app.get("/viewclubApp", async (req, res) => {
+    const clubname = req.query.clubName;
+    try {
+        const check = await answer_collection.find({ clubName: clubname })
+
+        if (check) {
+            res.json(check)
+        }
+        else {
+            res.json()
+        }
+
+    }
+    catch (e) {
+        res.json()
     }
 })
 

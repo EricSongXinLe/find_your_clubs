@@ -12,6 +12,7 @@ const ClubDetails = () => {
   var newarr = [];
   //const navigate = useNavigate();
   const { userId } = useContext(UserContext);
+  const [applicationUrl, setURL] = useState('');
   const [club, setClub] = useState([]);
   const [currUserFavClub,setCurrUserFavClub] = useState([]);
   const [isFavorited, setIsFavorited] = useState(false);
@@ -24,6 +25,7 @@ const ClubDetails = () => {
         requirements: data.requirement,
         activitytime: data.activityTime,
         image: data.clubimg,
+        application: data.optionalLink
     };
 };
 
@@ -52,6 +54,7 @@ const location = useLocation();
               else{
               const transformedData = transformClubData(res.data);
               setClub(transformedData);
+              console.log("LINK:",club.application)
               const base64 = Buffer.from(res.data.clubimg).toString('base64');
               setClubImg(`data:image/jpeg;base64,${base64}`);
             }
@@ -84,11 +87,18 @@ const location = useLocation();
         console.error('CANNOT find Fav Clubs', error);
       }
       //
+      
+    };
+
+    const ffetchClubDetails = async () => {
+      await fetchClubDetails();
     };
 
 
-    fetchClubDetails();
+    ffetchClubDetails();
+    
   }, [id]);
+   
 
   const handleButtonClick = () => {
     history("/apply",{state:{username:userId, userIsClubLeader:false, clubname: id}})
@@ -144,7 +154,7 @@ catch (error) {
       // Update state with the new array
       //setCurrUserFavClub(updatedFavClubs);
   await axios.post("http://localhost:8000/favclubupdate",{
-      userId, currUserFavClub:newarr, id
+      username:userId, currUserFavClub:newarr, clubname:id
   })
   .then(res=>{
       if(res.data=="fail"){
@@ -192,9 +202,13 @@ catch (error) {
 catch(e){
   console.log(e);
 }
- 
-};
+}
 
+const getURL = () => {
+  return club.application && (club.application.startsWith('http://') || club.application.startsWith('https://'))
+    ? club.application
+    : `http://${club.application}`;
+};
 
   return (
     <div className="club-details-container">
@@ -215,7 +229,7 @@ catch(e){
       </div>
       <div className="club-footer">
         <p className="club-application">
-          <strong>Application:</strong> <a href={club.application} target="_blank" rel="noopener noreferrer">Apply Here</a>
+          <strong>Application:</strong> <a href={getURL()} target="_blank" rel="noopener noreferrer">Apply Here</a>
         </p>
         <p className="club-activitytime"><strong>Activity Time:</strong> {club.activitytime}</p>
       </div>

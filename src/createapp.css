@@ -1,0 +1,17 @@
+.Container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 80vw;
+    background-color: #f0f0f0;
+    overflow-y: scroll;
+}
+
+.inputBox{
+    display: flex;
+    flex-direction: column;
+    width: 40vw;
+    margin: 10px;
+}

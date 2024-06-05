@@ -8,7 +8,7 @@ function AddClub() {
     const location = useLocation();
     const username = location.state?.username || "Guest";
     const [needapplication, setNeedApplication] = useState(false)
-
+    var newarr = [];
     const [clubname, setClubname] = useState("");
     const [clubdescription, setClubdescription] = useState("");
     const [requirement, setRequirement] = useState("");
@@ -24,6 +24,13 @@ function AddClub() {
     const handleCheckboxChange = () => {
         setNeedApplication(!needapplication);
     };
+
+    
+  const fetchStudent = (data) => {
+    return {
+        favClubArr: data.favClubs
+    };
+  };
   
     const interests = ["ComSci", "Math", "Physics", "Data Science", "Economics", "Mechanical Engineering"];
     const input_num = interests.length;
@@ -45,6 +52,7 @@ function AddClub() {
 
 
         submit_club();
+
 
     }
 
@@ -88,6 +96,48 @@ function AddClub() {
             console.log(error);
 
         }
+
+        try {
+
+            // console.log(search)
+            await axios.get('http://localhost:8000/favclub', { params: { username: username } })
+            .then(
+                res=>{
+                  console.log
+                  const studentData = fetchStudent(res.data);
+                  //studentData.favClubArr.push(clubName);
+                  newarr = studentData.favClubArr
+                  console.log(newarr);
+                }
+            ).catch((e)=>
+                console.log(e)
+            ) 
+          }
+            catch (error) {
+            console.error('CANNOT find Fav Clubs', error);
+          }
+          console.log(clubname)
+          await axios.post("http://localhost:8000/favclubupdate",{
+            username, currUserFavClub:newarr, clubname:clubname
+        })
+        .then(res=>{
+            if(res.data=="fail"){
+                alert("Error may occur!")
+      
+            }
+            else if(res.data=="added"){
+                alert("Added!")
+      
+            }else if(res.data=="remove"){
+              alert("No Way!")
+            }
+        })
+        .catch(e=>{
+            alert("An error occured")
+            console.log(e);
+        })
+        
+      
     }
   
     let option_list = [];
