@@ -3,7 +3,7 @@ import axios from "axios"
 import { useNavigate, Link } from "react-router-dom"
 
 import './signup.css'
-
+import { md5 } from 'js-md5';
 function Signup() {
     const history=useNavigate();
 
@@ -48,9 +48,9 @@ function Signup() {
                 return
             }
 
-            
+            var hash = md5(password);
             await axios.post("http://localhost:8000/signup",{
-                username, email,password,userIsClubLeader
+                username, email,password:hash,userIsClubLeader
             })
             .then(res=>{
                 if(res.data=="exist"){

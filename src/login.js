@@ -3,7 +3,7 @@ import axios from "axios"
 import { useNavigate, Link } from "react-router-dom"
 
 import './login.css'
-
+import { md5 } from 'js-md5';
 function Login() {
     const history=useNavigate();
 
@@ -19,9 +19,10 @@ function Login() {
             alert("Password is empty!")
             return
         }
+        var hash = md5(password);
         try{
             await axios.post("http://localhost:8000/login",{
-                username,password
+                username,password:hash
             })
             .then(res=>{
                 if(res.data=="notmatch"){
