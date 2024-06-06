@@ -28,6 +28,26 @@ function Signup() {
                 alert("Password is empty!")
                 return
             }
+            if(password.length<8){
+                alert("Password must be at least 8 characters long!")
+                return
+            }
+
+            if(password.search(/[a-z]/i) < 0){
+                alert("Password must contain at least one letter!")
+                return
+            }
+
+            if(password.search(/[0-9]/) < 0){
+                alert("Password must contain at least one digit!")
+                return
+            }
+
+            if(password.search(/[!@#$%^&*.]/) < 0){
+                alert("Password must contain at least one special character!")
+                return
+            }
+
             
             await axios.post("http://localhost:8000/signup",{
                 username, email,password,userIsClubLeader

@@ -317,9 +317,7 @@ app.post("/recommendClub",async(req,res)=>{
     // const {username, selected} = req.body;
     const username = req.body.stuname
     const selected = req.body.selected
-    console.log("WTF", req.body.stuname)
     // const username = usrname.username
-    console.log("hell", selected)
     // console.log("backend", username)
     try{
         let studentInterest=await student_collection.findOne({username:username}, {interestArr:1})
