@@ -240,7 +240,7 @@ const getURL = () => {
       </div>
       <div className="club-footer">
         <p className="club-application">
-          <strong>Application:</strong> <a href={getURL()} target="_blank" rel="noopener noreferrer">Apply Here</a>
+          <strong>Official Site:</strong> <a href={getURL()} target="_blank" rel="noopener noreferrer">Link</a>
         </p>
         <p className="club-activitytime"><strong>Activity Time:</strong> {club.activitytime}</p>
       </div>

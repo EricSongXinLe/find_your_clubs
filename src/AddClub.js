@@ -200,7 +200,7 @@ function AddClub() {
                     required
                 />
                 <br />
-                <h2>Activity Time Period</h2>
+                <h2>Activity Time</h2>
                 <input
                 className="clubInput"
                     type="text"
@@ -209,7 +209,7 @@ function AddClub() {
                     required
                 />
                 <br />
-                <h2>Do you want to use an external link for application? i.e., Google Form link</h2>
+                <h2>What is the Link for your club's official website? (optional) </h2>
                 <input
                 className="clubInput"
                     type="text"
