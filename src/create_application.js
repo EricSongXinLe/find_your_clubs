@@ -38,8 +38,10 @@ function Create() {
       if (!(created_question))
         return;
   
-      if (created_question.value == "") // only add the boxes with answer
-        continue;
+      if (created_question.value == ""){ // only add the boxes with answer
+        alert("Question " + String(i) + " is empty");
+        return;
+      }
       supplementary_questions.push(created_question.value);
     }
   
