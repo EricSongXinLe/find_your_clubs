@@ -102,6 +102,10 @@ const location = useLocation();
    
 
   const handleButtonClick = () => {
+    if (userId === "Guest") {
+      alert("You need to login to apply for this club!")
+      return
+    }
     history("/apply",{state:{username:userId, userIsClubLeader:false, clubname: id}})
   };
 
@@ -150,7 +154,10 @@ catch (error) {
   console.error(error);
 }
  try{
-
+  if(userId === "Guest"){
+    alert("You need to login to add this club to your favourite list!")
+    return;
+  }
   const updatedFavClubs = isFavorited
         ? currUserFavClub.filter((clubId) => clubId !== id)
         : [...currUserFavClub, id];
