@@ -2,9 +2,15 @@
 
 Confused about what all those clubs are about? Don't know where to apply? Don't worry, **Find Your Clubs** will help you navigate through various STEM clubs, providing detailed information about each. Additionally, you can directly apply to clubs through their individual pages. Most importantly, our website will recommend clubs based on your interests.
 
-## TL;DR Demo
-This website is also deployed [here](https://findyourclubs.ericsong.cn/), you can just click the link and play around yourselves! If you still want to deploy it locally, please continue to read this guide...
-
+## TL;DR Deployment guide: (For detailed guide, please continue reading...)
+```
+git clone https://github.com/EricSongXinLe/find_your_clubs 
+cd find_your_clubs/server
+npm install
+npx nodemon app.js
+cd ..
+npm start
+```
 ## Table of Contents
 - [Features](https://github.com/EricSongXinLe/find_your_clubs/tree/new-main?tab=readme-ov-file#feature)
 - [Technologies](https://github.com/EricSongXinLe/find_your_clubs/tree/new-main?tab=readme-ov-file#technologies)
