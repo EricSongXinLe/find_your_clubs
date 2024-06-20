@@ -14,9 +14,17 @@ const path = require('path');
 const { FaLessThan } = require("react-icons/fa6");
 const app = express()
 
+const corsOptions = {
+    origin: 'https://findyourclubs.ericsong.cn', // Specify the allowed origin
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+};
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
+app.use(cors(corsOptions))
 
 app.get("/login", cors(), (req, res) => {
 })

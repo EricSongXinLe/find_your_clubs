@@ -1,3 +1,6 @@
 node_modules
 .DS_Store
 /upload
+/server/.env
+.env
+server/.env
