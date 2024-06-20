@@ -15,7 +15,7 @@ function Clubs() {
 
         try{
 
-            await axios.post("http://localhost:8000/club_search",{
+            await axios.post("https://findyourclubs.ericsong.cn:8000/club_search",{
                 clubname
             })
             .then(res=>{

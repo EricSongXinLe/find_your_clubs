@@ -1,5 +1,6 @@
 const express = require("express")
 const methods = require("./mongo")
+require('dotenv').config()
 const { MongoClient, GridFSBucket } = require('mongodb');
 const multer = require('multer');
 const upload = multer({ dest: '../upload/' });
@@ -506,7 +507,7 @@ app.get("/viewclubApp", async (req, res) => {
     }
 })
 
-app.listen(8000,()=>{
+app.listen(process.env.PORT,()=>{
 
     console.log("port connected");
 })

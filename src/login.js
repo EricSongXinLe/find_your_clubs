@@ -21,7 +21,7 @@ function Login() {
         }
         var hash = md5(password);
         try{
-            await axios.post("http://localhost:8000/login",{
+            await axios.post("https://findyourclubs.ericsong.cn:8000/login",{
                 username,password:hash
             })
             .then(res=>{

@@ -84,7 +84,7 @@ function Create() {
 async function postForm(clubName, supplementary_questions)
 {
   try{  
-    await axios.post("http://localhost:8000/create",{
+    await axios.post("https://findyourclubs.ericsong.cn:8000/create",{
         clubName, supplementary_questions
     })
     .then(res=>{

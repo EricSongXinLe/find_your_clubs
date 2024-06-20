@@ -17,11 +17,11 @@ const FavClubs = () => {
   useEffect(() => {
     const fetchFavClubs = async () => {
       try {
-        const res = await axios.get('http://localhost:8000/favclub', { params: { username: userId } });
+        const res = await axios.get('https://findyourclubs.ericsong.cn:8000/favclub', { params: { username: userId } });
         setFavClubs(res.data.favClubs);
         var clubinfo = []
         for (let i = 0; i < res.data.favClubs.length; i++) {
-          await axios.get('http://localhost:8000/search', { params: { clubname: res.data.favClubs[i] } })
+          await axios.get('https://findyourclubs.ericsong.cn:8000/search', { params: { clubname: res.data.favClubs[i] } })
           .then((res) => {
             var tmp = {};
             tmp = {title: res.data.clubname, description: res.data.clubdescription, image: `data:image/jpeg;base64,${Buffer.from(res.data.clubimg).toString('base64')}`};

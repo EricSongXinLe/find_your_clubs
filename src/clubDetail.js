@@ -44,7 +44,7 @@ const location = useLocation();
       try {
 
         // console.log(search)
-        await axios.get('http://localhost:8000/search', { params: { clubname: id } })
+        await axios.get('https://findyourclubs.ericsong.cn:8000/search', { params: { clubname: id } })
         .then(
             res=>{
               if(res.data == "fail"){
@@ -72,7 +72,7 @@ const location = useLocation();
       try {
 
         // console.log(search)
-        await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
+        await axios.get('https://findyourclubs.ericsong.cn:8000/favclub', { params: { username: userId } })
         .then(
             res=>{
               const studentData = fetchStudent(res.data);
@@ -140,7 +140,7 @@ const location = useLocation();
     return
   }
   // console.log(search)
-  await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
+  await axios.get('https://findyourclubs.ericsong.cn:8000/favclub', { params: { username: userId } })
   .then(
       res=>{
         const studentData = fetchStudent(res.data);
@@ -164,7 +164,7 @@ catch (error) {
 
       // Update state with the new array
       //setCurrUserFavClub(updatedFavClubs);
-  await axios.post("http://localhost:8000/favclubupdate",{
+  await axios.post("https://findyourclubs.ericsong.cn:8000/favclubupdate",{
       username:userId, currUserFavClub:newarr, clubname:id
   })
   .then(res=>{
@@ -192,7 +192,7 @@ catch (error) {
   try {
 
     // console.log(search)
-    await axios.get('http://localhost:8000/favclub', { params: { username: userId } })
+    await axios.get('https://findyourclubs.ericsong.cn:8000/favclub', { params: { username: userId } })
     .then(
         res=>{
           const studentData = fetchStudent(res.data);

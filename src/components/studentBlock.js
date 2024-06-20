@@ -22,7 +22,7 @@ function StudentBlock(username) {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/random-images');
+                const response = await axios.get('https://findyourclubs.ericsong.cn:8000/random-images');
                 setImageLst(response.data);
             } catch (error) {
                 console.error('Error fetching images:', error);
@@ -71,9 +71,9 @@ function StudentBlock(username) {
             
             try {
                 // console.log("New", stuname)
-                // await axios.get('http://localhost:8000/search', { params: { clubname: search } })
+                // await axios.get('https://findyourclubs.ericsong.cn:8000/search', { params: { clubname: search } })
                 await axios
-                    .post("http://localhost:8000/recommendClub", {
+                    .post("https://findyourclubs.ericsong.cn:8000/recommendClub", {
                         stuname, selected
                     })
                     .then((res) => {

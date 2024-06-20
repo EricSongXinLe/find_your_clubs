@@ -26,7 +26,7 @@ function StudentPreference() {
 
     try{
         
-        await axios.post("http://localhost:8000/addstupref",{
+        await axios.post("https://findyourclubs.ericsong.cn:8000/addstupref",{
             username, interestArr
         })
         .then(res=>{
@@ -86,7 +86,7 @@ function StudentPreference() {
 async function postAnswer(answer_list)
 {
   try{  
-    await axios.post("http://localhost:8000/apply",{
+    await axios.post("https://findyourclubs.ericsong.cn:8000/apply",{
         answer_list
     })
     .then(res=>{

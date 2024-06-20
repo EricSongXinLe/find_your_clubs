@@ -20,7 +20,7 @@ function ViewApp() {
 
     async function fetchCreateClub() {
         // fetch all the clubs created by the user
-        const res = await axios.get("http://localhost:8000/favclub", {
+        const res = await axios.get("https://findyourclubs.ericsong.cn:8000/favclub", {
             params: { username: username },
         });
         // console.log("fetchCreateClub", res.data.favClubs);
@@ -41,7 +41,7 @@ function ViewApp() {
     async function fetchClubForm(club) {
         // fetch all the forms for a specific club
         try {
-            const res = await axios.get("http://localhost:8000/viewclubApp", {
+            const res = await axios.get("https://findyourclubs.ericsong.cn:8000/viewclubApp", {
                 params: { clubName: club },
             });
             // console.log("fetchClubForm", res.data);

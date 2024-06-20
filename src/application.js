@@ -37,7 +37,7 @@ function Apply() {
 
     try{
   
-        await axios.get("http://localhost:8000/fetch_question",{
+        await axios.get("https://findyourclubs.ericsong.cn:8000/fetch_question",{
           params: {clubName:clubName}
         })
         .then(res=>{
@@ -236,7 +236,7 @@ function Apply() {
 async function postAnswer(clubName, username, saved_pairs)
 {
   try{  
-    await axios.post("http://localhost:8000/application",{
+    await axios.post("https://findyourclubs.ericsong.cn:8000/application",{
         clubName, username, saved_pairs
     })
       .then(res => {

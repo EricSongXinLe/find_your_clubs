@@ -17,7 +17,7 @@ async function handleInputChange(e)  {
         try{
 
             // console.log(search)
-            await axios.get('http://localhost:8000/search', { params: { clubname: search } })
+            await axios.get('https://findyourclubs.ericsong.cn:8000/search', { params: { clubname: search } })
             .then(
                 res=>{
                     if(res.data=="fail"){

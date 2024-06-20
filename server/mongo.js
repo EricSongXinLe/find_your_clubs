@@ -1,5 +1,6 @@
+require('dotenv').config()
 const mongoose=require("mongoose")
-mongoose.connect("mongodb://admin:CS35L@110.40.138.15:27017/admin")
+mongoose.connect(process.env.CONN_STRING)
 // mongoose.connect("mongodb://localhost:27017/findyourclubDB")
 .then(()=>{
     console.log("mongodb connected");

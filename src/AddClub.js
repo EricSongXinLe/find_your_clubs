@@ -75,7 +75,7 @@ function AddClub() {
                 formData.append("clubimage", selectedImage);
             }
 
-            const response = await axios.post("http://localhost:8000/addclub", formData,{
+            const response = await axios.post("https://findyourclubs.ericsong.cn:8000/addclub", formData,{
                 
                 headers: {
                     "Content-Type": "multipart/form-data",
@@ -100,7 +100,7 @@ function AddClub() {
         try {
 
             // console.log(search)
-            await axios.get('http://localhost:8000/favclub', { params: { username: username } })
+            await axios.get('https://findyourclubs.ericsong.cn:8000/favclub', { params: { username: username } })
             .then(
                 res=>{
                   console.log
@@ -117,7 +117,7 @@ function AddClub() {
             console.error('CANNOT find Fav Clubs', error);
           }
           console.log(clubname)
-          await axios.post("http://localhost:8000/favclubupdate",{
+          await axios.post("https://findyourclubs.ericsong.cn:8000/favclubupdate",{
             username, currUserFavClub:newarr, clubname:clubname
         })
         .then(res=>{

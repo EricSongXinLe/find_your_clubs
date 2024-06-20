@@ -49,7 +49,7 @@ function Signup() {
             }
 
             var hash = md5(password);
-            await axios.post("http://localhost:8000/signup",{
+            await axios.post("https://findyourclubs.ericsong.cn:8000/signup",{
                 username, email,password:hash,userIsClubLeader
             })
             .then(res=>{
